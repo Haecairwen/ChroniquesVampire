@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { autosavePlugin } from 'Libs/autosave'
 import actions from 'Stores/actions'
 import characters from 'Stores/characters'
 import marks from 'Stores/marks'
@@ -25,5 +26,8 @@ export default new Vuex.Store({
     notifications,
     resources,
     skills,
-  }
+  },
+  plugins: [
+    autosavePlugin,
+  ],
 })

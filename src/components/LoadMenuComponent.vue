@@ -10,18 +10,18 @@
                 ref="upload"
                 @change="load"
             />
-            <ButtonComponent 
+            <ButtonComponent
               class="w-full"
-              @click="$refs.upload.click()"
+              @click="confirmThen('file', () => $refs.upload.click())"
             >
-              From File
+              {{ armed === 'file' ? 'Overwrite current game?' : 'From File' }}
             </ButtonComponent>
-            <ButtonComponent 
+            <ButtonComponent
               class="w-full"
-              @click="fromLocalStorage"
+              @click="confirmThen('storage', fromLocalStorage)"
               v-if="supportsLocalStorage"
             >
-              From Local Storage
+              {{ armed === 'storage' ? 'Overwrite current game?' : 'From Local Storage' }}
             </ButtonComponent>
         </div>
     </SlideDownPanelComponent>
@@ -34,11 +34,15 @@ import { restoreState, deserialize } from 'Libs/gameState';
 import localStorage, { supportsLocalStorage } from 'Libs/localStorage';
 import { mapMutations, mapActions } from 'vuex';
 
+const DISARM_AFTER_MS = 3000;
+
 export default {
   name: 'LoadMenuComponent',
   data() {
     return {
       loading: false,
+      armed: '',
+      disarmTimer: null,
     }
   },
   components: {
@@ -47,10 +51,32 @@ export default {
   },
   computed:{
     supportsLocalStorage,
+    gameInProgress() {
+      const state = this.$store.state;
+
+      return Boolean(
+        (state.actions && state.actions.prompts.length) ||
+        (state.memories && state.memories.memories.length)
+      );
+    },
   },
   methods: {
     ...mapMutations('notifications', ['hide']),
     ...mapActions('notifications', ['showNotification']),
+    confirmThen(kind, callback) {
+      if (this.gameInProgress && this.armed !== kind) {
+        this.armed = kind;
+        clearTimeout(this.disarmTimer);
+        this.disarmTimer = setTimeout(() => {
+          this.armed = '';
+        }, DISARM_AFTER_MS);
+        return;
+      }
+
+      clearTimeout(this.disarmTimer);
+      this.armed = '';
+      callback();
+    },
     load(evt) {
       if (evt.target.files.length !== 1) { 
         this.showNotification({message: 'Unable to load file.  You must select one file to load.', type: 'warning'});
@@ -92,6 +118,9 @@ export default {
 
       this.loading = false;
     },
-  }
+  },
+  beforeDestroy() {
+    clearTimeout(this.disarmTimer);
+  },
 }
 </script>

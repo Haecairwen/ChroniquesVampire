@@ -10,20 +10,14 @@
         Add a new Skill?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newSkill.name"
           @keyup.enter="validatedAddSkill"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newSkill.checked"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newSkill.checked"
           />
           Checked?
         </label>
@@ -54,20 +48,14 @@
         },
       ]"
     >
-      <input 
-          type="text"
-          placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-          v-model="editSkill.name"
-          @keyup.enter="validatedUpdateSkill"
-        />
+      <TextInputComponent
+        placeholder="Description"
+        v-model="editSkill.name"
+        @keyup.enter="validatedUpdateSkill"
+      />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="editSkill.checked"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="editSkill.checked"
           />
           Checked?
         </label>
@@ -118,6 +106,8 @@ import CardComponent from 'Components/CardComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
+import CheckboxComponent from 'Components/CheckboxComponent';
+import TextInputComponent from 'Components/TextInputComponent';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 import entityFactory from 'Libs/entities/skills';
 
@@ -136,7 +126,9 @@ export default {
     CardComponent,
     FormComponent,
     FormToggleComponent,
-    HeadingComponent
+    HeadingComponent,
+    CheckboxComponent,
+    TextInputComponent,
   },
   computed: {
     ...mapGetters('skills', ['skills']),

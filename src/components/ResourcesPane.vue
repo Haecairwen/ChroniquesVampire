@@ -1,5 +1,5 @@
 <template>
-  <CardComponent id="resources" class="m-1 p-4 border-2 border-night-500">
+  <CardComponent id="resources">
     <HeadingComponent level="2">Resources</HeadingComponent>
     <FormToggleComponent 
       class="my-2"
@@ -11,30 +11,20 @@
         Add a new Resource?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newResource.name"
           @keyup.enter="validatedAddResource"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newResource.lost"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newResource.lost"
           />
           Lost?
         </label>
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newResource.stationary"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newResource.stationary"
           />
           Stationary?
         </label>
@@ -51,20 +41,14 @@
         Add a Diary?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Name"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newDiary.name"
           @keyup.enter="addDiary"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newDiary.lost"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newDiary.lost"
           />
           Lost?
         </label>
@@ -95,30 +79,20 @@
         },
       ]"
     >
-      <input 
-        type="text"
+      <TextInputComponent
         placeholder="Description"
-        class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
         v-model="editResource.name"
         @keyup.enter="validatedAddResource"
       />
       <label>
-        <input
-            type="checkbox"
-            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-            v-model="editResource.lost"
-            :true-value="true"
-            :false-value="false"
+        <CheckboxComponent
+          v-model="editResource.lost"
         />
         Lost?
       </label>
       <label>
-        <input
-            type="checkbox"
-            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-            v-model="editResource.stationary"
-            :true-value="true"
-            :false-value="false"
+        <CheckboxComponent
+          v-model="editResource.stationary"
         />
         Stationary?
       </label>
@@ -148,20 +122,14 @@
         },
       ]"
     >
-      <input 
-        type="text"
+      <TextInputComponent
         placeholder="Description"
-        class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
         v-model="editDiary.name"
         @keyup.enter="validatedAddResource"
       />
       <label>
-        <input
-            type="checkbox"
-            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-            v-model="editDiary.lost"
-            :true-value="true"
-            :false-value="false"
+        <CheckboxComponent
+          v-model="editDiary.lost"
         />
         Lost?
       </label>
@@ -240,13 +208,14 @@
     </transition-group>
   </CardComponent>
 </template>
-<HeadingComponent level="2">Marks</HeadingComponent>
 
 <script>
 import CardComponent from 'Components/CardComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
+import CheckboxComponent from 'Components/CheckboxComponent';
+import TextInputComponent from 'Components/TextInputComponent';
 import { mapMutations, mapActions, mapGetters } from 'vuex';
 import { resourceEntityFactory, diaryEntityFactory } from 'Libs/entities/resources';
 
@@ -269,7 +238,9 @@ export default {
       FormComponent,
       FormToggleComponent,
       HeadingComponent,
-  },
+      CheckboxComponent,
+      TextInputComponent,
+    },
   computed: {
     ...mapGetters('resources', ['hasDiary', 'diaries', 'resources', 'diary', 'activeMemories']),
   },
@@ -319,7 +290,7 @@ export default {
         if (diary.lost ) {
           this.showNotification({message: 'You may only have one active diary.', type: 'warning'});
           return;
-        } else if (this.memories.length > 0) {
+        } else if (this.activeMemories.length > 0) {
           this.showNotification({message: 'Please cross out existing memories before losing the diary.', type: 'warning'});
           return;
         }

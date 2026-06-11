@@ -2,7 +2,6 @@ import CardComponent from 'Components/CardComponent';
 import { shallowMount } from '@vue/test-utils';
 
 const CLASSES = [
-    "m-4",
     "p-4",
     "bg-night-800",
     "bg-opacity-60",
