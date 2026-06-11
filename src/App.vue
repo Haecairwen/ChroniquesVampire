@@ -1,18 +1,19 @@
 <template>
   <div id="app" class="h-screen overflow-hidden flex flex-col p-4">
-    <HeadingComponent level="1" class="flex-none text-center">TYOV ~ Companion</HeadingComponent>
     <NotificationPane class="flex-none" />
     <div class="flex flex-row flex-1 gap-4 min-h-0">
-      <div class="w-2/3 min-h-0 overflow-y-auto">
+      <div class="w-1/4 min-h-0 overflow-y-auto">
+        <CharactersPane />
+        <MemoriesPane />
+      </div>
+      <div class="w-1/2 min-h-0 overflow-y-auto">
         <JournalPane />
       </div>
-      <div class="w-1/3 min-h-0 overflow-y-auto">
+      <div class="w-1/4 min-h-0 overflow-y-auto">
         <ActionsPane />
         <MarksPane />
         <SkillsPane />
         <ResourcesPane />
-        <CharactersPane />
-        <MemoriesPane />
       </div>
     </div>
     <div class="flex-none border-t mt-4 text-right text-sm text-night-400">
@@ -39,7 +40,6 @@
 <script>
 import ActionsPane from "./components/ActionsPane";
 import CharactersPane from "./components/CharactersPane";
-import HeadingComponent from "./components/HeadingComponent";
 import JournalPane from "./components/JournalPane";
 import MarksPane from "./components/MarksPane";
 import MemoriesPane from "./components/MemoriesPane";
@@ -56,7 +56,6 @@ export default {
     SkillsPane,
     ResourcesPane,
     CharactersPane,
-    HeadingComponent,
     MemoriesPane,
     NotificationPane,
   },
