@@ -17,14 +17,8 @@ const getters = {
 
         return `${getters.die} (+${state.d10}, -${state.d6})`;
     },
-    prompts: (state) => {
-        const prompts = [...state.prompts];
-
-        prompts.sort((a, b) => a.page > b.page ? -1 : 1);
-
-        return prompts;
-    },
     currentPrompt: (state) => state.prompts[state.currentPromptIdx] ?? {},
+    journalEntries: (state) => state.prompts,
 };
 
 const mutations = {
@@ -47,6 +41,10 @@ const mutations = {
     decrementPrompt: (state, prompt) => {
         const found = findById(state.prompts, prompt.id);
         Vue.set(found.entity, 'count', found.entity.count - 1)
+    },
+    updatePromptEntry: (state, {prompt, entry}) => {
+        const found = findById(state.prompts, prompt.id);
+        Vue.set(found.entity, 'entry', entry);
     },
     setCurrentPromptIdx: (state, idx) => state.currentPromptIdx = idx,
 }
