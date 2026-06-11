@@ -5,6 +5,8 @@ const CLASSES = [
   'py-1',
   'px-4',
   'rounded',
+  'font-display',
+  'tracking-wide',
   'transition-colors',
   'focus:outline-none',
   'focus:ring-2',
@@ -13,21 +15,22 @@ const CLASSES = [
 
 const BUTTON_TYPES = {
     default: [
-        'bg-gray-200',
-        'hover:bg-gray-400',
-        'ring-gray-100',
+        'bg-night-700',
+        'hover:bg-night-600',
+        'text-parchment-200',
+        'ring-night-500',
     ],
     primary: [
-        'bg-red-700',
-        'hover:bg-red-900',
-        'text-white',
-        'ring-red-600',
+        'bg-blood-700',
+        'hover:bg-blood-600',
+        'text-parchment-50',
+        'ring-blood-500',
     ],
     secondary: [
-        'bg-indigo-400',
-        'hover:bg-indigo-600',
-        'text-white',
-        'ring-indigo-300',
+        'bg-gilt-700',
+        'hover:bg-gilt-600',
+        'text-night-950',
+        'ring-gilt-400',
     ],
 };
 

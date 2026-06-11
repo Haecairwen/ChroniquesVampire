@@ -51,10 +51,11 @@ export default {
           {
               ...context.data,
               class: {
+                'font-display': true,
                 'font-semibold': true,
-                'leading-loose' : true, 
+                'leading-loose' : true,
                 'tracking-widest': true,
-                'text-indigo-800': true,
+                'text-gilt-400': true,
                 ...extraClasses,
                 ...HEADING_STYLES[context.props.level-1]
               }

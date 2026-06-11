@@ -4,12 +4,15 @@ import { shallowMount } from '@vue/test-utils';
 const CLASSES = [
     "m-4",
     "p-4",
+    "bg-night-800",
+    "bg-opacity-60",
     "border",
+    "border-night-600",
     "rounded",
-    "border-gray-100",
-    "shadow-md",
-    "hover:shadow-xl",
-    "transition-all"
+    "shadow-lg",
+    "hover:shadow-2xl",
+    "hover:border-gilt-700",
+    "transition-all",
 ];
 
 describe('components/CardComponent.vue', () => {

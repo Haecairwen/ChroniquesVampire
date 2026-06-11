@@ -59,8 +59,8 @@ const serializedDataProvider = () => {
         migrator.migrate.mockImplementation((data) => data);
     });
 
-    it('Has the expected signature.', () => { 
-        expect(SIGNATURE).toEqual(2);
+    it('Has the expected signature.', () => {
+        expect(SIGNATURE).toEqual(3);
     });
 
     it('Can return a default game state, or slices of it.', () => { 

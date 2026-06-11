@@ -6,6 +6,8 @@ export default (data={}) => {
     return {
         page: 1,
         count: 0,
+        text: '',
+        entry: '',
         ...baseEntityFactory(data, NS),
     }
 }

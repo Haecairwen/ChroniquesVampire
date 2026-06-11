@@ -3,10 +3,11 @@ import { shallowMount } from "@vue/test-utils";
 
 const HEADING_STYLES = {
   base: [
+    "font-display",
     "font-semibold",
     "leading-loose",
     "tracking-widest",
-    "text-indigo-800",
+    "text-gilt-400",
   ],
   1: ["text-3xl"],
   2: ["text-2xl"],

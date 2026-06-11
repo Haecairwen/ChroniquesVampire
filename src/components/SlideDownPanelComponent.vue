@@ -61,9 +61,11 @@ export default {
               'p-4': this.shouldShow,
               'border': this.shouldShow,
               'rounded': this.shouldShow,
-              'border-indigo-200': this.shouldShow,
-              'shadow-md': this.shouldShow,
-              'hover:shadow-xl': this.shouldShow,
+              'border-night-600': this.shouldShow,
+              'bg-night-800': this.shouldShow,
+              'bg-opacity-40': this.shouldShow,
+              'shadow-lg': this.shouldShow,
+              'hover:shadow-2xl': this.shouldShow,
           }
       }
   },

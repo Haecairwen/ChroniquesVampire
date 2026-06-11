@@ -1,6 +1,6 @@
 import migrator from 'Migrations';
 
-export const SIGNATURE = 2;
+export const SIGNATURE = 3;
 
 export const getStateFromStore = (store) => {
     return {
