@@ -6,6 +6,10 @@
 
 @tailwind utilities;
 
+:root {
+  --gothic-frame: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3e%3crect x='4' y='4' width='56' height='56' fill='none' stroke='%23cda042' stroke-width='5'/%3e%3crect x='11' y='11' width='42' height='42' fill='none' stroke='%23cda042' stroke-width='2.5'/%3e%3crect x='6' y='6' width='10' height='10' fill='%23cda042' transform='rotate(45 11 11)'/%3e%3crect x='48' y='6' width='10' height='10' fill='%23cda042' transform='rotate(45 53 11)'/%3e%3crect x='6' y='48' width='10' height='10' fill='%23cda042' transform='rotate(45 11 53)'/%3e%3crect x='48' y='48' width='10' height='10' fill='%23cda042' transform='rotate(45 53 53)'/%3e%3c/svg%3e");
+}
+
 @layer base {
   html {
     @apply bg-night-950;
@@ -13,13 +17,43 @@
 
   body {
     @apply bg-night-950 text-parchment-200 font-body;
-    background-image: radial-gradient(ellipse at top, theme('colors.night.800') 0%, theme('colors.night.950') 65%);
+    background-image:
+      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23ffffff' stroke-opacity='0.025'/%3e%3c/svg%3e"),
+      radial-gradient(ellipse at top, theme('colors.night.800') 0%, theme('colors.night.950') 65%);
     background-attachment: fixed;
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
+  }
+
+  h1 {
+    @apply px-4 py-3 mb-4;
+    background-image: linear-gradient(to bottom, theme('colors.night.800'), theme('colors.night.900'));
+    border-style: solid;
+    border-width: 14px;
+    border-radius: 0;
+    border-image-source: var(--gothic-frame);
+    border-image-slice: 20;
+    border-image-width: 14px;
+    border-image-repeat: stretch;
+  }
+
+  h2 {
+    @apply relative pb-2 mb-3;
+    border-bottom: 1px solid theme('colors.gilt.800');
+  }
+
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 9px;
+    height: 9px;
+    background-color: theme('colors.gilt.500');
+    transform: translateX(-50%) rotate(45deg);
   }
 
   a {
@@ -42,4 +76,20 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gilt-700;
   }
+}
+
+#actions,
+#journal,
+#marks,
+#skills,
+#resources,
+#characters,
+#memories {
+  border-style: solid;
+  border-width: 18px;
+  border-radius: 0;
+  border-image-source: var(--gothic-frame);
+  border-image-slice: 20;
+  border-image-width: 18px;
+  border-image-repeat: stretch;
 }
