@@ -35,6 +35,7 @@ const STATE = {
     memories: {
         memories: [],
         events: [],
+        maxMemories: 5,
     },
     skills: {
         skills: []
@@ -42,6 +43,7 @@ const STATE = {
     resources: {
         resources: [],
         diaries: [],
+        maxDiaryMemories: 4,
     },
 };
 
@@ -60,7 +62,7 @@ const serializedDataProvider = () => {
     });
 
     it('Has the expected signature.', () => {
-        expect(SIGNATURE).toEqual(3);
+        expect(SIGNATURE).toEqual(4);
     });
 
     it('Can return a default game state, or slices of it.', () => { 
@@ -111,7 +113,7 @@ const serializedDataProvider = () => {
                 
     });
 
-    it('Can restore state to a store.', async () => { 
+    it('Can restore state to a store.', async () => {
         const commit = jest.fn();
         const store = {commit};
         const data = {};
@@ -119,7 +121,7 @@ const serializedDataProvider = () => {
         await restoreState(store, data);
 
         expect(migrator.migrate).toHaveBeenCalled();
-        expect(commit).toHaveBeenCalledTimes(12);
+        expect(commit).toHaveBeenCalledTimes(14);
         expect(commit).toHaveBeenNthCalledWith(1, 'actions/saveRoll', STATE.actions.lastRoll);
         expect(commit).toHaveBeenNthCalledWith(2, 'actions/setD6', STATE.actions.d6);
         expect(commit).toHaveBeenNthCalledWith(3, 'actions/setD10', STATE.actions.d10);
@@ -129,12 +131,14 @@ const serializedDataProvider = () => {
         expect(commit).toHaveBeenNthCalledWith(7, 'marks/set', STATE.marks.marks);
         expect(commit).toHaveBeenNthCalledWith(8, 'memories/setMemories', STATE.memories.memories);
         expect(commit).toHaveBeenNthCalledWith(9, 'memories/setEvents', STATE.memories.events);
-        expect(commit).toHaveBeenNthCalledWith(10, 'resources/setResources', STATE.resources.resources);
-        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setDiaries', STATE.resources.diaries);
-        expect(commit).toHaveBeenNthCalledWith(12, 'skills/set', STATE.skills.skills);
+        expect(commit).toHaveBeenNthCalledWith(10, 'memories/setMaxMemories', STATE.memories.maxMemories);
+        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setResources', STATE.resources.resources);
+        expect(commit).toHaveBeenNthCalledWith(12, 'resources/setDiaries', STATE.resources.diaries);
+        expect(commit).toHaveBeenNthCalledWith(13, 'resources/setMaxDiaryMemories', STATE.resources.maxDiaryMemories);
+        expect(commit).toHaveBeenNthCalledWith(14, 'skills/set', STATE.skills.skills);
     });
 
-    it('Can restore state to a store, with existing data.', async () => { 
+    it('Can restore state to a store, with existing data.', async () => {
         const commit = jest.fn();
         const store = {commit};
         const data = {
@@ -143,12 +147,14 @@ const serializedDataProvider = () => {
           lastRoll: "3",
           currentPromptIdx: 4,
           prompts: [{page:5, count: 1}, {page:6, count:2}],
+          maxMemories: 6,
+          maxDiaryMemories: 5,
         };
 
         await restoreState(store, data);
 
         expect(migrator.migrate).toHaveBeenCalled();
-        expect(commit).toHaveBeenCalledTimes(12);
+        expect(commit).toHaveBeenCalledTimes(14);
         expect(commit).toHaveBeenNthCalledWith(1, 'actions/saveRoll', data.lastRoll);
         expect(commit).toHaveBeenNthCalledWith(2, 'actions/setD6', data.d6);
         expect(commit).toHaveBeenNthCalledWith(3, 'actions/setD10', data.d10);
@@ -158,9 +164,11 @@ const serializedDataProvider = () => {
         expect(commit).toHaveBeenNthCalledWith(7, 'marks/set', STATE.marks.marks);
         expect(commit).toHaveBeenNthCalledWith(8, 'memories/setMemories', STATE.memories.memories);
         expect(commit).toHaveBeenNthCalledWith(9, 'memories/setEvents', STATE.memories.events);
-        expect(commit).toHaveBeenNthCalledWith(10, 'resources/setResources', STATE.resources.resources);
-        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setDiaries', STATE.resources.diaries);
-        expect(commit).toHaveBeenNthCalledWith(12, 'skills/set', STATE.skills.skills);
+        expect(commit).toHaveBeenNthCalledWith(10, 'memories/setMaxMemories', data.maxMemories);
+        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setResources', STATE.resources.resources);
+        expect(commit).toHaveBeenNthCalledWith(12, 'resources/setDiaries', STATE.resources.diaries);
+        expect(commit).toHaveBeenNthCalledWith(13, 'resources/setMaxDiaryMemories', data.maxDiaryMemories);
+        expect(commit).toHaveBeenNthCalledWith(14, 'skills/set', STATE.skills.skills);
     });
 
     it.each(serializedDataProvider())('Can serialize data into base64.', (input, output) => {

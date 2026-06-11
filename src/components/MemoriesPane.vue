@@ -2,15 +2,29 @@
   <CardComponent id="memories">
     <HeadingComponent level="2">Memories</HeadingComponent>
 
-    <div
-      class="flex items-center justify-center gap-2 mb-3 select-none"
-      :title="`${activeMemories.length} of 5 memories — a vampire's mind holds only five`"
-    >
+    <div class="flex items-center justify-center gap-2 mb-3 select-none">
       <span
-        v-for="i in 5"
-        :key="`memory-slot-${i}`"
-        class="memory-slot"
-        :class="{'memory-slot-filled': i <= activeMemories.length}"
+        class="cursor-pointer hover:text-blood-400 px-1"
+        title="Lose a Memory slot"
+        @click="decrementMaxMemories"
+        v-html="'&minus;'"
+      />
+      <div
+        class="flex flex-wrap items-center justify-center gap-2"
+        :title="`${activeMemories.length} of ${maxMemories} memories`"
+      >
+        <span
+          v-for="i in maxMemories"
+          :key="`memory-slot-${i}`"
+          class="memory-slot"
+          :class="{'memory-slot-filled': i <= activeMemories.length}"
+        />
+      </div>
+      <span
+        class="cursor-pointer hover:text-blood-400 px-1"
+        title="Gain a Memory slot"
+        @click="incrementMaxMemories"
+        v-html="'&plus;'"
       />
     </div>
 
@@ -127,12 +141,14 @@
         :can-add-events="memory.id !== editMemory.id && events(memory).length < 3"
         :can-diarise="hasDiary && memory.id !== editMemory.id"
         :can-toggle="memory.id !== editMemory.id"
+        :can-star="memory.id !== editMemory.id"
         @add-event="addEvent"
         @remove-event="validatedRemoveEvent"
         @edit-memory="startEdit"
         @toggle-memory="toggleMemory"
         @diarise-memory="diariseMemory"
         @undiarise-memory="undiariseMemory"
+        @star-memory="starMemory"
     />
     </transition-group>
 
@@ -157,12 +173,14 @@
                     :can-add-events="false"
                     :can-diarise="hasDiary"
                     :can-toggle="memory.id !== editMemory.id"
+                    :can-star="memory.id !== editMemory.id"
                     @add-event="addEvent"
                     @remove-event="validatedRemoveEvent"
                     @edit-memory="startEdit"
                     @toggle-memory="toggleMemory"
                     @diarise-memory="diariseMemory"
                     @undiarise-memory="undiariseMemory"
+                    @star-memory="starMemory"
                 />
             </transition-group>
         </div>
@@ -192,6 +210,7 @@
                     :can-add-events="false"
                     :can-diarise="false"
                     :can-toggle="memory.id !== editMemory.id"
+                    :can-star="false"
                     @add-event="addEvent"
                     @remove-event="validatedRemoveEvent"
                     @edit-memory="startEdit"
@@ -204,6 +223,37 @@
         <div class="py-2" v-else>
           You have forgotten no memories... yet.
         </div>
+    </SlideDownPanelComponent>
+
+    <SlideDownPanelComponent v-if="starredMemories.length > 0">
+        <template #closed-heading>
+            Starred Memories
+        </template>
+          <transition-group
+              enter-active-class="transition-all duration-400 ease-out"
+              leave-active-class="transition-all duration-400 ease-in"
+              enter-class="opacity-0 scale-40"
+              enter-to-class="opacity-100 scale-100"
+              leave-class="opacity-100 scale-100"
+              leave-to-class="opacity-0 scale-40"
+          >
+              <MemoryComponent
+                  v-for="memory in starredMemories"
+                  :key="`starred-${memory.id}`"
+                  :memory="memory"
+                  :can-add-memories="canAddMemories"
+                  :can-add-events="false"
+                  :can-diarise="false"
+                  :can-toggle="false"
+                  :can-star="false"
+                  @add-event="addEvent"
+                  @remove-event="validatedRemoveEvent"
+                  @edit-memory="startEdit"
+                  @toggle-memory="toggleMemory"
+                  @diarise-memory="diariseMemory"
+                  @undiarise-memory="undiariseMemory"
+              />
+          </transition-group>
     </SlideDownPanelComponent>
   </CardComponent>
 </template>
@@ -242,8 +292,8 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapState('memories', ['memories']),
-    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'events', 'hasEvents']),
+    ...mapState('memories', ['memories', 'maxMemories']),
+    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'events', 'hasEvents']),
     ...mapGetters('resources', {
         diary: 'diary', 
         hasDiary: 'hasDiary', 
@@ -266,6 +316,9 @@ export default {
       'diarise',
       'undiarise',
       'updateEvent',
+      'starMemory',
+      'incrementMaxMemories',
+      'decrementMaxMemories',
     ]),
     validatedAddMemory() {
       this.hideNotification
@@ -338,4 +391,4 @@ export default {
     },
   },
 }
-</script>a
+</script>

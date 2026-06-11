@@ -184,7 +184,7 @@
     >
       <li
         class="select-none"
-        v-for="diary in diaries" 
+        v-for="diary in diaries"
         :key="`diary-${diary.id}`"
       >
         <div class="grid grid-cols-6">
@@ -194,10 +194,22 @@
               @click="validatedToggleDiary(diary)"
             >
               <span :class="{'line-through': diary.lost}">{{diary.name}}</span>
-              <span class="italic"> (diary - {{ activeMemories.length }} of 4 memories)</span>
+              <span class="italic"> (diary - {{ activeMemories.length }} of {{ maxDiaryMemories }} memories)</span>
             </span>
+            <span
+              class="cursor-pointer hover:text-blood-400 px-1"
+              title="The diary has decayed and lost capacity"
+              @click="decrementMaxDiaryMemories"
+              v-html="'&minus;'"
+            />
+            <span
+              class="cursor-pointer hover:text-blood-400 px-1"
+              title="The diary has been expanded"
+              @click="incrementMaxDiaryMemories"
+              v-html="'&plus;'"
+            />
           </span>
-          <span 
+          <span
               class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEditDiary(diary)"
             >
@@ -216,7 +228,7 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+import { mapMutations, mapActions, mapGetters, mapState } from 'vuex';
 import { resourceEntityFactory, diaryEntityFactory } from 'Libs/entities/resources';
 
 export default {
@@ -242,6 +254,7 @@ export default {
       TextInputComponent,
     },
   computed: {
+    ...mapState('resources', ['maxDiaryMemories']),
     ...mapGetters('resources', ['hasDiary', 'diaries', 'resources', 'diary', 'activeMemories']),
   },
   methods: {
@@ -258,6 +271,8 @@ export default {
       'updateDiary',
       'removeDiary',
       'toggleDiary',
+      'incrementMaxDiaryMemories',
+      'decrementMaxDiaryMemories',
     ]),
     validatedAddResource(){
       if (this.newResource.name === '') {

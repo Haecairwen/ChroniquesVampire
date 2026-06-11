@@ -1,6 +1,6 @@
 import migrator from 'Migrations';
 
-export const SIGNATURE = 3;
+export const SIGNATURE = 4;
 
 export const getStateFromStore = (store) => {
     return {
@@ -13,8 +13,10 @@ export const getStateFromStore = (store) => {
         marks: store.state.marks.marks,
         memories: store.state.memories.memories,
         events: store.state.memories.events,
+        maxMemories: store.state.memories.maxMemories,
         resources: store.state.resources.resources,
         diaries: store.state.resources.diaries,
+        maxDiaryMemories: store.state.resources.maxDiaryMemories,
         skills: store.state.skills.skills,
         __SIGNATURE__: SIGNATURE,
     };
@@ -38,6 +40,7 @@ export const defaultGameState = (section) => {
         memories: {
             memories: [],
             events: [],
+            maxMemories: 5,
         },
         skills: {
             skills: []
@@ -45,6 +48,7 @@ export const defaultGameState = (section) => {
         resources: {
             resources: [],
             diaries: [],
+            maxDiaryMemories: 4,
         },
     };
 
@@ -97,9 +101,13 @@ export const restoreState = async (store, data) => {
 
     store.commit('memories/setEvents', Array.isArray(data.events) ? data.events : []);
 
+    store.commit('memories/setMaxMemories', data.maxMemories ?? 5);
+
     store.commit('resources/setResources', Array.isArray(data.resources) ? data.resources : []);
 
     store.commit('resources/setDiaries', Array.isArray(data.diaries) ? data.diaries : []);
+
+    store.commit('resources/setMaxDiaryMemories', data.maxDiaryMemories ?? 4);
 
     store.commit('skills/set', Array.isArray(data.skills) ? data.skills : []);
 }

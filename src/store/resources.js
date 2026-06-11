@@ -46,15 +46,7 @@ const getters = {
     },
     activeMemories: (state, getters) => getters.memories.filter(memory => !memory.forgotten),
     forgottenMemories: (state, getters) => getters.memories.filter(memory => memory.forgotten),
-    isDiaryFull: (state, getters) => {
-        let count = 0;
-        return getters.memories.some(memory => {
-            if (!memory.lost) {
-                count += 1;
-            }
-            return count >= 4;
-        })
-    }
+    isDiaryFull: (state, getters) => getters.memories.length >= state.maxDiaryMemories,
 }
 
 const mutations = {
@@ -85,7 +77,14 @@ const mutations = {
     toggleDiary: (state, diary) => {
         const found = findById(state.diaries, diary.id);
         Vue.set(found.entity, 'lost', !found.entity.lost);
-    }
+    },
+    setMaxDiaryMemories: (state, value) => state.maxDiaryMemories = value,
+    incrementMaxDiaryMemories: (state) => state.maxDiaryMemories += 1,
+    decrementMaxDiaryMemories: (state) => {
+        if (state.maxDiaryMemories > 1) {
+            state.maxDiaryMemories -= 1;
+        }
+    },
 }
 
 export default {
