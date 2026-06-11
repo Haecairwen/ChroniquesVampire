@@ -2,11 +2,11 @@
   <CardComponent id="journal">
     <HeadingComponent level="2">Journal</HeadingComponent>
 
-    <div class="sticky top-0 bg-white z-10 text-center border-b pb-4 mb-4">
+    <div class="sticky top-0 bg-night-900 z-10 text-center border-b pb-4 mb-4">
       <div class="grid grid-cols-2 grid-rows-2 gap-2 mb-2">
-        <span class="text-gray-300">Last roll:</span>
+        <span class="text-night-400">Last roll:</span>
         <span>Current roll:</span>
-        <span class="text-gray-300">{{ lastRoll }}</span>
+        <span class="text-night-400">{{ lastRoll }}</span>
         <span>{{ currentRoll }}</span>
       </div>
 
@@ -18,13 +18,13 @@
         Roll for the next prompt
       </ButtonComponent>
 
-      <div class="mt-2 text-red-700" v-if="currentPrompt.page">
+      <div class="mt-2 text-blood-400" v-if="currentPrompt.page">
         <strong>Current prompt:</strong> {{ currentPrompt.page }}
         <span v-html="tally(currentPrompt.count)" />
       </div>
     </div>
 
-    <div v-if="journalEntries.length === 0" class="text-gray-400 italic text-center my-4">
+    <div v-if="journalEntries.length === 0" class="text-night-400 italic text-center my-4">
       Your story has not yet begun. Roll for your first prompt.
     </div>
 
@@ -41,7 +41,7 @@
         v-for="entry in journalEntries"
         :key="`journal-entry-${entry.id}`"
         class="mb-4 p-4 border rounded"
-        :class="{'border-red-300 bg-red-50': entry.id === currentPrompt.id}"
+        :class="{'border-blood-700 bg-blood-950 bg-opacity-30': entry.id === currentPrompt.id}"
       >
         <div class="flex justify-between items-center mb-2 select-none">
           <HeadingComponent level="4">
@@ -50,28 +50,28 @@
           </HeadingComponent>
           <div class="flex-initial">
             <span
-              class="cursor-pointer mx-1 hover:text-gray-400"
+              class="cursor-pointer mx-1 hover:text-blood-400"
               title="Set as current prompt"
               @click="makePromptCurrent(entry)"
               v-html="'&rarr;'"
               v-show="entry.id !== currentPrompt.id"
             />
             <span
-              class="cursor-pointer mx-1 hover:text-gray-400"
+              class="cursor-pointer mx-1 hover:text-blood-400"
               title="Increment visits"
               @click="incrementPrompt(entry)"
               v-html="'&plus;'"
               v-show="entry.count < 3"
             />
             <span
-              class="cursor-pointer mx-1 hover:text-gray-400"
+              class="cursor-pointer mx-1 hover:text-blood-400"
               title="Decrement visits"
               @click="decrementPrompt(entry)"
               v-html="'&minus;'"
               v-show="entry.count > 1"
             />
             <span
-              class="cursor-pointer mx-1 hover:text-gray-400"
+              class="cursor-pointer mx-1 hover:text-blood-400"
               title="Remove prompt"
               @click="removePrompt(entry)"
               v-html="'&times;'"
@@ -80,13 +80,13 @@
           </div>
         </div>
 
-        <p class="italic text-gray-400 mb-2">
+        <p class="italic text-night-400 mb-2">
           {{ entry.text || 'Prompt text not yet available.' }}
         </p>
 
         <textarea
           placeholder="What happened?"
-          class="shadow appearance-none border rounded w-full py-1 px-2 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200 resize-none"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
           rows="3"
           :value="entry.entry"
           @change="updatePromptEntry({prompt: entry, entry: $event.target.value})"
@@ -111,7 +111,7 @@
               id="new-prompt-number"
               type="number"
               step="1"
-              class="w-full shadow border rounded py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newPrompt.page"
               :min="firstUnusedPrompt"
             />
@@ -122,7 +122,7 @@
             </label>
             <select
               id="new-prompt-count"
-              class="w-full shadow border rounded py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newPrompt.count"
             >
               <option
@@ -138,7 +138,7 @@
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="makeCurrent"
               :true-value="true"
               :false-value="false"

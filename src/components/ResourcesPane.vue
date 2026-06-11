@@ -1,5 +1,5 @@
 <template>
-  <CardComponent id="resources" class="m-1 p-4 border-2 border-gray-100">
+  <CardComponent id="resources" class="m-1 p-4 border-2 border-night-500">
     <HeadingComponent level="2">Resources</HeadingComponent>
     <FormToggleComponent 
       class="my-2"
@@ -14,14 +14,14 @@
         <input 
           type="text"
           placeholder="Description"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newResource.name"
           @keyup.enter="validatedAddResource"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newResource.lost"
               :true-value="true"
               :false-value="false"
@@ -31,7 +31,7 @@
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newResource.stationary"
               :true-value="true"
               :false-value="false"
@@ -54,14 +54,14 @@
         <input 
           type="text"
           placeholder="Name"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newDiary.name"
           @keyup.enter="addDiary"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newDiary.lost"
               :true-value="true"
               :false-value="false"
@@ -98,14 +98,14 @@
       <input 
         type="text"
         placeholder="Description"
-        class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+        class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
         v-model="editResource.name"
         @keyup.enter="validatedAddResource"
       />
       <label>
         <input
             type="checkbox"
-            class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
             v-model="editResource.lost"
             :true-value="true"
             :false-value="false"
@@ -115,7 +115,7 @@
       <label>
         <input
             type="checkbox"
-            class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
             v-model="editResource.stationary"
             :true-value="true"
             :false-value="false"
@@ -151,14 +151,14 @@
       <input 
         type="text"
         placeholder="Description"
-        class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+        class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
         v-model="editDiary.name"
         @keyup.enter="validatedAddResource"
       />
       <label>
         <input
             type="checkbox"
-            class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+            class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
             v-model="editDiary.lost"
             :true-value="true"
             :false-value="false"
@@ -186,7 +186,7 @@
         <div class="grid grid-cols-6">
           <span class="col-span-5">
             <span
-              class="cursor-pointer hover:text-gray-400"
+              class="cursor-pointer hover:text-blood-400"
               @click="validatedToggleResource(resource)"
             >
               <span :class="{'line-through': resource.lost}">{{resource.name}}</span>
@@ -194,7 +194,7 @@
             </span>
           </span>
           <span 
-              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-gray-400"
+              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEditResource(resource)"
             >
             Edit
@@ -222,7 +222,7 @@
         <div class="grid grid-cols-6">
           <span class="col-span-5">
             <span
-              class="cursor-pointer hover:text-gray-400"
+              class="cursor-pointer hover:text-blood-400"
               @click="validatedToggleDiary(diary)"
             >
               <span :class="{'line-through': diary.lost}">{{diary.name}}</span>
@@ -230,7 +230,7 @@
             </span>
           </span>
           <span 
-              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-gray-400"
+              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEditDiary(diary)"
             >
             Edit

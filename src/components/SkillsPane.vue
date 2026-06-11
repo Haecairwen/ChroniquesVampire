@@ -13,14 +13,14 @@
         <input 
           type="text"
           placeholder="Description"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newSkill.name"
           @keyup.enter="validatedAddSkill"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newSkill.checked"
               :true-value="true"
               :false-value="false"
@@ -57,14 +57,14 @@
       <input 
           type="text"
           placeholder="Description"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="editSkill.name"
           @keyup.enter="validatedUpdateSkill"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="editSkill.checked"
               :true-value="true"
               :false-value="false"
@@ -92,7 +92,7 @@
         <div class="grid grid-cols-6">
           <span class="col-span-5">
             <span 
-              class="cursor-pointer hover:text-gray-400"
+              class="cursor-pointer hover:text-blood-400"
               @click="validatedToggleSkill(skill)"
             >
               <span>{{skill.name}}</span>
@@ -102,7 +102,7 @@
             </span>
           </span>
           <span 
-              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-gray-400"
+              class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEdit(skill)"
             >
             Edit

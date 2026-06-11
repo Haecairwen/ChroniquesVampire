@@ -14,19 +14,19 @@
         <input 
           type="text"
           placeholder="Name"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newCharacter.name"
           @keyup.enter="validatedAdd"
         />
         <textarea 
             placeholder="Bio"
-            class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200 resize-none"
+            class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
             v-model="newCharacter.bio"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newCharacter.immortal"
               :true-value="true"
               :false-value="false"
@@ -36,7 +36,7 @@
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="newCharacter.dead"
               :true-value="true"
               :false-value="false"
@@ -74,19 +74,19 @@
       <input 
           type="text"
           placeholder="Name"
-          class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="editCharacter.name"
           @keyup.enter="add"
         />
         <textarea 
             placeholder="Bio"
-            class="shadow appearance-none border rounded w-full py-1 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200 resize-none"
+            class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
             v-model="editCharacter.bio"
         />
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="editCharacter.immortal"
               :true-value="true"
               :false-value="false"
@@ -96,7 +96,7 @@
         <label>
           <input
               type="checkbox"
-              class="shadow border rounded py-2 px-2 m-1 text-gray-700 leading-tight focus:outline-none focus:ring-2 ring-gray-200"
+              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
               v-model="editCharacter.dead"
               :true-value="true"
               :false-value="false"
@@ -120,7 +120,7 @@
         v-for="character in characters"
         :key="`character-${character.id}`"
         >
-          <CardComponent :class="{'bg-red-50': character.immortal}">
+          <CardComponent :class="{'bg-gilt-950 bg-opacity-30 border-gilt-700': character.immortal}">
             <div class="flex border-b mb-2">
               <HeadingComponent
                 level="6"
@@ -139,7 +139,7 @@
               </HeadingComponent>
               <div class="flex-initial text-right">
                 <span 
-                  class="cursor-pointer mx-2 hover:text-gray-400"
+                  class="cursor-pointer mx-2 hover:text-blood-400"
                   @click="startEdit(character)"
                 >
                 Edit

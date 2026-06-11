@@ -13,7 +13,7 @@ describe("components/RemoveCrossComponent.vue", () => {
       "cursor-pointer",
       "select-none",
       "mx-1",
-      "hover:text-gray-400",
+      "hover:text-blood-400",
     ];
 
     expect(wrapper.exists()).toBe(true);

@@ -62,9 +62,11 @@ describe("components/SlideDownPanelComponent.vue", () => {
         "p-4",
         "border",
         "rounded",
-        "border-indigo-200",
-        "shadow-md",
-        "hover:shadow-xl",
+        "border-night-600",
+        "bg-night-800",
+        "bg-opacity-40",
+        "shadow-lg",
+        "hover:shadow-2xl",
       ],
     };
 

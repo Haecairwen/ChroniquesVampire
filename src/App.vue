@@ -15,18 +15,18 @@
         <MemoriesPane />
       </div>
     </div>
-    <div class="flex-none border-t mt-4 text-right">
+    <div class="flex-none border-t mt-4 text-right text-sm text-night-400">
       <ul>
         <li>
           <a
-            class="hover:text-gray-400"
+            class="hover:text-blood-400"
             href="https://www.version1.net/"
             v-html="copyright"
           />
         </li>
         <li>
           <a
-            class="hover:text-gray-400"
+            class="hover:text-blood-400"
             href="https://thousandyearoldvampire.com/"
             v-html="'Thousand Year Old Vampire Copyright &copy; Tim Hutchings'"
           />

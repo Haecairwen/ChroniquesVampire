@@ -23,19 +23,20 @@ import { mapMutations, mapState } from 'vuex';
 
 const TYPES = {
     default: {
-        'border-indigo-400': true,
-        'bg-indigo-100': true,
-        'text-indigo-600': true,
+        'border-gilt-600': true,
+        'bg-night-800': true,
+        'text-parchment-200': true,
     },
     danger: {
-        'border-red-600': true,
-        'bg-red-200': true,
-        'text-red-800': true,
+        'border-blood-600': true,
+        'bg-blood-950': true,
+        'bg-opacity-70': true,
+        'text-blood-200': true,
     },
     warning: {
-        'border-yellow-400': true,
-        'bg-yellow-100': true,
-        'text-yellow-600': true,
+        'border-gilt-500': true,
+        'bg-night-800': true,
+        'text-gilt-300': true,
     }
 };
 

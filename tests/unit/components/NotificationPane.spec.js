@@ -6,9 +6,9 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 const TYPES = {
-  default: ["border-indigo-400", "bg-indigo-100", "text-indigo-600"],
-  danger: ["border-red-600", "bg-red-200", "text-red-800"],
-  warning: ["border-yellow-400", "bg-yellow-100", "text-yellow-600"],
+  default: ["border-gilt-600", "bg-night-800", "text-parchment-200"],
+  danger: ["border-blood-600", "bg-blood-950", "bg-opacity-70", "text-blood-200"],
+  warning: ["border-gilt-500", "bg-night-800", "text-gilt-300"],
 };
 
 describe("NotificationPane", () => {
