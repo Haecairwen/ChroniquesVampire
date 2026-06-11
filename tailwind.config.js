@@ -59,6 +59,11 @@ module.exports = {
       borderColor: {
         DEFAULT: '#2a2a38',
       },
+      maxHeight: {
+        '1/3': '33.333333%',
+        '2/5': '40%',
+        '1/2': '50%',
+      },
     },
   },
   variants: {
