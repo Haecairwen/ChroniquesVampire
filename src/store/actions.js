@@ -42,6 +42,10 @@ const mutations = {
         const found = findById(state.prompts, prompt.id);
         Vue.set(found.entity, 'count', found.entity.count - 1)
     },
+    setPromptCount: (state, {prompt, count}) => {
+        const found = findById(state.prompts, prompt.id);
+        Vue.set(found.entity, 'count', count)
+    },
     updatePromptEntry: (state, {prompt, entry}) => {
         const found = findById(state.prompts, prompt.id);
         Vue.set(found.entity, 'entry', entry);
@@ -55,39 +59,34 @@ const actions = {
         commit('rollD6');
         commit('rollD10');
 
-        let newPrompt = (getters.currentPrompt && getters.currentPrompt.page) ?? 0;
+        const die = getters.die;
+        const current = getters.currentPrompt;
+        const currentPage = current.page || 1;
+        const currentCount = current.count || 1;
 
-        newPrompt += getters.die;
+        var newPage;
+        var newCount;
 
-        if (newPrompt <= 0) {
-            newPrompt = 1;
+        if (die > 0) {
+            newPage = currentPage + die;
+            newCount = 1;
+        } else if (currentCount < 3) {
+            newPage = currentPage;
+            newCount = currentCount + 1;
+        } else {
+            newPage = currentPage + 1;
+            newCount = 1;
         }
 
-        var promptIdx = state.currentPromptIdx;
+        var promptIdx = state.prompts.findIndex((prompt) => prompt.page === newPage);
 
-        const promptFound = state.prompts.some((prompt, idx) => {
-            if (prompt.page === newPrompt) {
-                promptIdx = idx;
-                if (prompt.count === 3) {
-                    promptIdx += 1;
-                    newPrompt += 1;
-                }
-                return true;
-            }
-        });
-
-        if (!promptFound) {
-            promptIdx = state.prompts.length;
+        if (promptIdx === -1) {
+            commit('addPrompt', entityFactory({page: newPage, count: newCount}));
+            promptIdx = state.prompts.length - 1;
+        } else {
+            commit('setPromptCount', {prompt: state.prompts[promptIdx], count: newCount});
         }
 
-        var prompt = state.prompts[promptIdx];
-
-        if (!prompt) {
-            prompt = entityFactory({page: newPrompt});
-            commit('addPrompt', prompt)
-        }
-
-        commit('incrementPrompt', prompt);
         commit('setCurrentPromptIdx', promptIdx);
     },
     makePromptCurrent({commit, state}, prompt) {
