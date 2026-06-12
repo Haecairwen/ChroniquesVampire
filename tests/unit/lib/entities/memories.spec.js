@@ -4,7 +4,7 @@ import {
     eventEntityFactory
  } from 'Libs/entities/memories';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/memories.js', () => {
     describe('Test suite for memory entities', () => {

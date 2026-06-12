@@ -1,14 +1,10 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 import actionsModule from 'Stores/actions';
 import { randomRange } from 'Libs/random';
 
-jest.mock('Libs/random');
+vi.mock('Libs/random');
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
-const buildStore = (state = {}) => new Vuex.Store({
+const buildStore = (state = {}) => createStore({
   modules: {
     actions: {
       ...actionsModule,

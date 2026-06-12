@@ -31,11 +31,14 @@ const BUTTON_TYPES = {
 }
 export default {
   name: 'ButtonComponent',
+  // Declaring the click emit keeps the listener from also falling through
+  // via $attrs to the native button, which would fire handlers twice.
+  emits: ['click'],
   props: {
       type: {
           type: String,
           default: 'default',
-          valiator: (type) => BUTTON_TYPES.keys().includes(type)
+          validator: (type) => Object.keys(BUTTON_TYPES).includes(type)
       }
   },
   computed: {

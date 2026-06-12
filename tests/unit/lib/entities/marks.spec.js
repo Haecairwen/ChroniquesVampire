@@ -1,7 +1,7 @@
 import { baseEntityFactory } from 'Libs/entities';
 import marks from 'Libs/entities/marks';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/marks.js', () => {
     it('Can create a default mark entity.', () => { 

@@ -12,6 +12,7 @@ const DISARM_AFTER_MS = 2500;
 
 export default {
   name: 'RemoveCrossComponent',
+  emits: ['remove'],
   data() {
     return {
       armed: false,
@@ -33,7 +34,7 @@ export default {
       this.$emit('remove');
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearTimeout(this.disarmTimer);
   },
 }

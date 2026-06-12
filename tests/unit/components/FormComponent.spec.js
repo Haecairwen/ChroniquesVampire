@@ -124,7 +124,7 @@ describe("components/FormComponent.vue", () => {
     buttonPropsProvider.forEach(({ description, props }) => {
       it(`It correctly displays ${description}`, async () => {
         const wrapper = shallowMount(FormComponent, {
-          propsData: {
+          props: {
             buttons: props,
           },
         });

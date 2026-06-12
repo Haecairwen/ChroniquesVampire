@@ -1,7 +1,6 @@
 import { defaultGameState } from 'Libs/gameState';
 import { resourceEntityFactory, diaryEntityFactory } from 'Libs/entities/resources';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
 const state = {
     ...defaultGameState('resources'),
@@ -54,7 +53,7 @@ const mutations = {
     setResources: (state, resources) => state.resources = resources,
     updateResource: (state, updated) => { 
         const found = findById(state.resources, updated.id);
-        Vue.set(state.resources, found.idx, resourceEntityFactory(updated));
+        state.resources[found.idx] = resourceEntityFactory(updated);
     },
     removeResource: (state, resource) => {
         const found = findById(state.resources, resource.id);
@@ -62,12 +61,12 @@ const mutations = {
     },
     toggleResource: (state, resource) => {
         const found = findById(state.resources, resource.id);
-        Vue.set(found.entity, 'lost', !found.entity.lost);
+        found.entity.lost = !found.entity.lost;
     },
     addDiary: (state, diary) => state.diaries.push(diaryEntityFactory(diary)),
     updateDiary: (state, updated) => { 
         const found = findById(state.diaries, updated.id);
-        Vue.set(state.diaries, found.idx, diaryEntityFactory(updated));
+        state.diaries[found.idx] = diaryEntityFactory(updated);
     },
     setDiaries: (state, diaries) => state.diaries = diaries,
     removeDiary: (state, diary) => {
@@ -76,7 +75,7 @@ const mutations = {
     },
     toggleDiary: (state, diary) => {
         const found = findById(state.diaries, diary.id);
-        Vue.set(found.entity, 'lost', !found.entity.lost);
+        found.entity.lost = !found.entity.lost;
     },
     setMaxDiaryMemories: (state, value) => state.maxDiaryMemories = value,
     incrementMaxDiaryMemories: (state) => state.maxDiaryMemories += 1,

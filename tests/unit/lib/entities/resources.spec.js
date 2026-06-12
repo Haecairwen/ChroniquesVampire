@@ -4,7 +4,7 @@ import {
     diaryEntityFactory,
 } from 'Libs/entities/resources';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/resources.js', () => {
     describe('Test suite for resource entities.', () => { 

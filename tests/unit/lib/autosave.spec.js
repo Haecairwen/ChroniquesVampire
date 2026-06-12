@@ -2,27 +2,27 @@ import { autosavePlugin, restoreAutosave, AUTOSAVE_KEY } from 'Libs/autosave';
 import { getStateFromStore, restoreState, serialize, deserialize } from 'Libs/gameState';
 import localStorage, { supportsLocalStorage } from 'Libs/localStorage';
 
-jest.mock('Libs/gameState');
+vi.mock('Libs/gameState');
 
-jest.mock('Libs/localStorage');
+vi.mock('Libs/localStorage');
 
 describe('lib/autosave', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     supportsLocalStorage.mockImplementation(() => true);
     serialize.mockImplementation(() => 'serialized-state');
     getStateFromStore.mockImplementation(() => ({ some: 'state' }));
   });
 
   afterEach(() => {
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   describe('autosavePlugin', () => {
     it('Does not subscribe when local storage is unsupported', () => {
       supportsLocalStorage.mockImplementation(() => false);
 
-      const store = { subscribe: jest.fn() };
+      const store = { subscribe: vi.fn() };
 
       autosavePlugin(store);
 
@@ -30,7 +30,7 @@ describe('lib/autosave', () => {
     });
 
     it('Saves the serialized game state after a mutation', () => {
-      const store = { subscribe: jest.fn() };
+      const store = { subscribe: vi.fn() };
 
       autosavePlugin(store);
 
@@ -40,14 +40,14 @@ describe('lib/autosave', () => {
 
       expect(localStorage.set).not.toHaveBeenCalled();
 
-      jest.runAllTimers();
+      vi.runAllTimers();
 
       expect(getStateFromStore).toHaveBeenCalledWith(store);
       expect(localStorage.set).toHaveBeenCalledWith(AUTOSAVE_KEY, 'serialized-state');
     });
 
     it('Debounces rapid mutations into a single save', () => {
-      const store = { subscribe: jest.fn() };
+      const store = { subscribe: vi.fn() };
 
       autosavePlugin(store);
 
@@ -57,13 +57,13 @@ describe('lib/autosave', () => {
       handler({ type: 'actions/rollD10' });
       handler({ type: 'actions/addPrompt' });
 
-      jest.runAllTimers();
+      vi.runAllTimers();
 
       expect(localStorage.set).toHaveBeenCalledTimes(1);
     });
 
     it('Ignores notification mutations', () => {
-      const store = { subscribe: jest.fn() };
+      const store = { subscribe: vi.fn() };
 
       autosavePlugin(store);
 
@@ -71,7 +71,7 @@ describe('lib/autosave', () => {
 
       handler({ type: 'notifications/show' });
 
-      jest.runAllTimers();
+      vi.runAllTimers();
 
       expect(localStorage.set).not.toHaveBeenCalled();
     });

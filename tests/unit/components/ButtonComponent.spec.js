@@ -57,7 +57,7 @@ describe('components/ButtonComponent.vue', () => {
         const wrapper = shallowMount(
             ButtonComponent,
             {
-                propsData: {
+                props: {
                     type
                 }
             }

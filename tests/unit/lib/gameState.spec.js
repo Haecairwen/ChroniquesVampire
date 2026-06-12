@@ -9,11 +9,11 @@ import {
  } from 'Libs/gameState';
 
 
-jest.mock('Migrations', () => {
+vi.mock('Migrations', () => {
     return {
       __esModule: true,
       default: {
-        migrate: jest.fn(),
+        migrate: vi.fn(),
       },
     };
 });
@@ -114,7 +114,7 @@ const serializedDataProvider = () => {
     });
 
     it('Can restore state to a store.', async () => {
-        const commit = jest.fn();
+        const commit = vi.fn();
         const store = {commit};
         const data = {};
 
@@ -139,7 +139,7 @@ const serializedDataProvider = () => {
     });
 
     it('Can restore state to a store, with existing data.', async () => {
-        const commit = jest.fn();
+        const commit = vi.fn();
         const store = {commit};
         const data = {
           d6: 1,
@@ -172,8 +172,8 @@ const serializedDataProvider = () => {
     });
 
     it.each(serializedDataProvider())('Can serialize data into base64.', (input, output) => {
-        const spyStringify = jest.spyOn(JSON, 'stringify');
-        const spyBtoA = jest.spyOn(global, 'btoa');
+        const spyStringify = vi.spyOn(JSON, 'stringify');
+        const spyBtoA = vi.spyOn(global, 'btoa');
 
         const result = serialize(input);
 
@@ -184,8 +184,8 @@ const serializedDataProvider = () => {
 
     it('Throws on failure to serialize.', () => {
         const input = 'foo';
-        const spyStringify = jest.spyOn(JSON, 'stringify');
-        const spyBtoA = jest.spyOn(global, 'btoa');
+        const spyStringify = vi.spyOn(JSON, 'stringify');
+        const spyBtoA = vi.spyOn(global, 'btoa');
 
         spyStringify.mockImplementation(() => { 
             throw 'Fail';
@@ -200,8 +200,8 @@ const serializedDataProvider = () => {
     });
 
     it.each(serializedDataProvider())('Can deserialize data from base64.', (output, input) => { 
-        const spyParse = jest.spyOn(JSON, 'parse');
-        const spyAtoB = jest.spyOn(global, 'atob');
+        const spyParse = vi.spyOn(JSON, 'parse');
+        const spyAtoB = vi.spyOn(global, 'atob');
 
         const result = deserialize(input);
 
@@ -211,8 +211,8 @@ const serializedDataProvider = () => {
     });
 
     it('Throws on failure to deserialize.', () => {
-        const spyParse = jest.spyOn(JSON, 'parse');
-        const spyAtoB = jest.spyOn(global, 'atob');
+        const spyParse = vi.spyOn(JSON, 'parse');
+        const spyAtoB = vi.spyOn(global, 'atob');
 
         spyParse.mockImplementation(() => { 
             throw 'Fail';

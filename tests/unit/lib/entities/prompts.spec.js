@@ -1,7 +1,7 @@
 import { baseEntityFactory } from 'Libs/entities';
 import prompts from 'Libs/entities/prompts';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/prompts.js', () => {
     it('Can create a default prompt entity.', () => {

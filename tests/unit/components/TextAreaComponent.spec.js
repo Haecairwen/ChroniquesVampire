@@ -25,7 +25,7 @@ describe('components/TextAreaComponent.vue', () => {
 
   it('Binds the value and emits input events for v-model', async () => {
     const wrapper = shallowMount(TextAreaComponent, {
-      propsData: { value: 'before' },
+      props: { modelValue: 'before' },
     });
 
     expect(wrapper.element.value).toEqual('before');
@@ -35,6 +35,6 @@ describe('components/TextAreaComponent.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().input[0]).toEqual(['after']);
+    expect(wrapper.emitted()['update:modelValue'][0]).toEqual(['after']);
   });
 });

@@ -1,29 +1,25 @@
-<script>
+<template>
+    <component
+        :is="tag"
+        class="font-display font-semibold leading-loose tracking-widest text-gilt-400"
+        :class="sizeClass"
+    >
+        <slot />
+    </component>
+</template>
 
+<script>
 const HEADING_STYLES = [
-    {
-        'text-3xl': true,
-    },
-    {
-        'text-2xl': true,
-    },
-    {
-        'text-xl': true,
-    },
-    {
-        'text-base': true,
-    },
-    {
-        'text-sm': true,
-    },
-    {
-        'text-sm': true,
-    },
+    'text-3xl',
+    'text-2xl',
+    'text-xl',
+    'text-base',
+    'text-sm',
+    'text-sm',
 ];
 
 export default {
   name: 'HeadingComponent',
-  functional: true,
   props: {
       level: {
           type: String,
@@ -31,37 +27,16 @@ export default {
           validator: (level) => ['1', '2', '3', '4', '5', '6'].includes(level),
       }
   },
-  render: function(createElement, context) {
-      const extraClasses = context.data.class || {};
-
-      if (context.data.staticClass) {
-          extraClasses[context.data.staticClass] = true;
-      }
-
-
-      if (context.data.attrs && context.data.attrs.class) { 
-        const classes = context.data.attrs.class.split(' ');
-        for (const cls of classes) {
-            extraClasses[cls] = true;
-        }
-      }
-
-      return createElement(
-          `h${Math.min(6, Math.max(1, context.props.level))}`,
-          {
-              ...context.data,
-              class: {
-                'font-display': true,
-                'font-semibold': true,
-                'leading-loose' : true,
-                'tracking-widest': true,
-                'text-gilt-400': true,
-                ...extraClasses,
-                ...HEADING_STYLES[context.props.level-1]
-              }
-          },
-          context.children
-        );
-  }
+  computed: {
+      clampedLevel() {
+          return Math.min(6, Math.max(1, this.level));
+      },
+      tag() {
+          return `h${this.clampedLevel}`;
+      },
+      sizeClass() {
+          return HEADING_STYLES[this.clampedLevel - 1];
+      },
+  },
 }
 </script>

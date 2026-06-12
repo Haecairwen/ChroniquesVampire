@@ -1,14 +1,11 @@
 import JournalPane from 'Components/JournalPane';
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
+import { shallowMount } from '@vue/test-utils';
+import { createStore } from 'vuex';
 
 const buildStore = ({ die = 3, currentPrompt = { id: 'a', page: 4, count: 1 }, d6 = 2, d10 = 5 } = {}) => {
-  const roll = jest.fn();
+  const roll = vi.fn();
 
-  const store = new Vuex.Store({
+  const store = createStore({
     modules: {
       actions: {
         namespaced: true,
@@ -27,23 +24,23 @@ const buildStore = ({ die = 3, currentPrompt = { id: 'a', page: 4, count: 1 }, d
         },
         actions: {
           roll,
-          makePromptCurrent: jest.fn(),
-          removePrompt: jest.fn(),
+          makePromptCurrent: vi.fn(),
+          removePrompt: vi.fn(),
         },
         mutations: {
-          addPrompt: jest.fn(),
-          incrementPrompt: jest.fn(),
-          decrementPrompt: jest.fn(),
-          updatePromptEntry: jest.fn(),
+          addPrompt: vi.fn(),
+          incrementPrompt: vi.fn(),
+          decrementPrompt: vi.fn(),
+          updatePromptEntry: vi.fn(),
         },
       },
       notifications: {
         namespaced: true,
         actions: {
-          showNotification: jest.fn(),
+          showNotification: vi.fn(),
         },
         mutations: {
-          hide: jest.fn(),
+          hide: vi.fn(),
         },
       },
     },
@@ -60,7 +57,7 @@ describe('components/JournalPane.vue', () => {
   it('Shows the dice values and the resulting move', () => {
     const { store } = buildStore({ die: 3, d6: 2, d10: 5 });
 
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const wrapper = shallowMount(JournalPane, { global: { plugins: [store] } });
 
     const dice = wrapper.findAll('.die-face');
 
@@ -73,7 +70,7 @@ describe('components/JournalPane.vue', () => {
   it('Shows placeholders before the first roll', () => {
     const { store } = buildStore({ die: NaN, d6: NaN, d10: NaN });
 
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const wrapper = shallowMount(JournalPane, { global: { plugins: [store] } });
 
     const dice = wrapper.findAll('.die-face');
 
@@ -83,11 +80,11 @@ describe('components/JournalPane.vue', () => {
   });
 
   it('Animates the dice, then rolls', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const { store, roll } = buildStore();
 
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const wrapper = shallowMount(JournalPane, { global: { plugins: [store] } });
 
     wrapper.vm.dramaticRoll();
     await wrapper.vm.$nextTick();
@@ -96,32 +93,32 @@ describe('components/JournalPane.vue', () => {
     expect(roll).not.toHaveBeenCalled();
     expect(wrapper.findAll('.die-rolling').length).toEqual(3);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     await wrapper.vm.$nextTick();
 
     expect(roll).toHaveBeenCalled();
     expect(wrapper.vm.rolling).toBe(false);
     expect(wrapper.vm.hasRolled).toBe(true);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('Ignores clicks while a roll is in progress', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const { store, roll } = buildStore();
 
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const wrapper = shallowMount(JournalPane, { global: { plugins: [store] } });
 
     wrapper.vm.dramaticRoll();
     wrapper.vm.dramaticRoll();
     wrapper.vm.dramaticRoll();
 
-    jest.runAllTimers();
+    vi.runAllTimers();
 
     expect(roll).toHaveBeenCalledTimes(1);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it.each([
@@ -131,7 +128,7 @@ describe('components/JournalPane.vue', () => {
   ])('Narrates the outcome of a roll (die: %s)', async (die, currentPrompt, message) => {
     const { store } = buildStore({ die, currentPrompt });
 
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const wrapper = shallowMount(JournalPane, { global: { plugins: [store] } });
 
     expect(wrapper.vm.rollMessage).toEqual('');
 

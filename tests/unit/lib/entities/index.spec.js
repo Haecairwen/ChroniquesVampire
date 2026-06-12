@@ -7,10 +7,10 @@ import {
     baseEntityFactory,
 } from 'Libs/entities';
 
-jest.mock('Libs/uuid', () => { 
+vi.mock('Libs/uuid', () => { 
     return { 
         __esModule: true,
-        default: jest.fn()
+        default: vi.fn()
     };
 });
 
@@ -127,7 +127,7 @@ describe('lib/entities/index.js', () => {
 
             const data = {'foo': inner};
 
-            const spyStringify = jest.spyOn(JSON, 'stringify');
+            const spyStringify = vi.spyOn(JSON, 'stringify');
             spyStringify.mockImplementation(() => { throw 'fail' });
 
             const result = deepCopy(data);

@@ -1,7 +1,6 @@
 import { defaultGameState } from 'Libs/gameState';
 import entityFactory from 'Libs/entities/skills';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
 const state = {
     ...defaultGameState('skills'),
@@ -22,7 +21,7 @@ const mutations = {
     set: (state, skills) => state.skills = skills,
     update: (state, updated) => {
         const found = findById(state.skills, updated.id);
-        Vue.set(state.skills, found.idx, entityFactory(updated));
+        state.skills[found.idx] = entityFactory(updated);
     },
     remove: (state, skill) => {
         const found = findById(state.skills, skill.id);
@@ -30,7 +29,7 @@ const mutations = {
     },
     toggle: (state, skill) => {
         const found = findById(state.skills, skill.id);
-        Vue.set(found.entity, 'checked', !found.entity.checked);
+        found.entity.checked = !found.entity.checked;
     }
 };
 

@@ -1,7 +1,6 @@
 import { defaultGameState } from 'Libs/gameState';
 import entityFactory from 'Libs/entities/characters';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
 const state = {
     ...defaultGameState('characters'),
@@ -25,7 +24,7 @@ const mutations = {
     add: (state, character) => state.characters.push(entityFactory(character)),
     update: (state, update) => {
         const found = findById(state.characters, update.id);
-        Vue.set(state.characters, found.idx, entityFactory(update));
+        state.characters[found.idx] = entityFactory(update);
     },
     set: (state, characters) => state.characters = characters,
     remove: (state, character) => {
@@ -34,7 +33,7 @@ const mutations = {
     },
     toggle: (state, character) => {
         const found = findById(state.characters, character.id);
-        Vue.set(found.entity,'dead', !found.entity.dead);
+        found.entity.dead = !found.entity.dead;
     },
 }
 

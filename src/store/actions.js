@@ -2,7 +2,6 @@ import { randomRange } from 'Libs/random';
 import { defaultGameState } from 'Libs/gameState';
 import entityFactory from 'Libs/entities/prompts';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
 const state = {
     ...defaultGameState('actions'),
@@ -36,19 +35,19 @@ const mutations = {
     },
     incrementPrompt: (state, prompt) => {
         const found = findById(state.prompts, prompt.id);
-        Vue.set(found.entity, 'count', found.entity.count + 1)
+        found.entity.count = found.entity.count + 1;
     },
     decrementPrompt: (state, prompt) => {
         const found = findById(state.prompts, prompt.id);
-        Vue.set(found.entity, 'count', found.entity.count - 1)
+        found.entity.count = found.entity.count - 1;
     },
     setPromptCount: (state, {prompt, count}) => {
         const found = findById(state.prompts, prompt.id);
-        Vue.set(found.entity, 'count', count)
+        found.entity.count = count;
     },
     updatePromptEntry: (state, {prompt, entry}) => {
         const found = findById(state.prompts, prompt.id);
-        Vue.set(found.entity, 'entry', entry);
+        found.entity.entry = entry;
     },
     setCurrentPromptIdx: (state, idx) => state.currentPromptIdx = idx,
 }

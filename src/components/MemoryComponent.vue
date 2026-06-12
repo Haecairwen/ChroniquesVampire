@@ -115,6 +115,7 @@ import { eventEntityFactory } from 'Libs/entities/memories';
 
 export default {
   name: 'MemoryComponent',
+  emits: ['edit-memory', 'remove-event', 'toggle-memory', 'diarise-memory', 'undiarise-memory', 'add-event', 'star-memory'],
   props: {
     memory: {
       type: Object,
@@ -197,7 +198,7 @@ export default {
       this.$emit('star-memory', this.memory);
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearTimeout(this.starConfirmTimer);
   },
 }

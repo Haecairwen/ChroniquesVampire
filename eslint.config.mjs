@@ -7,7 +7,7 @@ export default [
         ignores: ['dist/', 'node_modules/', 'coverage/'],
     },
     js.configs.recommended,
-    ...pluginVue.configs['flat/vue2-essential'],
+    ...pluginVue.configs['flat/essential'],
     {
         languageOptions: {
             ecmaVersion: 'latest',
@@ -22,7 +22,7 @@ export default [
         files: ['tests/unit/**/*.spec.js'],
         languageOptions: {
             globals: {
-                ...globals.jest,
+                ...globals.vitest,
             },
         },
     },

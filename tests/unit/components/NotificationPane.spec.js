@@ -1,9 +1,6 @@
 import NotificationPane from "Components/NotificationPane";
-import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
+import { shallowMount } from "@vue/test-utils";
+import { createStore } from 'vuex';
 
 const TYPES = {
   default: ["border-gilt-600", "bg-night-800", "text-parchment-200"],
@@ -24,10 +21,10 @@ describe("NotificationPane", () => {
     };
 
     mutations = {
-      hide: jest.fn(),
+      hide: vi.fn(),
     };
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: {
         notifications: {
           state,
@@ -45,7 +42,7 @@ describe("NotificationPane", () => {
   it("Displays the correct message", () => {
     const message = "Test message";
     state.message = message;
-    const wrapper = shallowMount(NotificationPane, { store, localVue });
+    const wrapper = shallowMount(NotificationPane, { global: { plugins: [store] } });
     expect(wrapper.text()).toContain(message);
   });
 
@@ -53,7 +50,7 @@ describe("NotificationPane", () => {
     "Displays the correct type of notification - %s",
     (type) => {
       state.type = type;
-      const wrapper = shallowMount(NotificationPane, { store, localVue });
+      const wrapper = shallowMount(NotificationPane, { global: { plugins: [store] } });
       const classes = TYPES[type];
       expect(wrapper.find("div").classes()).toEqual(
         expect.arrayContaining(classes)
@@ -63,23 +60,22 @@ describe("NotificationPane", () => {
 
   it("Hides after a certain amount of time", async () => {
     const wrapper = shallowMount(NotificationPane, {
-      store,
-      localVue,
+      global: { plugins: [store] },
       data() {
         return {
           timeout: 100,
         };
       },
     });
-    state.visible = true;
+    // Mutate via the store proxy: raw-object writes bypass Vue 3 reactivity.
+    store.state.notifications.visible = true;
     await wrapper.vm.$nextTick();
-    const hideSpy = jest.spyOn(wrapper.vm, "hide");
     await new Promise((resolve) => setTimeout(resolve, 100));
-    expect(hideSpy).toHaveBeenCalled();
+    expect(mutations.hide).toHaveBeenCalled();
   });
 
   it("Emits a 'remove' event when the remove cross component is clicked", () => {
-    const wrapper = shallowMount(NotificationPane, { store, localVue });
+    const wrapper = shallowMount(NotificationPane, { global: { plugins: [store] } });
     const removeCross = wrapper.findComponent({ name: "RemoveCrossComponent" });
     removeCross.vm.$emit("remove");
     expect(mutations.hide).toHaveBeenCalled();

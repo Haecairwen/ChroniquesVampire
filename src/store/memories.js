@@ -1,7 +1,6 @@
 import { defaultGameState } from 'Libs/gameState';
 import { memoryEntityFactory, eventEntityFactory } from 'Libs/entities/memories';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
 const state = {
     ...defaultGameState('memories'),
@@ -22,7 +21,7 @@ const mutations = {
     setMemories: (state, memories) => state.memories = memories,
     updateMemory: (state, memory) => {
         const found = findById(state.memories, memory.id);
-        Vue.set(state.memories, found.idx, memoryEntityFactory(memory));
+        state.memories[found.idx] = memoryEntityFactory(memory);
     },
     removeMemory: (state, memory) => {
         const found = findById(state.memories, memory.id);
@@ -30,13 +29,13 @@ const mutations = {
     },
     toggleMemory: (state, memory) => {
         const found = findById(state.memories, memory.id);
-        Vue.set(found.entity, 'forgotten', !found.entity.forgotten);
+        found.entity.forgotten = !found.entity.forgotten;
     },
     addEvent: (state, event) => state.events.push(eventEntityFactory(event)),
     setEvents: (state, events) => state.events = events,
     updateEvent: (state, event) => {
         const found = findById(state.events, event.id);
-        Vue.set(state.events, found.idx, eventEntityFactory(event));
+        state.events[found.idx] = eventEntityFactory(event);
     },
     removeEvent: (state, event) => {
         const found = findById(state.events, event.id);
@@ -44,16 +43,16 @@ const mutations = {
     },
     diarise: (state, {memory, diary}) => {
         const found = findById(state.memories, memory.id);
-        Vue.set(found.entity, 'diary', diary.id);
+        found.entity.diary = diary.id;
     },
     undiarise: (state, memory) => {
         const found = findById(state.memories, memory.id);
-        Vue.set(found.entity, 'diary', '');
+        found.entity.diary = '';
     },
     starMemory: (state, memory) => {
         const found = findById(state.memories, memory.id);
-        Vue.set(found.entity, 'starred', true);
-        Vue.set(found.entity, 'diary', '');
+        found.entity.starred = true;
+        found.entity.diary = '';
     },
     setMaxMemories: (state, value) => state.maxMemories = value,
     incrementMaxMemories: (state) => state.maxMemories += 1,

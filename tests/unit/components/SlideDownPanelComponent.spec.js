@@ -13,24 +13,24 @@ describe("components/SlideDownPanelComponent.vue", () => {
     expect(button.text()).toBe("Show");
   });
 
-  it("Toggles the panel when the button is clicked and emits a change event", async () => {
+  it("Toggles the panel when the button is clicked and emits a model update event", async () => {
     const wrapper = shallowMount(SlideDownPanelComponent);
     const button = wrapper.findComponent({ name: "ButtonComponent" });
 
     button.vm.$emit("click");
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().change).toBeTruthy();
+    expect(wrapper.emitted()['update:modelValue']).toBeTruthy();
     expect(button.text()).toEqual("Close");
-    expect(wrapper.emitted().change[0][0]).toEqual(true);
+    expect(wrapper.emitted()['update:modelValue'][0][0]).toEqual(true);
     expect(wrapper.vm.isOpen).toBe(true);
 
     button.vm.$emit("click");
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().change).toBeTruthy();
+    expect(wrapper.emitted()['update:modelValue']).toBeTruthy();
     expect(button.text()).toEqual("Show");
-    expect(wrapper.emitted().change[1][0]).toEqual(false);
+    expect(wrapper.emitted()['update:modelValue'][1][0]).toEqual(false);
     expect(wrapper.vm.isOpen).toBe(false);
   });
 

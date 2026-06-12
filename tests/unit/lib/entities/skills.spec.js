@@ -1,7 +1,7 @@
 import { baseEntityFactory } from 'Libs/entities';
 import skills from 'Libs/entities/skills';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/skills.js', () => {
     it('Can create a default skill entity.', () => { 

@@ -29,19 +29,16 @@ import ButtonComponent from './ButtonComponent';
 
 export default {
   name: 'SlideDownPanelComponent',
-  model: {
-    prop: 'open',
-    event: 'change'
-  },
   props: {
-      open: {
+      modelValue: {
           type: Boolean,
           default: false,
       }
   },
+  emits: ['update:modelValue'],
   data(){
     return {
-        isOpen: this.open,
+        isOpen: this.modelValue,
     };
   },
   components: {
@@ -71,11 +68,11 @@ export default {
   methods: {
       toggle() {
           this.isOpen = !this.isOpen;
-          this.$emit('change', this.isOpen);
+          this.$emit('update:modelValue', this.isOpen);
       }
   },
   watch: {
-      open(value) {
+      modelValue(value) {
           this.isOpen = value;
       }
   }

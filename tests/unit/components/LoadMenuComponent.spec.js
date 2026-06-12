@@ -1,17 +1,14 @@
 import LoadMenuComponent from "Components/LoadMenuComponent";
 import SlideDownPanelComponent from "Components/SlideDownPanelComponent";
 import ButtonComponent from "Components/ButtonComponent";
-import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
+import { shallowMount } from "@vue/test-utils";
+import { createStore } from 'vuex';
 import { restoreState, deserialize } from "Libs/gameState";
 import localStorage, { supportsLocalStorage } from "Libs/localStorage";
 
-jest.mock("Libs/gameState");
+vi.mock("Libs/gameState");
 
-jest.mock("Libs/localStorage");
-
-const localVue = createLocalVue();
-localVue.use(Vuex);
+vi.mock("Libs/localStorage");
 
 describe("LoadMenuComponent", () => {
   let store;
@@ -27,14 +24,14 @@ describe("LoadMenuComponent", () => {
     localStorage.get.mockImplementation(() => "save-content");
 
     actions = {
-      showNotification: jest.fn(),
+      showNotification: vi.fn(),
     };
 
     mutations = {
-      hide: jest.fn(),
+      hide: vi.fn(),
     };
 
-    store = new Vuex.Store({
+    store = createStore({
       modules: {
         notifications: {
           actions,
@@ -51,8 +48,9 @@ describe("LoadMenuComponent", () => {
 
   it("Renders a SlideDownPanelComponent with a 'Load' heading", () => {
     const wrapper = shallowMount(LoadMenuComponent, {
-      stubs: {
-        SlideDownPanelComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent },
       },
     });
 
@@ -66,9 +64,9 @@ describe("LoadMenuComponent", () => {
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -88,9 +86,9 @@ describe("LoadMenuComponent", () => {
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -103,18 +101,16 @@ describe("LoadMenuComponent", () => {
 
   it("Can restore saves from uploaded files", async () => {
     const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
-    const mockReadAsText = jest.fn();
+    const mockReadAsText = vi.fn();
     const mockReader = {
       readAsText: mockReadAsText,
       result: "dummy data",
@@ -122,7 +118,7 @@ describe("LoadMenuComponent", () => {
       onerror: null,
     };
 
-    jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+    vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
     const mockEvent = {
       target: {
@@ -146,18 +142,16 @@ describe("LoadMenuComponent", () => {
     "Enforces a mandatory single file to be uploaded before starting a restore from file",
     async (files) => {
       const wrapper = shallowMount(LoadMenuComponent, {
-        store,
-        localVue,
         data() {
           return { loading: true };
         },
-        stubs: {
-          SlideDownPanelComponent,
-          ButtonComponent,
+        global: {
+          plugins: [store],
+          stubs: { SlideDownPanelComponent, ButtonComponent },
         },
       });
 
-      const mockReadAsText = jest.fn();
+      const mockReadAsText = vi.fn();
       const mockReader = {
         readAsText: mockReadAsText,
         result: "",
@@ -165,7 +159,7 @@ describe("LoadMenuComponent", () => {
         onerror: null,
       };
 
-      jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+      vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
       const mockEvent = {
         target: {
@@ -185,18 +179,16 @@ describe("LoadMenuComponent", () => {
 
   it("Can handle errors loading an uploaded file", async () => {
     const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
-    const mockReadAsText = jest.fn();
+    const mockReadAsText = vi.fn();
     const mockReader = {
       readAsText: mockReadAsText,
       result: "dummy data",
@@ -204,7 +196,7 @@ describe("LoadMenuComponent", () => {
       onerror: null,
     };
 
-    jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+    vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
     const mockEvent = {
       target: {
@@ -226,7 +218,7 @@ describe("LoadMenuComponent", () => {
   });
 
   it("Requires a confirming second click before loading over a game in progress", async () => {
-    const storeWithGame = new Vuex.Store({
+    const storeWithGame = createStore({
       modules: {
         notifications: {
           actions,
@@ -243,14 +235,12 @@ describe("LoadMenuComponent", () => {
     });
 
     const wrapper = shallowMount(LoadMenuComponent, {
-      store: storeWithGame,
-      localVue,
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [storeWithGame],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -273,14 +263,12 @@ describe("LoadMenuComponent", () => {
 
   it("Calls 'fromLocalStorage' when the 'From Local Storage' button is clicked", async () => {
     const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
       data() {
         return { loading: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        plugins: [store],
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 

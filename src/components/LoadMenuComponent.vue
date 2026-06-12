@@ -119,7 +119,7 @@ export default {
       this.loading = false;
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearTimeout(this.disarmTimer);
   },
 }

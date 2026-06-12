@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import '@fontsource/cinzel/400.css'
 import '@fontsource/cinzel/600.css'
@@ -11,11 +11,8 @@ import './assets/tailwind.css'
 import store from './store'
 import { restoreAutosave } from 'Libs/autosave'
 
-Vue.config.productionTip = false
-
 restoreAutosave(store)
 
-new Vue({
-  store,
-  render: h => h(App)
-}).$mount('#app')
+createApp(App)
+    .use(store)
+    .mount('#app')
