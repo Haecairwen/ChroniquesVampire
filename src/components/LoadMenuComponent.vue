@@ -94,7 +94,7 @@ export default {
             const data = deserialize(reader.result);
             restoreState(this.$store, data);
             this.loading = false;
-          } catch(err) {
+          } catch {
             this.showNotification({message: 'Unable to decode save state.', type:'danger'});
           }
 
@@ -112,7 +112,7 @@ export default {
       try {
         const data = deserialize(localStorage.get('save-game'));
         restoreState(this.$store, data);
-      } catch(err) {
+      } catch {
         this.showNotification({message: 'Unable to decode save state.', type:'danger'});
       }
 

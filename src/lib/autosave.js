@@ -23,7 +23,7 @@ export const autosavePlugin = (store) => {
         timeout = setTimeout(() => {
             try {
                 localStorage.set(AUTOSAVE_KEY, serialize(getStateFromStore(store)));
-            } catch (err) {
+            } catch {
                 // Autosave must never break gameplay.
             }
         }, AUTOSAVE_DEBOUNCE_MS);
@@ -44,7 +44,7 @@ export const restoreAutosave = async (store) => {
     try {
         await restoreState(store, deserialize(data));
         return true;
-    } catch (err) {
+    } catch {
         return false;
     }
 };

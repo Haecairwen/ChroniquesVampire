@@ -124,7 +124,7 @@ export const serialize = (data) => {
 
     try {
         raw = JSON.stringify(data);
-    } catch (err) {
+    } catch {
         throw 'Unable to serialize data structure.';
     }
 
@@ -156,7 +156,7 @@ export const deserialize = (data) => {
 
     try {
         return JSON.parse(String.fromCharCode(...new Uint16Array(codePoints.buffer)))
-    } catch (err) {
+    } catch {
         throw 'Unable to parse deserialised data.'
     }
 }
