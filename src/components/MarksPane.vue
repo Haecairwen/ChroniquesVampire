@@ -85,7 +85,9 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapState, mapActions } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useMarksStore } from 'Stores/marks';
+import { useNotificationsStore } from 'Stores/notifications';
 import entityFactory from 'Libs/entities/marks';
 
 export default{
@@ -106,14 +108,14 @@ export default{
     TextInputComponent,
   },
   computed: {
-    ...mapState('marks', ['marks'])
+    ...mapState(useMarksStore, ['marks'])
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('marks', [
+    ...mapActions(useMarksStore, [
       'add',
       'update',
       'remove'

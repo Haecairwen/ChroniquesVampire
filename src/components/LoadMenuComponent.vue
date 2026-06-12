@@ -32,7 +32,10 @@ import ButtonComponent from './ButtonComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import { restoreState, deserialize } from 'Libs/gameState';
 import localStorage, { supportsLocalStorage } from 'Libs/localStorage';
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'pinia';
+import { useActionsStore } from 'Stores/actions';
+import { useMemoriesStore } from 'Stores/memories';
+import { useNotificationsStore } from 'Stores/notifications';
 
 const DISARM_AFTER_MS = 3000;
 
@@ -52,17 +55,14 @@ export default {
   computed:{
     supportsLocalStorage,
     gameInProgress() {
-      const state = this.$store.state;
-
       return Boolean(
-        (state.actions && state.actions.prompts.length) ||
-        (state.memories && state.memories.memories.length)
+        useActionsStore().prompts.length ||
+        useMemoriesStore().memories.length
       );
     },
   },
   methods: {
-    ...mapMutations('notifications', ['hide']),
-    ...mapActions('notifications', ['showNotification']),
+    ...mapActions(useNotificationsStore, ['hide', 'showNotification']),
     confirmThen(kind, callback) {
       if (this.gameInProgress && this.armed !== kind) {
         this.armed = kind;
@@ -92,7 +92,7 @@ export default {
         reader.onload = () => {
           try {
             const data = deserialize(reader.result);
-            restoreState(this.$store, data);
+            restoreState(data);
             this.loading = false;
           } catch {
             this.showNotification({message: 'Unable to decode save state.', type:'danger'});
@@ -111,7 +111,7 @@ export default {
 
       try {
         const data = deserialize(localStorage.get('save-game'));
-        restoreState(this.$store, data);
+        restoreState(data);
       } catch {
         this.showNotification({message: 'Unable to decode save state.', type:'danger'});
       }

@@ -110,7 +110,10 @@ import FormToggleComponent from 'Components/FormToggleComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useMemoriesStore } from 'Stores/memories';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { eventEntityFactory } from 'Libs/entities/memories';
 
 export default {
@@ -160,14 +163,16 @@ export default {
     TextInputComponent,
   },
   computed: {
-    ...mapGetters('resources', ['hasDiary', 'isDiaryFull']),
-    ...mapGetters('memories', ['events']),
+    ...mapState(useResourcesStore, ['hasDiary', 'isDiaryFull']),
+    ...mapState(useMemoriesStore, {
+      events: 'eventsFor',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
     add(){
       if (this.newEvent.description === '') {
         this.showNotification({message: 'You must provide a description', type: 'warning'});

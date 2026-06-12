@@ -18,7 +18,8 @@
 
 <script>
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
-import { mapMutations, mapState } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useNotificationsStore } from 'Stores/notifications';
 
 
 const TYPES = {
@@ -52,7 +53,7 @@ export default {
     }
   },
   computed: {
-      ...mapState('notifications', ['visible', 'message', 'type']),
+      ...mapState(useNotificationsStore, ['visible', 'message', 'type']),
       classes() {
           return {
               'sticky': true,
@@ -66,7 +67,7 @@ export default {
       }
   },
   methods: {
-      ...mapMutations('notifications', ['hide']),
+      ...mapActions(useNotificationsStore, ['hide']),
   },
   watch: {
       visible(value) {

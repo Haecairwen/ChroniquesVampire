@@ -267,7 +267,10 @@ import MemoryComponent from 'Components/MemoryComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useMemoriesStore } from 'Stores/memories';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { memoryEntityFactory, eventEntityFactory } from 'Libs/entities/memories';
 
 export default {
@@ -292,21 +295,23 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapState('memories', ['memories', 'maxMemories']),
-    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'events', 'hasEvents']),
-    ...mapGetters('resources', {
-        diary: 'diary', 
-        hasDiary: 'hasDiary', 
-        isDiaryFull: 'isDiaryFull', 
+    ...mapState(useMemoriesStore, ['memories', 'maxMemories', 'canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'hasEvents']),
+    ...mapState(useMemoriesStore, {
+        events: 'eventsFor',
+    }),
+    ...mapState(useResourcesStore, {
+        diary: 'diary',
+        hasDiary: 'hasDiary',
+        isDiaryFull: 'isDiaryFull',
         diaryMemories: 'memories',
     }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('memories', [
+    ...mapActions(useMemoriesStore, [
       'addMemory',
       'updateMemory',
       'removeMemory',

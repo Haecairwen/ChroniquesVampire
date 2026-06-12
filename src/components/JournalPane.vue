@@ -175,7 +175,9 @@ import HeadingComponent from 'Components/HeadingComponent';
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
-import { mapGetters, mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useActionsStore } from 'Stores/actions';
+import { useNotificationsStore } from 'Stores/notifications';
 import entityFactory from 'Libs/entities/prompts';
 
 const ROLL_ANIMATION_MS = 600;
@@ -203,8 +205,7 @@ export default {
     CheckboxComponent,
   },
   computed: {
-      ...mapState('actions', ['d6', 'd10', 'lastRoll']),
-      ...mapGetters('actions', ['die', 'currentRoll', 'currentPrompt', 'journalEntries']),
+      ...mapState(useActionsStore, ['d6', 'd10', 'lastRoll', 'die', 'currentRoll', 'currentPrompt', 'journalEntries']),
       formatDie() {
         return (value) => isNaN(value) ? '?' : value;
       },
@@ -273,12 +274,11 @@ export default {
       }
   },
   methods: {
-    ...mapActions('actions', ['roll', 'makePromptCurrent', 'removePrompt']),
-    ...mapMutations('actions', ['addPrompt', 'incrementPrompt', 'decrementPrompt', 'updatePromptEntry']),
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useActionsStore, ['roll', 'makePromptCurrent', 'removePrompt', 'addPrompt', 'incrementPrompt', 'decrementPrompt', 'updatePromptEntry']),
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
     dramaticRoll() {
       if (this.rolling) {
         return;

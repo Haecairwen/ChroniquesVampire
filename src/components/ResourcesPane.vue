@@ -228,7 +228,9 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters, mapState } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { resourceEntityFactory, diaryEntityFactory } from 'Libs/entities/resources';
 
 export default {
@@ -254,15 +256,18 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapState('resources', ['maxDiaryMemories']),
-    ...mapGetters('resources', ['hasDiary', 'diaries', 'resources', 'diary', 'activeMemories']),
+    ...mapState(useResourcesStore, ['maxDiaryMemories', 'hasDiary', 'diary', 'activeMemories']),
+    ...mapState(useResourcesStore, {
+      diaries: 'sortedDiaries',
+      resources: 'sortedResources',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('resources', [
+    ...mapActions(useResourcesStore, [
       'addResource',
       'updateResource',
       'removeResource',

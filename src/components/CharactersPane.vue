@@ -139,7 +139,9 @@ import FormToggleComponent from 'Components/FormToggleComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextAreaComponent from 'Components/TextAreaComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters, } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useCharactersStore } from 'Stores/characters';
+import { useNotificationsStore } from 'Stores/notifications';
 import entityFactory from 'Libs/entities/characters';
 
 export default {
@@ -162,14 +164,16 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapGetters('characters', ['characters']),
+    ...mapState(useCharactersStore, {
+      characters: 'sortedCharacters',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('characters', [
+    ...mapActions(useCharactersStore, [
         'add',
         'update',
         'remove',

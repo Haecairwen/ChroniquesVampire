@@ -1,5 +1,6 @@
 import migrator from 'Migrations';
-import { 
+import { setActivePinia, createPinia } from 'pinia';
+import {
     SIGNATURE,
     defaultGameState,
     getStateFromStore,
@@ -56,8 +57,9 @@ const serializedDataProvider = () => {
     ];
 };
 
- describe('lib/gameState.js', () => { 
-    beforeEach(() => { 
+ describe('lib/gameState.js', () => {
+    beforeEach(() => {
+        setActivePinia(createPinia());
         migrator.migrate.mockImplementation((data) => data);
     });
 
@@ -92,11 +94,7 @@ const serializedDataProvider = () => {
         expect(result).toEqual(expectedState);
     })
 
-    it('Can get state from a store.', () => { 
-        const store = {
-                state: STATE,
-            };
-
+    it('Can get state from the stores.', () => {
         const expected = {
             ...STATE.actions,
             ...STATE.characters,
@@ -107,40 +105,31 @@ const serializedDataProvider = () => {
             __SIGNATURE__: SIGNATURE
         };
 
-        const result = getStateFromStore(store);
+        const result = getStateFromStore();
 
         expect(result).toEqual(expected);
-                
+
     });
 
-    it('Can restore state to a store.', async () => {
-        const commit = vi.fn();
-        const store = {commit};
+    it('Can restore state to the stores.', async () => {
         const data = {};
 
-        await restoreState(store, data);
+        await restoreState(data);
 
         expect(migrator.migrate).toHaveBeenCalled();
-        expect(commit).toHaveBeenCalledTimes(14);
-        expect(commit).toHaveBeenNthCalledWith(1, 'actions/saveRoll', STATE.actions.lastRoll);
-        expect(commit).toHaveBeenNthCalledWith(2, 'actions/setD6', STATE.actions.d6);
-        expect(commit).toHaveBeenNthCalledWith(3, 'actions/setD10', STATE.actions.d10);
-        expect(commit).toHaveBeenNthCalledWith(4, 'actions/setCurrentPromptIdx', STATE.actions.currentPromptIdx);
-        expect(commit).toHaveBeenNthCalledWith(5, 'actions/setPrompts', STATE.actions.prompts);
-        expect(commit).toHaveBeenNthCalledWith(6, 'characters/set', STATE.characters.characters);
-        expect(commit).toHaveBeenNthCalledWith(7, 'marks/set', STATE.marks.marks);
-        expect(commit).toHaveBeenNthCalledWith(8, 'memories/setMemories', STATE.memories.memories);
-        expect(commit).toHaveBeenNthCalledWith(9, 'memories/setEvents', STATE.memories.events);
-        expect(commit).toHaveBeenNthCalledWith(10, 'memories/setMaxMemories', STATE.memories.maxMemories);
-        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setResources', STATE.resources.resources);
-        expect(commit).toHaveBeenNthCalledWith(12, 'resources/setDiaries', STATE.resources.diaries);
-        expect(commit).toHaveBeenNthCalledWith(13, 'resources/setMaxDiaryMemories', STATE.resources.maxDiaryMemories);
-        expect(commit).toHaveBeenNthCalledWith(14, 'skills/set', STATE.skills.skills);
+
+        expect(getStateFromStore()).toEqual({
+            ...STATE.actions,
+            ...STATE.characters,
+            ...STATE.marks,
+            ...STATE.memories,
+            ...STATE.resources,
+            ...STATE.skills,
+            __SIGNATURE__: SIGNATURE,
+        });
     });
 
-    it('Can restore state to a store, with existing data.', async () => {
-        const commit = vi.fn();
-        const store = {commit};
+    it('Can restore state to the stores, with existing data.', async () => {
         const data = {
           d6: 1,
           d10: 2,
@@ -151,24 +140,30 @@ const serializedDataProvider = () => {
           maxDiaryMemories: 5,
         };
 
-        await restoreState(store, data);
+        await restoreState(data);
 
         expect(migrator.migrate).toHaveBeenCalled();
-        expect(commit).toHaveBeenCalledTimes(14);
-        expect(commit).toHaveBeenNthCalledWith(1, 'actions/saveRoll', data.lastRoll);
-        expect(commit).toHaveBeenNthCalledWith(2, 'actions/setD6', data.d6);
-        expect(commit).toHaveBeenNthCalledWith(3, 'actions/setD10', data.d10);
-        expect(commit).toHaveBeenNthCalledWith(4, 'actions/setCurrentPromptIdx', data.currentPromptIdx);
-        expect(commit).toHaveBeenNthCalledWith(5, 'actions/setPrompts', data.prompts);
-        expect(commit).toHaveBeenNthCalledWith(6, 'characters/set', STATE.characters.characters);
-        expect(commit).toHaveBeenNthCalledWith(7, 'marks/set', STATE.marks.marks);
-        expect(commit).toHaveBeenNthCalledWith(8, 'memories/setMemories', STATE.memories.memories);
-        expect(commit).toHaveBeenNthCalledWith(9, 'memories/setEvents', STATE.memories.events);
-        expect(commit).toHaveBeenNthCalledWith(10, 'memories/setMaxMemories', data.maxMemories);
-        expect(commit).toHaveBeenNthCalledWith(11, 'resources/setResources', STATE.resources.resources);
-        expect(commit).toHaveBeenNthCalledWith(12, 'resources/setDiaries', STATE.resources.diaries);
-        expect(commit).toHaveBeenNthCalledWith(13, 'resources/setMaxDiaryMemories', data.maxDiaryMemories);
-        expect(commit).toHaveBeenNthCalledWith(14, 'skills/set', STATE.skills.skills);
+
+        expect(getStateFromStore()).toEqual({
+            ...STATE.actions,
+            ...STATE.characters,
+            ...STATE.marks,
+            ...STATE.memories,
+            ...STATE.resources,
+            ...STATE.skills,
+            ...data,
+            __SIGNATURE__: SIGNATURE,
+        });
+    });
+
+    it('Normalizes prompt page and count to integers when restoring.', async () => {
+        await restoreState({
+            prompts: [{page: '5', count: '2'}],
+        });
+
+        const { prompts } = getStateFromStore();
+
+        expect(prompts).toEqual([{page: 5, count: 2}]);
     });
 
     it.each(serializedDataProvider())('Can serialize data into base64.', (input, output) => {

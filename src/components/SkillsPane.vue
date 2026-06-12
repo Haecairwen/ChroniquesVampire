@@ -108,7 +108,9 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapGetters, mapActions } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useSkillsStore } from 'Stores/skills';
+import { useNotificationsStore } from 'Stores/notifications';
 import entityFactory from 'Libs/entities/skills';
 
 
@@ -131,14 +133,16 @@ export default {
     TextInputComponent,
   },
   computed: {
-    ...mapGetters('skills', ['skills']),
+    ...mapState(useSkillsStore, {
+      skills: 'sortedSkills',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('skills', [
+    ...mapActions(useSkillsStore, [
       'add',
       'remove',
       'toggle',
