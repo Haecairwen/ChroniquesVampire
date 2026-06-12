@@ -11,35 +11,24 @@
         Add a new Character?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Name"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newCharacter.name"
           @keyup.enter="validatedAdd"
         />
-        <textarea 
-            placeholder="Bio"
-            class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
-            v-model="newCharacter.bio"
+        <TextAreaComponent
+          placeholder="Bio"
+          v-model="newCharacter.bio"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newCharacter.immortal"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newCharacter.immortal"
           />
           Immortal?
         </label>
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newCharacter.dead"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newCharacter.dead"
           />
           Dead?
         </label>
@@ -71,35 +60,24 @@
         },
       ]"
     >
-      <input 
-          type="text"
-          placeholder="Name"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-          v-model="editCharacter.name"
-          @keyup.enter="add"
-        />
-        <textarea 
-            placeholder="Bio"
-            class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
-            v-model="editCharacter.bio"
+      <TextInputComponent
+        placeholder="Name"
+        v-model="editCharacter.name"
+        @keyup.enter="add"
+      />
+        <TextAreaComponent
+          placeholder="Bio"
+          v-model="editCharacter.bio"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="editCharacter.immortal"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="editCharacter.immortal"
           />
           Immortal?
         </label>
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="editCharacter.dead"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="editCharacter.dead"
           />
           Dead?
         </label>
@@ -120,7 +98,7 @@
         v-for="character in characters"
         :key="`character-${character.id}`"
         >
-          <CardComponent :class="{'bg-gilt-950 bg-opacity-30 border-gilt-700': character.immortal}">
+          <CardComponent class="my-2" :class="{'bg-gilt-950 bg-opacity-30 border-gilt-700': character.immortal}">
             <div class="flex border-b mb-2">
               <HeadingComponent
                 level="6"
@@ -158,6 +136,9 @@ import CardComponent from 'Components/CardComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
+import CheckboxComponent from 'Components/CheckboxComponent';
+import TextAreaComponent from 'Components/TextAreaComponent';
+import TextInputComponent from 'Components/TextInputComponent';
 import { mapMutations, mapActions, mapGetters, } from 'vuex';
 import entityFactory from 'Libs/entities/characters';
 
@@ -176,7 +157,10 @@ export default {
       FormComponent,
       FormToggleComponent,
       HeadingComponent,
-  },
+      CheckboxComponent,
+      TextAreaComponent,
+      TextInputComponent,
+    },
   computed: {
     ...mapGetters('characters', ['characters']),
   },

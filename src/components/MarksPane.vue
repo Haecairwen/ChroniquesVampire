@@ -10,10 +10,8 @@
         Add a new Mark?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newMark.description"
           @keyup.enter="validatedAddMark"
         />
@@ -44,10 +42,8 @@
         },
       ]"
     >
-      <input 
-        type="text"
+      <TextInputComponent
         placeholder="Description"
-        class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
         v-model="editMark.description"
         @keyup.enter="validatedUpdateMark"
       />
@@ -88,6 +84,7 @@ import CardComponent from 'Components/CardComponent';
 import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import HeadingComponent from 'Components/HeadingComponent';
+import TextInputComponent from 'Components/TextInputComponent';
 import { mapMutations, mapState, mapActions } from 'vuex';
 import entityFactory from 'Libs/entities/marks';
 
@@ -106,6 +103,7 @@ export default{
     FormComponent,
     FormToggleComponent,
     HeadingComponent,
+    TextInputComponent,
   },
   computed: {
     ...mapState('marks', ['marks'])

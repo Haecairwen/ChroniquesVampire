@@ -18,20 +18,55 @@ describe("components/RemoveCrossComponent.vue", () => {
 
     expect(wrapper.exists()).toBe(true);
     expect(wrapper.attributes("title")).toBe("Remove item");
-    expect(wrapper.text()).toBe(`\u00d7`);
+    expect(wrapper.text()).toBe(`×`);
     expect(wrapper.classes()).toEqual(classes);
   });
 
-  it("Emits a 'remove' event when clicked.", async () => {
+  it("Arms on first click instead of emitting a 'remove' event.", async () => {
     const wrapper = shallowMount(RemoveCrossComponent);
     const span = wrapper.find('span');
-
-    expect(span.exists()).toBe(true);
 
     span.trigger('click');
 
     await wrapper.vm.$nextTick();
 
+    expect(wrapper.emitted().remove).toBeFalsy();
+    expect(wrapper.text()).toBe('Sure?');
+    expect(wrapper.attributes("title")).toBe("Click again to confirm");
+    expect(wrapper.classes()).toContain('text-blood-500');
+  });
+
+  it("Emits a 'remove' event when clicked twice.", async () => {
+    const wrapper = shallowMount(RemoveCrossComponent);
+    const span = wrapper.find('span');
+
+    span.trigger('click');
+    await wrapper.vm.$nextTick();
+
+    span.trigger('click');
+    await wrapper.vm.$nextTick();
+
     expect(wrapper.emitted().remove).toBeTruthy();
-  })
+    expect(wrapper.text()).toBe(`×`);
+  });
+
+  it("Disarms automatically after a delay.", async () => {
+    jest.useFakeTimers();
+
+    const wrapper = shallowMount(RemoveCrossComponent);
+    const span = wrapper.find('span');
+
+    span.trigger('click');
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.text()).toBe('Sure?');
+
+    jest.runAllTimers();
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.text()).toBe(`×`);
+    expect(wrapper.emitted().remove).toBeFalsy();
+
+    jest.useRealTimers();
+  });
 });

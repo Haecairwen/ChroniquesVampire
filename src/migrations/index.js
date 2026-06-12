@@ -88,6 +88,7 @@ migrator.register(
     async (signature) => signature < 1 && import('Migrations/20210416-addPromptIdMigration'),
     async (signature) => signature < 2 && import('Migrations/20210501-decoupleMemoryEventDiaryStates'),
     async (signature) => signature < 3 && import('Migrations/20260611-addPromptTextEntryMigration'),
+    async (signature) => signature < 4 && import('Migrations/20260612-addMemoryAndDiaryCapacityMigration'),
 );
 
 export default migrator;

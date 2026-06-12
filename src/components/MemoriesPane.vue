@@ -2,7 +2,33 @@
   <CardComponent id="memories">
     <HeadingComponent level="2">Memories</HeadingComponent>
 
-    <FormToggleComponent 
+    <div class="flex items-center justify-center gap-2 mb-3 select-none">
+      <span
+        class="cursor-pointer hover:text-blood-400 px-1"
+        title="Lose a Memory slot"
+        @click="decrementMaxMemories"
+        v-html="'&minus;'"
+      />
+      <div
+        class="flex flex-wrap items-center justify-center gap-2"
+        :title="`${activeMemories.length} of ${maxMemories} memories`"
+      >
+        <span
+          v-for="i in maxMemories"
+          :key="`memory-slot-${i}`"
+          class="memory-slot"
+          :class="{'memory-slot-filled': i <= activeMemories.length}"
+        />
+      </div>
+      <span
+        class="cursor-pointer hover:text-blood-400 px-1"
+        title="Gain a Memory slot"
+        @click="incrementMaxMemories"
+        v-html="'&plus;'"
+      />
+    </div>
+
+    <FormToggleComponent
       type="primary"
       @save="validatedAddMemory"
       @toggle="toggleAddingControls"
@@ -13,37 +39,29 @@
         Add a new Memory?
       </template>
       <template #form>
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="newMemory.description"
           @keyup.enter="validatedAddMemory"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newMemory.forgotten"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="newMemory.forgotten"
           />
           Forgotten?
         </label>
         <label v-if="hasDiary && !isDiaryFull">
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="newMemory.diary"
-              :true-value="diary.id"
-              :false-value="''"
+          <CheckboxComponent
+            v-model="newMemory.diary"
+            :true-value="diary.id"
+            :false-value="''"
           />
           Diarised?
         </label>
       </template>
     </FormToggleComponent>
-    <div v-else>
-      You must choose to forget a memory to add more.
+    <div class="text-center italic text-blood-300 my-2" v-else>
+      Your mind is full. You must forget a memory to make room for more.
     </div>
 
     <FormComponent
@@ -71,30 +89,22 @@
         },
       ]"
     >
-        <input 
-          type="text"
+        <TextInputComponent
           placeholder="Description"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
           v-model="editMemory.description"
           @keyup.enter="validatedUpdateMemory"
         />
         <label>
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="editMemory.forgotten"
-              :true-value="true"
-              :false-value="false"
+          <CheckboxComponent
+            v-model="editMemory.forgotten"
           />
           Forgotten?
         </label>
         <label v-if="(hasDiary && !isDiaryFull) || editMemory.diary !== ''">
-          <input
-              type="checkbox"
-              class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
-              v-model="editMemory.diary"
-              :true-value="diary.id"
-              :false-value="''"
+          <CheckboxComponent
+            v-model="editMemory.diary"
+            :true-value="diary.id"
+            :false-value="''"
           />
           Diarised?
         </label>
@@ -107,10 +117,8 @@
             v-for="event in editEvents"
             :key="`edit-event-${event.id}`"
           >
-              <input 
-                type="text"
+              <TextInputComponent
                 placeholder="Description"
-                class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-1 px-2 m-1 text-parchment-200 placeholder-night-400 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
                 v-model="event.description"
               />
           </div>
@@ -133,12 +141,14 @@
         :can-add-events="memory.id !== editMemory.id && events(memory).length < 3"
         :can-diarise="hasDiary && memory.id !== editMemory.id"
         :can-toggle="memory.id !== editMemory.id"
+        :can-star="memory.id !== editMemory.id"
         @add-event="addEvent"
         @remove-event="validatedRemoveEvent"
         @edit-memory="startEdit"
         @toggle-memory="toggleMemory"
         @diarise-memory="diariseMemory"
         @undiarise-memory="undiariseMemory"
+        @star-memory="starMemory"
     />
     </transition-group>
 
@@ -163,12 +173,14 @@
                     :can-add-events="false"
                     :can-diarise="hasDiary"
                     :can-toggle="memory.id !== editMemory.id"
+                    :can-star="memory.id !== editMemory.id"
                     @add-event="addEvent"
                     @remove-event="validatedRemoveEvent"
                     @edit-memory="startEdit"
                     @toggle-memory="toggleMemory"
                     @diarise-memory="diariseMemory"
                     @undiarise-memory="undiariseMemory"
+                    @star-memory="starMemory"
                 />
             </transition-group>
         </div>
@@ -198,6 +210,7 @@
                     :can-add-events="false"
                     :can-diarise="false"
                     :can-toggle="memory.id !== editMemory.id"
+                    :can-star="false"
                     @add-event="addEvent"
                     @remove-event="validatedRemoveEvent"
                     @edit-memory="startEdit"
@@ -211,6 +224,37 @@
           You have forgotten no memories... yet.
         </div>
     </SlideDownPanelComponent>
+
+    <SlideDownPanelComponent v-if="starredMemories.length > 0">
+        <template #closed-heading>
+            Starred Memories
+        </template>
+          <transition-group
+              enter-active-class="transition-all duration-400 ease-out"
+              leave-active-class="transition-all duration-400 ease-in"
+              enter-class="opacity-0 scale-40"
+              enter-to-class="opacity-100 scale-100"
+              leave-class="opacity-100 scale-100"
+              leave-to-class="opacity-0 scale-40"
+          >
+              <MemoryComponent
+                  v-for="memory in starredMemories"
+                  :key="`starred-${memory.id}`"
+                  :memory="memory"
+                  :can-add-memories="canAddMemories"
+                  :can-add-events="false"
+                  :can-diarise="false"
+                  :can-toggle="false"
+                  :can-star="false"
+                  @add-event="addEvent"
+                  @remove-event="validatedRemoveEvent"
+                  @edit-memory="startEdit"
+                  @toggle-memory="toggleMemory"
+                  @diarise-memory="diariseMemory"
+                  @undiarise-memory="undiariseMemory"
+              />
+          </transition-group>
+    </SlideDownPanelComponent>
   </CardComponent>
 </template>
 
@@ -221,6 +265,8 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import MemoryComponent from 'Components/MemoryComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
+import CheckboxComponent from 'Components/CheckboxComponent';
+import TextInputComponent from 'Components/TextInputComponent';
 import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
 import { memoryEntityFactory, eventEntityFactory } from 'Libs/entities/memories';
 
@@ -242,10 +288,12 @@ export default {
       HeadingComponent,
       MemoryComponent,
       SlideDownPanelComponent,
-  },
+      CheckboxComponent,
+      TextInputComponent,
+    },
   computed: {
-    ...mapState('memories', ['memories']),
-    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'events', 'hasEvents']),
+    ...mapState('memories', ['memories', 'maxMemories']),
+    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'events', 'hasEvents']),
     ...mapGetters('resources', {
         diary: 'diary', 
         hasDiary: 'hasDiary', 
@@ -268,6 +316,9 @@ export default {
       'diarise',
       'undiarise',
       'updateEvent',
+      'starMemory',
+      'incrementMaxMemories',
+      'decrementMaxMemories',
     ]),
     validatedAddMemory() {
       this.hideNotification
@@ -340,4 +391,4 @@ export default {
     },
   },
 }
-</script>a
+</script>

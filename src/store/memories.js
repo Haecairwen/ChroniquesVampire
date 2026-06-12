@@ -8,16 +8,11 @@ const state = {
 };
 
 const getters = {
-    active: (state) => state.memories.reduce((accumlator, current) => {
-        if (current.forgotten === false && current.diary === '') {
-          return accumlator + 1;
-        }
-
-        return accumlator;
-      }, 0),
-    canAddMemories: (state, getters) => getters.active < 5,
-    forgottenMemories: (state) => state.memories.filter(memory => memory.forgotten && memory.diary === ''),
-    activeMemories: (state) => state.memories.filter(memory => !memory.forgotten && memory.diary === ''),
+    active: (state, getters) => getters.activeMemories.length,
+    canAddMemories: (state, getters) => getters.active < state.maxMemories,
+    forgottenMemories: (state) => state.memories.filter(memory => memory.forgotten && memory.diary === '' && !memory.starred),
+    activeMemories: (state) => state.memories.filter(memory => !memory.forgotten && memory.diary === '' && !memory.starred),
+    starredMemories: (state) => state.memories.filter(memory => memory.starred),
     events: (state) => (memory) => state.events.filter(event => event.memory === memory.id),
     hasEvents: (state) => (memory) => state.events.some(event => event.memory === memory.id),
 };
@@ -54,7 +49,19 @@ const mutations = {
     undiarise: (state, memory) => {
         const found = findById(state.memories, memory.id);
         Vue.set(found.entity, 'diary', '');
-    }
+    },
+    starMemory: (state, memory) => {
+        const found = findById(state.memories, memory.id);
+        Vue.set(found.entity, 'starred', true);
+        Vue.set(found.entity, 'diary', '');
+    },
+    setMaxMemories: (state, value) => state.maxMemories = value,
+    incrementMaxMemories: (state) => state.maxMemories += 1,
+    decrementMaxMemories: (state) => {
+        if (state.maxMemories > 1) {
+            state.maxMemories -= 1;
+        }
+    },
 };
 
 export default {

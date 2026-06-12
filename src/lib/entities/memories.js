@@ -9,6 +9,7 @@ export const memoryEntityFactory = (data={}) => {
         description: '',
         forgotten: false,
         diary: '',
+        starred: false,
         ...baseEntityFactory(data, MEMORY_NS),
     }
 }

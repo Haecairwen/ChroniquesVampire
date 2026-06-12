@@ -225,6 +225,52 @@ describe("LoadMenuComponent", () => {
     expect(actions.showNotification).toHaveBeenCalled();
   });
 
+  it("Requires a confirming second click before loading over a game in progress", async () => {
+    const storeWithGame = new Vuex.Store({
+      modules: {
+        notifications: {
+          actions,
+          mutations,
+          namespaced: true,
+        },
+        actions: {
+          namespaced: true,
+          state: {
+            prompts: [{ id: "a", page: 1, count: 1 }],
+          },
+        },
+      },
+    });
+
+    const wrapper = shallowMount(LoadMenuComponent, {
+      store: storeWithGame,
+      localVue,
+      data() {
+        return { loading: true };
+      },
+      stubs: {
+        SlideDownPanelComponent,
+        ButtonComponent,
+      },
+    });
+
+    const button = wrapper
+      .findAllComponents(ButtonComponent)
+      .filter((w) => w.text() === "From Local Storage")
+      .at(0);
+
+    button.vm.$emit("click");
+    await wrapper.vm.$nextTick();
+
+    expect(restoreState).not.toHaveBeenCalled();
+    expect(button.text()).toEqual("Overwrite current game?");
+
+    button.vm.$emit("click");
+    await wrapper.vm.$nextTick();
+
+    expect(restoreState).toHaveBeenCalledWith(storeWithGame, { test: "data" });
+  });
+
   it("Calls 'fromLocalStorage' when the 'From Local Storage' button is clicked", async () => {
     const wrapper = shallowMount(LoadMenuComponent, {
       store,

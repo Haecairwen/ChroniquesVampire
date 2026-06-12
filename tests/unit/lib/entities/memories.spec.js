@@ -8,22 +8,24 @@ jest.mock('Libs/entities');
 
 describe('lib/entities/memories.js', () => {
     describe('Test suite for memory entities', () => {
-        it('Can create a default memory entity.', () => { 
+        it('Can create a default memory entity.', () => {
             const memory = memoryEntityFactory();
 
             expect(memory.description).toEqual('');
             expect(memory.forgotten).toEqual(false);
             expect(memory.diary).toEqual('');
+            expect(memory.starred).toEqual(false);
             expect(baseEntityFactory).toHaveBeenCalledWith({}, 'memory');
         });
-        
-        it('Can create a memory entity with injected data.', () => { 
+
+        it('Can create a memory entity with injected data.', () => {
             baseEntityFactory.mockImplementation((values) => values);
 
             const data = {
                 description: 'foo',
                 diary: 'bar',
-                forgotten: true
+                forgotten: true,
+                starred: true,
             };
 
             const memory = memoryEntityFactory(data);
@@ -31,6 +33,7 @@ describe('lib/entities/memories.js', () => {
             expect(memory.description).toEqual(data.description);
             expect(memory.forgotten).toEqual(data.forgotten);
             expect(memory.diary).toEqual(data.diary);
+            expect(memory.starred).toEqual(data.starred);
             expect(baseEntityFactory).toHaveBeenCalledWith(data, 'memory');
         });
     });
@@ -60,22 +63,24 @@ describe('lib/entities/memories.js', () => {
         });
     });
     describe('Test suite for memory entities', () => {
-        it('Can create a default memory entity.', () => { 
+        it('Can create a default memory entity.', () => {
             const memory = memoryEntityFactory();
 
             expect(memory.description).toEqual('');
             expect(memory.forgotten).toEqual(false);
             expect(memory.diary).toEqual('');
+            expect(memory.starred).toEqual(false);
             expect(baseEntityFactory).toHaveBeenCalledWith({}, 'memory');
         });
-        
-        it('Can create a memory entity with injected data.', () => { 
+
+        it('Can create a memory entity with injected data.', () => {
             baseEntityFactory.mockImplementation((values) => values);
 
             const data = {
                 description: 'foo',
                 diary: 'bar',
-                forgotten: true
+                forgotten: true,
+                starred: true,
             };
 
             const memory = memoryEntityFactory(data);
@@ -83,6 +88,7 @@ describe('lib/entities/memories.js', () => {
             expect(memory.description).toEqual(data.description);
             expect(memory.forgotten).toEqual(data.forgotten);
             expect(memory.diary).toEqual(data.diary);
+            expect(memory.starred).toEqual(data.starred);
             expect(baseEntityFactory).toHaveBeenCalledWith(data, 'memory');
         });
     });

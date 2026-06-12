@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === 'production' ? '/tyov/' : '/',
+    publicPath: process.env.NODE_ENV === 'production' ? '/ChroniquesVampire/' : '/',
     chainWebpack: config => {
         config
             .resolve

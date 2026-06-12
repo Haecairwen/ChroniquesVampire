@@ -54,6 +54,14 @@ const mutations = {
 }
 
 const actions = {
+    /**
+     * Rolls d10 - d6 and resolves the next prompt (house rule):
+     * - A positive result moves forward that many prompts, at visit 1.
+     * - Zero or negative stays on the current prompt and advances the
+     *   visit count, to a maximum of 3.
+     * - Once at 3 visits, another non-positive roll moves forward one
+     *   prompt, back at visit 1.
+     */
      roll: ({commit, getters, state}) => {
         commit('saveRoll', getters.currentRoll);
         commit('rollD6');
