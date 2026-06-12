@@ -3,7 +3,7 @@ import { shallowMount } from '@vue/test-utils';
 import { createTestingPinia } from '@pinia/testing';
 import { useActionsStore } from 'Stores/actions';
 
-const mountPane = ({ d6 = 2, d10 = 5, prompts = [{ id: 'a', page: 4, count: 1, text: '', entry: '' }] } = {}) => {
+const mountPane = ({ d6 = 2, d10 = 5, prompts = [{ id: 'a', page: 4, count: 1, text: '', entry: '' }], promptTexts = {} } = {}) => {
   const pinia = createTestingPinia({
     createSpy: vi.fn,
     initialState: {
@@ -13,6 +13,9 @@ const mountPane = ({ d6 = 2, d10 = 5, prompts = [{ id: 'a', page: 4, count: 1, t
         lastRoll: '?',
         prompts,
         currentPromptIdx: 0,
+      },
+      promptTexts: {
+        texts: promptTexts,
       },
     },
   });
@@ -99,5 +102,28 @@ describe('components/JournalPane.vue', () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.vm.rollMessage).toEqual(message);
+  });
+
+  it('Prefers imported prompt text over the manual text field', () => {
+    const { wrapper } = mountPane({
+      prompts: [{ id: 'a', page: 4, count: 2, text: 'Manual text.', entry: '' }],
+      promptTexts: { 4: { a: 'First visit.', b: 'Imported second visit.' } },
+    });
+
+    expect(wrapper.find('blockquote').text()).toEqual('Imported second visit.');
+  });
+
+  it('Falls back to the manual text field without an imported pack', () => {
+    const { wrapper } = mountPane({
+      prompts: [{ id: 'a', page: 4, count: 1, text: 'Manual text.', entry: '' }],
+    });
+
+    expect(wrapper.find('blockquote').text()).toEqual('Manual text.');
+  });
+
+  it('Shows a placeholder when no text is available at all', () => {
+    const { wrapper } = mountPane();
+
+    expect(wrapper.find('blockquote').text()).toEqual('Prompt text not yet available.');
   });
 });

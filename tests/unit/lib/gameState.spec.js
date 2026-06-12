@@ -166,6 +166,12 @@ const serializedDataProvider = () => {
         expect(prompts).toEqual([{page: 5, count: 2}]);
     });
 
+    it('Round-trips data containing non-Latin1 characters.', () => {
+        const data = { entry: 'Un sombre récit — l’hiver de l’âme, écrit à Besançon.' };
+
+        expect(deserialize(serialize(data))).toEqual(data);
+    });
+
     it.each(serializedDataProvider())('Can serialize data into base64.', (input, output) => {
         const spyStringify = vi.spyOn(JSON, 'stringify');
         const spyBtoA = vi.spyOn(global, 'btoa');
