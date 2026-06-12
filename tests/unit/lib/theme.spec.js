@@ -10,8 +10,8 @@ describe('lib/theme', () => {
     localStorage.get.mockImplementation(() => null);
   });
 
-  it('Offers the gothic and baroque themes', () => {
-    expect(AVAILABLE_THEMES).toEqual(['gothic', 'baroque']);
+  it('Offers the gothic, baroque, and nocturne themes', () => {
+    expect(AVAILABLE_THEMES).toEqual(['gothic', 'baroque', 'nocturne']);
   });
 
   it('Defaults to gothic when nothing is stored', () => {

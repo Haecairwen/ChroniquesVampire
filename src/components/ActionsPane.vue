@@ -38,20 +38,28 @@
             FR
           </ButtonComponent>
         </div>
-        <div class="flex items-center gap-2 my-2">
-          <span class="flex-1">{{ $t('settings.theme') }}</span>
-          <ButtonComponent
-            :type="theme === 'gothic' ? 'secondary' : 'default'"
-            @click="switchTheme('gothic')"
-          >
-            {{ $t('settings.themeGothic') }}
-          </ButtonComponent>
-          <ButtonComponent
-            :type="theme === 'baroque' ? 'secondary' : 'default'"
-            @click="switchTheme('baroque')"
-          >
-            {{ $t('settings.themeBaroque') }}
-          </ButtonComponent>
+        <div class="my-2">
+          <span class="block mb-1">{{ $t('settings.theme') }}</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <ButtonComponent
+              :type="theme === 'gothic' ? 'secondary' : 'default'"
+              @click="switchTheme('gothic')"
+            >
+              {{ $t('settings.themeGothic') }}
+            </ButtonComponent>
+            <ButtonComponent
+              :type="theme === 'baroque' ? 'secondary' : 'default'"
+              @click="switchTheme('baroque')"
+            >
+              {{ $t('settings.themeBaroque') }}
+            </ButtonComponent>
+            <ButtonComponent
+              :type="theme === 'nocturne' ? 'secondary' : 'default'"
+              @click="switchTheme('nocturne')"
+            >
+              {{ $t('settings.themeNocturne') }}
+            </ButtonComponent>
+          </div>
         </div>
       </SlideDownPanelComponent>
       <div class="border-t border-night-600 mt-3 pt-2 text-sm text-night-400 text-right">

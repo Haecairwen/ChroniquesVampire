@@ -22,7 +22,8 @@
     "language": "Langue",
     "theme": "Thème",
     "themeGothic": "Gothique",
-    "themeBaroque": "Baroque"
+    "themeBaroque": "Baroque",
+    "themeNocturne": "Nocturne"
   },
   "journal": {
     "heading": "Journal",
