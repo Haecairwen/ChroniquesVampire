@@ -15,6 +15,7 @@
     >
       <SaveMenuComponent />
       <LoadMenuComponent />
+      <PromptImportComponent />
       <div class="border-t border-night-600 mt-3 pt-2 text-sm text-night-400 text-right">
         <ul>
           <li>
@@ -48,6 +49,7 @@
 import ButtonComponent from './ButtonComponent';
 import SaveMenuComponent from './SaveMenuComponent';
 import LoadMenuComponent from './LoadMenuComponent';
+import PromptImportComponent from './PromptImportComponent';
 
 export default {
   name: 'ActionsPane',
@@ -60,6 +62,7 @@ export default {
     ButtonComponent,
     SaveMenuComponent,
     LoadMenuComponent,
+    PromptImportComponent,
   },
   computed: {
     forkCopyright() {

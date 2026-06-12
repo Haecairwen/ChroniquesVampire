@@ -6,7 +6,7 @@ export const AUTOSAVE_KEY = 'autosave';
 const AUTOSAVE_DEBOUNCE_MS = 500;
 
 // Stores holding transient UI state or reference data, not game state.
-const SKIP_STORES = ['notifications'];
+const SKIP_STORES = ['notifications', 'promptTexts'];
 
 // A single debounce shared across every store, so a burst of changes
 // touching several stores still results in one save.

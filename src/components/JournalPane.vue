@@ -101,8 +101,8 @@
           </div>
         </div>
 
-        <blockquote class="border-l-2 border-gilt-700 pl-3 my-3 italic text-parchment-400">
-          {{ entry.text || 'Prompt text not yet available.' }}
+        <blockquote class="border-l-2 border-gilt-700 pl-3 my-3 italic text-parchment-400 whitespace-pre-line">
+          {{ promptText(entry) || 'Prompt text not yet available.' }}
         </blockquote>
 
         <textarea
@@ -178,6 +178,7 @@ import CheckboxComponent from 'Components/CheckboxComponent';
 import { mapState, mapActions } from 'pinia';
 import { useActionsStore } from 'Stores/actions';
 import { useNotificationsStore } from 'Stores/notifications';
+import { usePromptTextsStore } from 'Stores/promptTexts';
 import entityFactory from 'Libs/entities/prompts';
 
 const ROLL_ANIMATION_MS = 600;
@@ -206,6 +207,12 @@ export default {
   },
   computed: {
       ...mapState(useActionsStore, ['d6', 'd10', 'lastRoll', 'die', 'currentRoll', 'currentPrompt', 'journalEntries']),
+      ...mapState(usePromptTextsStore, ['textFor']),
+      promptText() {
+        // Imported book text wins; the entry's own text field remains as
+        // the manual fallback for prompts typed in by hand.
+        return (entry) => this.textFor(entry.page, entry.count) || entry.text;
+      },
       formatDie() {
         return (value) => isNaN(value) ? '?' : value;
       },
