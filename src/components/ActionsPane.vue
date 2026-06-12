@@ -59,6 +59,12 @@
             >
               {{ $t('settings.themeNocturne') }}
             </ButtonComponent>
+            <ButtonComponent
+              :type="theme === 'cathedral' ? 'secondary' : 'default'"
+              @click="switchTheme('cathedral')"
+            >
+              {{ $t('settings.themeCathedral') }}
+            </ButtonComponent>
           </div>
         </div>
       </SlideDownPanelComponent>

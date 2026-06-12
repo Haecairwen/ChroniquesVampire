@@ -4,7 +4,7 @@ import localStorage, { supportsLocalStorage } from 'Libs/localStorage';
 // own localStorage key and is never part of save files.
 export const THEME_KEY = 'theme';
 
-export const AVAILABLE_THEMES = ['gothic', 'baroque', 'nocturne'];
+export const AVAILABLE_THEMES = ['gothic', 'baroque', 'nocturne', 'cathedral'];
 
 const DEFAULT_THEME = 'gothic';
 
