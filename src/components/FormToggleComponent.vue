@@ -25,6 +25,7 @@ import FormComponent from 'Components/FormComponent';
 
 export default {
   name: 'FormToggleComponent',
+  emits: ['toggle', 'save'],
   props: {
     showControls: {
       type: Boolean,

@@ -2,7 +2,7 @@
   <CardComponent class="my-3">
     <div class="flex border-b mb-2">
       <HeadingComponent :class="{'flex-1': true, 'line-through': memory.forgotten}" level="6">
-        <span v-if="memory.starred" class="text-gilt-400" title="Cemented forever — this memory no longer takes up a slot and can never be changed or lost.">★</span>
+        <span v-if="memory.starred" class="text-gilt-400" :title="$t('memories.starTitle')">★</span>
         {{ memory.description }}
       </HeadingComponent>
       <div class="flex-initial text-right">
@@ -17,7 +17,7 @@
           @click="$emit('edit-memory', memory)"
           v-if="!memory.starred"
         >
-          Edit
+          {{ $t('common.edit') }}
         </span>
       </div>
     </div>
@@ -45,11 +45,11 @@
       v-if="canAddEvents"
     >
       <template #button>  
-        Add an Event?
+        {{ $t('memories.addEvent') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="newEvent.description"
           @keyup.enter="add"
         />
@@ -63,13 +63,13 @@
         @click="$emit('toggle-memory', memory)"
       >
         <span v-if="memory.forgotten">
-          Recover Memory
+          {{ $t('memories.recover') }}
         </span>
         <span v-else-if="memory.diary === ''">
-          Forget Memory
+          {{ $t('memories.forget') }}
         </span>
         <span v-else>
-          Scratch Out Memory
+          {{ $t('memories.scratchOut') }}
         </span>
       </ButtonComponent>
       
@@ -79,14 +79,14 @@
           @click="$emit('diarise-memory', memory)"
           v-if="memory.diary === '' && !isDiaryFull"
         >
-          Send to Diary
+          {{ $t('memories.sendToDiary') }}
         </ButtonComponent>
         <ButtonComponent
           class="w-full"
           @click="$emit('undiarise-memory', memory)"
           v-else-if="memory.diary !== '' && canAddMemories"
         >
-          Recover from Diary
+          {{ $t('memories.recoverFromDiary') }}
         </ButtonComponent>
       </template>
     </div>
@@ -97,7 +97,7 @@
         class="w-full"
         @click="onPublishClick"
       >
-        {{ confirmingStar ? 'Cement forever?' : 'Publish Memory' }}
+        {{ confirmingStar ? $t('memories.cementForever') : $t('memories.publish') }}
       </ButtonComponent>
     </div>
   </CardComponent>
@@ -110,11 +110,15 @@ import FormToggleComponent from 'Components/FormToggleComponent';
 import HeadingComponent from 'Components/HeadingComponent';
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useMemoriesStore } from 'Stores/memories';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { eventEntityFactory } from 'Libs/entities/memories';
 
 export default {
   name: 'MemoryComponent',
+  emits: ['edit-memory', 'remove-event', 'toggle-memory', 'diarise-memory', 'undiarise-memory', 'add-event', 'star-memory'],
   props: {
     memory: {
       type: Object,
@@ -159,17 +163,19 @@ export default {
     TextInputComponent,
   },
   computed: {
-    ...mapGetters('resources', ['hasDiary', 'isDiaryFull']),
-    ...mapGetters('memories', ['events']),
+    ...mapState(useResourcesStore, ['hasDiary', 'isDiaryFull']),
+    ...mapState(useMemoriesStore, {
+      events: 'eventsFor',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
     add(){
       if (this.newEvent.description === '') {
-        this.showNotification({message: 'You must provide a description', type: 'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type: 'warning'});
         return;
       }
 
@@ -197,7 +203,7 @@ export default {
       this.$emit('star-memory', this.memory);
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearTimeout(this.starConfirmTimer);
   },
 }

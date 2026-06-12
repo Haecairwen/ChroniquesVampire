@@ -16,7 +16,7 @@ describe('components/CheckboxComponent.vue', () => {
 
   it('Is checked when the value matches the true value', () => {
     const wrapper = shallowMount(CheckboxComponent, {
-      propsData: { value: true },
+      props: { modelValue: true },
     });
 
     expect(wrapper.element.checked).toBe(true);
@@ -24,7 +24,7 @@ describe('components/CheckboxComponent.vue', () => {
 
   it('Emits boolean change events by default', async () => {
     const wrapper = shallowMount(CheckboxComponent, {
-      propsData: { value: false },
+      props: { modelValue: false },
     });
 
     wrapper.element.checked = true;
@@ -32,13 +32,13 @@ describe('components/CheckboxComponent.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().change[0]).toEqual([true]);
+    expect(wrapper.emitted()['update:modelValue'][0]).toEqual([true]);
   });
 
   it('Supports custom true and false values', async () => {
     const wrapper = shallowMount(CheckboxComponent, {
-      propsData: {
-        value: '',
+      props: {
+        modelValue: '',
         trueValue: 'diary-id',
         falseValue: '',
       },
@@ -51,13 +51,13 @@ describe('components/CheckboxComponent.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().change[0]).toEqual(['diary-id']);
+    expect(wrapper.emitted()['update:modelValue'][0]).toEqual(['diary-id']);
 
     wrapper.element.checked = false;
     wrapper.trigger('change');
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().change[1]).toEqual(['']);
+    expect(wrapper.emitted()['update:modelValue'][1]).toEqual(['']);
   });
 });

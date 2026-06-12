@@ -1,23 +1,36 @@
 import LoadMenuComponent from "Components/LoadMenuComponent";
 import SlideDownPanelComponent from "Components/SlideDownPanelComponent";
 import ButtonComponent from "Components/ButtonComponent";
-import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuex from "vuex";
+import { shallowMount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
+import { useNotificationsStore } from "Stores/notifications";
 import { restoreState, deserialize } from "Libs/gameState";
 import localStorage, { supportsLocalStorage } from "Libs/localStorage";
 
-jest.mock("Libs/gameState");
+vi.mock("Libs/gameState");
 
-jest.mock("Libs/localStorage");
+vi.mock("Libs/localStorage");
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
+const mountMenu = ({ initialState = {}, data = {} } = {}) => {
+  const pinia = createTestingPinia({
+    createSpy: vi.fn,
+    initialState,
+  });
+
+  const wrapper = shallowMount(LoadMenuComponent, {
+    data() {
+      return data;
+    },
+    global: {
+      plugins: [pinia],
+      stubs: { SlideDownPanelComponent, ButtonComponent },
+    },
+  });
+
+  return { wrapper, notifications: useNotificationsStore() };
+};
 
 describe("LoadMenuComponent", () => {
-  let store;
-  let actions;
-  let mutations;
-
   beforeEach(() => {
     deserialize.mockImplementation(() => ({
       test: "data",
@@ -25,24 +38,6 @@ describe("LoadMenuComponent", () => {
 
     supportsLocalStorage.mockImplementation(() => true);
     localStorage.get.mockImplementation(() => "save-content");
-
-    actions = {
-      showNotification: jest.fn(),
-    };
-
-    mutations = {
-      hide: jest.fn(),
-    };
-
-    store = new Vuex.Store({
-      modules: {
-        notifications: {
-          actions,
-          mutations,
-          namespaced: true,
-        },
-      },
-    });
   });
 
   it("Has the correct component name", () => {
@@ -50,11 +45,7 @@ describe("LoadMenuComponent", () => {
   });
 
   it("Renders a SlideDownPanelComponent with a 'Load' heading", () => {
-    const wrapper = shallowMount(LoadMenuComponent, {
-      stubs: {
-        SlideDownPanelComponent,
-      },
-    });
+    const { wrapper } = mountMenu();
 
     expect(wrapper.findComponent(SlideDownPanelComponent).exists()).toBe(true);
 
@@ -62,15 +53,7 @@ describe("LoadMenuComponent", () => {
   });
 
   it("Renders ButtonComponents with the correct labels", () => {
-    const wrapper = shallowMount(LoadMenuComponent, {
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
-    });
+    const { wrapper } = mountMenu({ data: { loading: true } });
 
     const buttons = wrapper.findAllComponents(ButtonComponent);
 
@@ -84,15 +67,7 @@ describe("LoadMenuComponent", () => {
   it("Does not render the 'From Local Storage' button if local storage is not supported", () => {
     supportsLocalStorage.mockImplementation(() => false);
 
-    const wrapper = shallowMount(LoadMenuComponent, {
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
-    });
+    const { wrapper } = mountMenu({ data: { loading: true } });
 
     const buttons = wrapper.findAllComponents(ButtonComponent);
 
@@ -102,19 +77,9 @@ describe("LoadMenuComponent", () => {
   });
 
   it("Can restore saves from uploaded files", async () => {
-    const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
-    });
+    const { wrapper, notifications } = mountMenu({ data: { loading: true } });
 
-    const mockReadAsText = jest.fn();
+    const mockReadAsText = vi.fn();
     const mockReader = {
       readAsText: mockReadAsText,
       result: "dummy data",
@@ -122,7 +87,7 @@ describe("LoadMenuComponent", () => {
       onerror: null,
     };
 
-    jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+    vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
     const mockEvent = {
       target: {
@@ -134,30 +99,20 @@ describe("LoadMenuComponent", () => {
 
     expect(mockReadAsText).toHaveBeenCalled();
     expect(wrapper.vm.loading).toBe(true);
-    expect(mutations.hide).toHaveBeenCalled();
+    expect(notifications.hide).toHaveBeenCalled();
 
     mockReader.onload();
 
-    expect(restoreState).toHaveBeenCalledWith(store, { test: "data" });
+    expect(restoreState).toHaveBeenCalledWith({ test: "data" });
     expect(wrapper.vm.loading).toBe(false);
   });
 
   it.each([[[]], [["file1", "file2"]]])(
     "Enforces a mandatory single file to be uploaded before starting a restore from file",
     async (files) => {
-      const wrapper = shallowMount(LoadMenuComponent, {
-        store,
-        localVue,
-        data() {
-          return { loading: true };
-        },
-        stubs: {
-          SlideDownPanelComponent,
-          ButtonComponent,
-        },
-      });
+      const { wrapper, notifications } = mountMenu({ data: { loading: true } });
 
-      const mockReadAsText = jest.fn();
+      const mockReadAsText = vi.fn();
       const mockReader = {
         readAsText: mockReadAsText,
         result: "",
@@ -165,7 +120,7 @@ describe("LoadMenuComponent", () => {
         onerror: null,
       };
 
-      jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+      vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
       const mockEvent = {
         target: {
@@ -175,28 +130,18 @@ describe("LoadMenuComponent", () => {
 
       wrapper.vm.load(mockEvent);
 
-      expect(actions.showNotification).toHaveBeenCalled();
+      expect(notifications.showNotification).toHaveBeenCalled();
       expect(mockReadAsText).not.toHaveBeenCalled();
       expect(wrapper.vm.loading).toBe(true);
-      expect(mutations.hide).not.toHaveBeenCalled();
+      expect(notifications.hide).not.toHaveBeenCalled();
       expect(restoreState).not.toHaveBeenCalled();
     }
   );
 
   it("Can handle errors loading an uploaded file", async () => {
-    const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
-    });
+    const { wrapper, notifications } = mountMenu({ data: { loading: true } });
 
-    const mockReadAsText = jest.fn();
+    const mockReadAsText = vi.fn();
     const mockReader = {
       readAsText: mockReadAsText,
       result: "dummy data",
@@ -204,7 +149,7 @@ describe("LoadMenuComponent", () => {
       onerror: null,
     };
 
-    jest.spyOn(global, "FileReader").mockImplementation(() => mockReader);
+    vi.spyOn(global, "FileReader").mockImplementation(function () { return mockReader; });
 
     const mockEvent = {
       target: {
@@ -216,42 +161,23 @@ describe("LoadMenuComponent", () => {
 
     expect(mockReadAsText).toHaveBeenCalled();
     expect(wrapper.vm.loading).toBe(true);
-    expect(mutations.hide).toHaveBeenCalled();
+    expect(notifications.hide).toHaveBeenCalled();
 
     mockReader.onerror();
 
     expect(restoreState).not.toHaveBeenCalled();
     expect(wrapper.vm.loading).toBe(true);
-    expect(actions.showNotification).toHaveBeenCalled();
+    expect(notifications.showNotification).toHaveBeenCalled();
   });
 
   it("Requires a confirming second click before loading over a game in progress", async () => {
-    const storeWithGame = new Vuex.Store({
-      modules: {
-        notifications: {
-          actions,
-          mutations,
-          namespaced: true,
-        },
+    const { wrapper } = mountMenu({
+      initialState: {
         actions: {
-          namespaced: true,
-          state: {
-            prompts: [{ id: "a", page: 1, count: 1 }],
-          },
+          prompts: [{ id: "a", page: 1, count: 1 }],
         },
       },
-    });
-
-    const wrapper = shallowMount(LoadMenuComponent, {
-      store: storeWithGame,
-      localVue,
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
+      data: { loading: true },
     });
 
     const button = wrapper
@@ -268,21 +194,11 @@ describe("LoadMenuComponent", () => {
     button.vm.$emit("click");
     await wrapper.vm.$nextTick();
 
-    expect(restoreState).toHaveBeenCalledWith(storeWithGame, { test: "data" });
+    expect(restoreState).toHaveBeenCalledWith({ test: "data" });
   });
 
   it("Calls 'fromLocalStorage' when the 'From Local Storage' button is clicked", async () => {
-    const wrapper = shallowMount(LoadMenuComponent, {
-      store,
-      localVue,
-      data() {
-        return { loading: true };
-      },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
-      },
-    });
+    const { wrapper, notifications } = mountMenu({ data: { loading: true } });
 
     const buttons = wrapper
       .findAllComponents(ButtonComponent)
@@ -295,10 +211,10 @@ describe("LoadMenuComponent", () => {
     button.vm.$emit("click");
     await wrapper.vm.$nextTick();
 
-    expect(mutations.hide).toHaveBeenCalled();
+    expect(notifications.hide).toHaveBeenCalled();
     expect(localStorage.get).toHaveBeenCalledWith("save-game");
     expect(deserialize).toHaveBeenCalledWith("save-content");
-    expect(restoreState).toHaveBeenCalledWith(store, { test: "data" });
+    expect(restoreState).toHaveBeenCalledWith({ test: "data" });
     expect(wrapper.vm.loading).toBe(false);
   });
 });

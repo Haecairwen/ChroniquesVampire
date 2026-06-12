@@ -5,32 +5,36 @@ export const AUTOSAVE_KEY = 'autosave';
 
 const AUTOSAVE_DEBOUNCE_MS = 500;
 
-export const autosavePlugin = (store) => {
+// Stores holding transient UI state or reference data, not game state.
+const SKIP_STORES = ['notifications', 'promptTexts'];
+
+// A single debounce shared across every store, so a burst of changes
+// touching several stores still results in one save.
+let timeout = null;
+
+export const autosavePlugin = ({ store }) => {
     if (!supportsLocalStorage()) {
         return;
     }
 
-    let timeout = null;
+    if (SKIP_STORES.includes(store.$id)) {
+        return;
+    }
 
-    store.subscribe((mutation) => {
-        // Notifications are transient UI state, not game state.
-        if (mutation.type.startsWith('notifications/')) {
-            return;
-        }
-
+    store.$subscribe(() => {
         clearTimeout(timeout);
 
         timeout = setTimeout(() => {
             try {
-                localStorage.set(AUTOSAVE_KEY, serialize(getStateFromStore(store)));
-            } catch (err) {
+                localStorage.set(AUTOSAVE_KEY, serialize(getStateFromStore()));
+            } catch {
                 // Autosave must never break gameplay.
             }
         }, AUTOSAVE_DEBOUNCE_MS);
-    });
+    }, { detached: true });
 };
 
-export const restoreAutosave = async (store) => {
+export const restoreAutosave = async () => {
     if (!supportsLocalStorage()) {
         return false;
     }
@@ -42,9 +46,9 @@ export const restoreAutosave = async (store) => {
     }
 
     try {
-        await restoreState(store, deserialize(data));
+        await restoreState(deserialize(data));
         return true;
-    } catch (err) {
+    } catch {
         return false;
     }
 };

@@ -1,55 +1,28 @@
 import JournalPane from 'Components/JournalPane';
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
+import { shallowMount } from '@vue/test-utils';
+import { createTestingPinia } from '@pinia/testing';
+import { useActionsStore } from 'Stores/actions';
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
-
-const buildStore = ({ die = 3, currentPrompt = { id: 'a', page: 4, count: 1 }, d6 = 2, d10 = 5 } = {}) => {
-  const roll = jest.fn();
-
-  const store = new Vuex.Store({
-    modules: {
+const mountPane = ({ d6 = 2, d10 = 5, prompts = [{ id: 'a', page: 4, count: 1, text: '', entry: '' }], promptTexts = {} } = {}) => {
+  const pinia = createTestingPinia({
+    createSpy: vi.fn,
+    initialState: {
       actions: {
-        namespaced: true,
-        state: {
-          d6,
-          d10,
-          lastRoll: '?',
-          prompts: [],
-          currentPromptIdx: 0,
-        },
-        getters: {
-          die: () => die,
-          currentRoll: () => `${die} (+${d10}, -${d6})`,
-          currentPrompt: () => currentPrompt,
-          journalEntries: () => [],
-        },
-        actions: {
-          roll,
-          makePromptCurrent: jest.fn(),
-          removePrompt: jest.fn(),
-        },
-        mutations: {
-          addPrompt: jest.fn(),
-          incrementPrompt: jest.fn(),
-          decrementPrompt: jest.fn(),
-          updatePromptEntry: jest.fn(),
-        },
+        d6,
+        d10,
+        lastRoll: '?',
+        prompts,
+        currentPromptIdx: 0,
       },
-      notifications: {
-        namespaced: true,
-        actions: {
-          showNotification: jest.fn(),
-        },
-        mutations: {
-          hide: jest.fn(),
-        },
+      promptTexts: {
+        texts: promptTexts,
       },
     },
   });
 
-  return { store, roll };
+  const wrapper = shallowMount(JournalPane, { global: { plugins: [pinia] } });
+
+  return { wrapper, actions: useActionsStore() };
 };
 
 describe('components/JournalPane.vue', () => {
@@ -58,9 +31,7 @@ describe('components/JournalPane.vue', () => {
   });
 
   it('Shows the dice values and the resulting move', () => {
-    const { store } = buildStore({ die: 3, d6: 2, d10: 5 });
-
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const { wrapper } = mountPane({ d6: 2, d10: 5 });
 
     const dice = wrapper.findAll('.die-face');
 
@@ -71,9 +42,7 @@ describe('components/JournalPane.vue', () => {
   });
 
   it('Shows placeholders before the first roll', () => {
-    const { store } = buildStore({ die: NaN, d6: NaN, d10: NaN });
-
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const { wrapper } = mountPane({ d6: NaN, d10: NaN });
 
     const dice = wrapper.findAll('.die-face');
 
@@ -83,55 +52,49 @@ describe('components/JournalPane.vue', () => {
   });
 
   it('Animates the dice, then rolls', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const { store, roll } = buildStore();
-
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const { wrapper, actions } = mountPane();
 
     wrapper.vm.dramaticRoll();
     await wrapper.vm.$nextTick();
 
     expect(wrapper.vm.rolling).toBe(true);
-    expect(roll).not.toHaveBeenCalled();
+    expect(actions.roll).not.toHaveBeenCalled();
     expect(wrapper.findAll('.die-rolling').length).toEqual(3);
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     await wrapper.vm.$nextTick();
 
-    expect(roll).toHaveBeenCalled();
+    expect(actions.roll).toHaveBeenCalled();
     expect(wrapper.vm.rolling).toBe(false);
     expect(wrapper.vm.hasRolled).toBe(true);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it('Ignores clicks while a roll is in progress', async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
-    const { store, roll } = buildStore();
-
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    const { wrapper, actions } = mountPane();
 
     wrapper.vm.dramaticRoll();
     wrapper.vm.dramaticRoll();
     wrapper.vm.dramaticRoll();
 
-    jest.runAllTimers();
+    vi.runAllTimers();
 
-    expect(roll).toHaveBeenCalledTimes(1);
+    expect(actions.roll).toHaveBeenCalledTimes(1);
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 
   it.each([
-    [3, { id: 'a', page: 7, count: 1 }, 'The night carries you forward to prompt 7.'],
-    [-2, { id: 'a', page: 4, count: 2 }, 'The past holds you — visit 2 of prompt 4.'],
-    [0, { id: 'a', page: 5, count: 1 }, 'Three visits exhausted — you move on to prompt 5.'],
-  ])('Narrates the outcome of a roll (die: %s)', async (die, currentPrompt, message) => {
-    const { store } = buildStore({ die, currentPrompt });
-
-    const wrapper = shallowMount(JournalPane, { store, localVue });
+    [{ d6: 1, d10: 4 }, { id: 'a', page: 7, count: 1 }, 'The night carries you forward to prompt 7.'],
+    [{ d6: 4, d10: 2 }, { id: 'a', page: 4, count: 2 }, 'The past holds you — visit 2 of prompt 4.'],
+    [{ d6: 2, d10: 2 }, { id: 'a', page: 5, count: 1 }, 'Three visits exhausted — you move on to prompt 5.'],
+  ])('Narrates the outcome of a roll (dice: %o)', async ({ d6, d10 }, currentPrompt, message) => {
+    const { wrapper } = mountPane({ d6, d10, prompts: [{ ...currentPrompt, text: '', entry: '' }] });
 
     expect(wrapper.vm.rollMessage).toEqual('');
 
@@ -139,5 +102,28 @@ describe('components/JournalPane.vue', () => {
     await wrapper.vm.$nextTick();
 
     expect(wrapper.vm.rollMessage).toEqual(message);
+  });
+
+  it('Prefers imported prompt text over the manual text field', () => {
+    const { wrapper } = mountPane({
+      prompts: [{ id: 'a', page: 4, count: 2, text: 'Manual text.', entry: '' }],
+      promptTexts: { 4: { a: 'First visit.', b: 'Imported second visit.' } },
+    });
+
+    expect(wrapper.find('blockquote').text()).toEqual('Imported second visit.');
+  });
+
+  it('Falls back to the manual text field without an imported pack', () => {
+    const { wrapper } = mountPane({
+      prompts: [{ id: 'a', page: 4, count: 1, text: 'Manual text.', entry: '' }],
+    });
+
+    expect(wrapper.find('blockquote').text()).toEqual('Manual text.');
+  });
+
+  it('Shows a placeholder when no text is available at all', () => {
+    const { wrapper } = mountPane();
+
+    expect(wrapper.find('blockquote').text()).toEqual('Prompt text not yet available.');
   });
 });

@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="journal">
-    <HeadingComponent level="2">Journal</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('journal.heading') }}</HeadingComponent>
 
     <div class="sticky top-0 bg-night-900 z-10 text-center border-b pb-4 mb-4">
       <div class="flex items-center justify-center gap-4 my-3 select-none">
@@ -22,7 +22,7 @@
           <span class="die-face die-gilt" :class="{'die-rolling': rolling}">
             <span class="die-value">{{ rolling ? '?' : formatMove }}</span>
           </span>
-          <div class="text-xs text-night-400 mt-2">move</div>
+          <div class="text-xs text-night-400 mt-2">{{ $t('journal.move') }}</div>
         </div>
       </div>
 
@@ -31,7 +31,7 @@
         class="w-full my-2 py-2 tracking-widest"
         @click="dramaticRoll"
       >
-        Roll for the next prompt
+        {{ $t('journal.rollButton') }}
       </ButtonComponent>
 
       <div class="text-gilt-300 italic" v-if="rollMessage && !rolling">
@@ -39,57 +39,57 @@
       </div>
 
       <div class="mt-1 text-blood-400" v-if="currentPrompt.page && !rolling">
-        <strong>Current prompt:</strong> {{ currentPrompt.page }}
+        <strong>{{ $t('journal.currentPrompt') }}</strong> {{ currentPrompt.page }}
         <span v-html="tally(currentPrompt.count)" />
       </div>
 
       <div class="text-sm text-night-400 mt-1" v-if="lastRoll !== '?'">
-        Last roll: {{ lastRoll }}
+        {{ $t('journal.lastRoll', { roll: lastRoll }) }}
       </div>
     </div>
 
     <div v-if="journalEntries.length === 0" class="text-night-400 italic text-center my-4">
-      Your story has not yet begun. Roll for your first prompt.
+      {{ $t('journal.empty') }}
     </div>
 
     <transition-group
       tag="ul"
       enter-active-class="transition-all duration-100 ease-out"
       leave-active-class="transition-all duration-100 ease-in"
-      enter-class="opacity-0"
+      enter-from-class="opacity-0"
       enter-to-class="opacity-100"
-      leave-class="opacity-100"
+      leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
       <li
         v-for="entry in journalEntries"
         :key="`journal-entry-${entry.id}`"
         class="mb-4 p-4 border rounded"
-        :class="{'border-blood-700 bg-blood-950 bg-opacity-30': entry.id === currentPrompt.id}"
+        :class="{'border-blood-700 bg-blood-950/30': entry.id === currentPrompt.id}"
       >
         <div class="flex justify-between items-center mb-2 select-none">
           <HeadingComponent level="4">
-            Prompt {{ entry.page }}
+            {{ $t('journal.prompt', { page: entry.page }) }}
             <span v-html="tally(entry.count)" />
           </HeadingComponent>
           <div class="flex-initial">
             <span
               class="cursor-pointer mx-1 hover:text-blood-400"
-              title="Set as current prompt"
+              :title="$t('journal.setCurrent')"
               @click="makePromptCurrent(entry)"
               v-html="'&rarr;'"
               v-show="entry.id !== currentPrompt.id"
             />
             <span
               class="cursor-pointer mx-1 hover:text-blood-400"
-              title="Increment visits"
+              :title="$t('journal.incrementVisits')"
               @click="incrementPrompt(entry)"
               v-html="'&plus;'"
               v-show="entry.count < 3"
             />
             <span
               class="cursor-pointer mx-1 hover:text-blood-400"
-              title="Decrement visits"
+              :title="$t('journal.decrementVisits')"
               @click="decrementPrompt(entry)"
               v-html="'&minus;'"
               v-show="entry.count > 1"
@@ -101,13 +101,13 @@
           </div>
         </div>
 
-        <blockquote class="border-l-2 border-gilt-700 pl-3 my-3 italic text-parchment-400">
-          {{ entry.text || 'Prompt text not yet available.' }}
+        <blockquote class="border-l-2 border-gilt-700 pl-3 my-3 italic text-parchment-400 whitespace-pre-line">
+          {{ promptText(entry) || $t('journal.noText') }}
         </blockquote>
 
         <textarea
-          placeholder="What happened?"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-2 px-3 text-parchment-200 placeholder-night-400 font-body text-base leading-relaxed focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
+          :placeholder="$t('journal.entryPlaceholder')"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-2 px-3 text-parchment-200 placeholder:text-night-400 font-body text-base leading-relaxed focus:outline-hidden focus:ring-2 ring-gilt-600 resize-none"
           rows="4"
           :value="entry.entry"
           @change="updatePromptEntry({prompt: entry, entry: $event.target.value})"
@@ -117,7 +117,7 @@
 
     <SlideDownPanelComponent>
       <template #closed-heading>
-        Manually add a prompt
+        {{ $t('journal.manualAdd') }}
       </template>
       <FormComponent
         @save="validatedAddPrompt"
@@ -126,24 +126,24 @@
         <div class="grid grid-rows md:grid-cols-2 gap-2">
           <div class="grid grid-rows gap-2">
             <label for="new-prompt-number">
-              Prompt Number:
+              {{ $t('journal.promptNumber') }}
             </label>
             <input
               id="new-prompt-number"
               type="number"
               step="1"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
               v-model="newPrompt.page"
               :min="firstUnusedPrompt"
             />
           </div>
           <div class="grid grid-rows gap-2">
             <label for="new-prompt-count">
-              Times visited:
+              {{ $t('journal.timesVisited') }}
             </label>
             <select
               id="new-prompt-count"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
               v-model="newPrompt.count"
             >
               <option
@@ -160,7 +160,7 @@
           <CheckboxComponent
             v-model="makeCurrent"
           />
-          Current?
+          {{ $t('journal.current') }}
         </label>
       </FormComponent>
     </SlideDownPanelComponent>
@@ -175,7 +175,10 @@ import HeadingComponent from 'Components/HeadingComponent';
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
-import { mapGetters, mapState, mapMutations, mapActions } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useActionsStore } from 'Stores/actions';
+import { useNotificationsStore } from 'Stores/notifications';
+import { usePromptTextsStore } from 'Stores/promptTexts';
 import entityFactory from 'Libs/entities/prompts';
 
 const ROLL_ANIMATION_MS = 600;
@@ -203,8 +206,13 @@ export default {
     CheckboxComponent,
   },
   computed: {
-      ...mapState('actions', ['d6', 'd10', 'lastRoll']),
-      ...mapGetters('actions', ['die', 'currentRoll', 'currentPrompt', 'journalEntries']),
+      ...mapState(useActionsStore, ['d6', 'd10', 'lastRoll', 'die', 'currentRoll', 'currentPrompt', 'journalEntries']),
+      ...mapState(usePromptTextsStore, ['textFor']),
+      promptText() {
+        // Imported book text wins; the entry's own text field remains as
+        // the manual fallback for prompts typed in by hand.
+        return (entry) => this.textFor(entry.page, entry.count) || entry.text;
+      },
       formatDie() {
         return (value) => isNaN(value) ? '?' : value;
       },
@@ -224,14 +232,14 @@ export default {
         const count = this.currentPrompt.count;
 
         if (this.die > 0) {
-          return `The night carries you forward to prompt ${page}.`;
+          return this.$t('journal.narrationForward', { page });
         }
 
         if (count > 1) {
-          return `The past holds you — visit ${count} of prompt ${page}.`;
+          return this.$t('journal.narrationHeld', { count, page });
         }
 
-        return `Three visits exhausted — you move on to prompt ${page}.`;
+        return this.$t('journal.narrationExhausted', { page });
       },
       tally() {
           return (count) => {
@@ -273,12 +281,11 @@ export default {
       }
   },
   methods: {
-    ...mapActions('actions', ['roll', 'makePromptCurrent', 'removePrompt']),
-    ...mapMutations('actions', ['addPrompt', 'incrementPrompt', 'decrementPrompt', 'updatePromptEntry']),
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useActionsStore, ['roll', 'makePromptCurrent', 'removePrompt', 'addPrompt', 'incrementPrompt', 'decrementPrompt', 'updatePromptEntry']),
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
     dramaticRoll() {
       if (this.rolling) {
         return;
@@ -298,7 +305,7 @@ export default {
       });
 
       if (promptExists) {
-        this.showNotification({message: 'This prompt already exists, you cannot re-add it', type: 'warning'});
+        this.showNotification({message: this.$t('journal.duplicatePrompt'), type: 'warning'});
         return;
       }
 

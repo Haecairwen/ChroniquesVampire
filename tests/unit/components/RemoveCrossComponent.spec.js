@@ -51,7 +51,7 @@ describe("components/RemoveCrossComponent.vue", () => {
   });
 
   it("Disarms automatically after a delay.", async () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
 
     const wrapper = shallowMount(RemoveCrossComponent);
     const span = wrapper.find('span');
@@ -61,12 +61,12 @@ describe("components/RemoveCrossComponent.vue", () => {
 
     expect(wrapper.text()).toBe('Sure?');
 
-    jest.runAllTimers();
+    vi.runAllTimers();
     await wrapper.vm.$nextTick();
 
     expect(wrapper.text()).toBe(`×`);
     expect(wrapper.emitted().remove).toBeFalsy();
 
-    jest.useRealTimers();
+    vi.useRealTimers();
   });
 });

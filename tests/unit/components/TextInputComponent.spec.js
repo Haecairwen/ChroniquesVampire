@@ -17,7 +17,7 @@ describe('components/TextInputComponent.vue', () => {
 
   it('Supports other input types', () => {
     const wrapper = shallowMount(TextInputComponent, {
-      propsData: { type: 'number' },
+      props: { type: 'number' },
     });
 
     expect(wrapper.attributes('type')).toEqual('number');
@@ -33,7 +33,7 @@ describe('components/TextInputComponent.vue', () => {
 
   it('Binds the value and emits input events for v-model', async () => {
     const wrapper = shallowMount(TextInputComponent, {
-      propsData: { value: 'before' },
+      props: { modelValue: 'before' },
     });
 
     expect(wrapper.element.value).toEqual('before');
@@ -43,14 +43,14 @@ describe('components/TextInputComponent.vue', () => {
 
     await wrapper.vm.$nextTick();
 
-    expect(wrapper.emitted().input[0]).toEqual(['after']);
+    expect(wrapper.emitted()['update:modelValue'][0]).toEqual(['after']);
   });
 
   it('Forwards other listeners, such as keyup', async () => {
-    const onKeyup = jest.fn();
+    const onKeyup = vi.fn();
 
     const wrapper = shallowMount(TextInputComponent, {
-      listeners: { keyup: onKeyup },
+      attrs: { onKeyup },
     });
 
     wrapper.trigger('keyup');

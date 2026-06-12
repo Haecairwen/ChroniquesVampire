@@ -5,9 +5,9 @@ import { shallowMount } from "@vue/test-utils";
 import { getStateFromStore, serialize } from "Libs/gameState";
 import localStorage, { supportsLocalStorage } from "Libs/localStorage";
 
-jest.mock("Libs/gameState");
+vi.mock("Libs/gameState");
 
-jest.mock("Libs/localStorage");
+vi.mock("Libs/localStorage");
 
 describe("SaveMenuComponent", () => {
   beforeEach(() => {
@@ -22,8 +22,8 @@ describe("SaveMenuComponent", () => {
 
   it("Renders a SlideDownPanelComponent with a 'Save' heading", () => {
     const wrapper = shallowMount(SaveMenuComponent, {
-      stubs: {
-        SlideDownPanelComponent,
+      global: {
+        stubs: { SlideDownPanelComponent },
       },
     });
 
@@ -37,9 +37,8 @@ describe("SaveMenuComponent", () => {
       data() {
         return { saving: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -59,9 +58,8 @@ describe("SaveMenuComponent", () => {
       data() {
         return { saving: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -77,9 +75,8 @@ describe("SaveMenuComponent", () => {
       data() {
         return { saving: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 
@@ -87,7 +84,7 @@ describe("SaveMenuComponent", () => {
 
     expect(buttons.length).toEqual(1);
 
-    global.URL.createObjectURL = jest.fn();
+    global.URL.createObjectURL = vi.fn();
 
     const button = buttons.at(0);
 
@@ -105,9 +102,8 @@ describe("SaveMenuComponent", () => {
       data() {
         return { saving: true };
       },
-      stubs: {
-        SlideDownPanelComponent,
-        ButtonComponent,
+      global: {
+        stubs: { SlideDownPanelComponent, ButtonComponent },
       },
     });
 

@@ -2,9 +2,9 @@
     <transition
         enter-active-class="transition-all duration-400 ease-out"
         leave-active-class="transition-all duration-400 ease-in"
-        enter-class="opacity-0 scale-40"
+        enter-from-class="opacity-0 scale-40"
         enter-to-class="opacity-100 scale-100"
-        leave-class="opacity-100 scale-100"
+        leave-from-class="opacity-100 scale-100"
         leave-to-class="opacity-0 scale-40"
     >
         <div :class="classes" v-show="visible">
@@ -18,7 +18,8 @@
 
 <script>
 import RemoveCrossComponent from 'Components/RemoveCrossComponent';
-import { mapMutations, mapState } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useNotificationsStore } from 'Stores/notifications';
 
 
 const TYPES = {
@@ -29,8 +30,7 @@ const TYPES = {
     },
     danger: {
         'border-blood-600': true,
-        'bg-blood-950': true,
-        'bg-opacity-70': true,
+        'bg-blood-950/70': true,
         'text-blood-200': true,
     },
     warning: {
@@ -53,7 +53,7 @@ export default {
     }
   },
   computed: {
-      ...mapState('notifications', ['visible', 'message', 'type']),
+      ...mapState(useNotificationsStore, ['visible', 'message', 'type']),
       classes() {
           return {
               'sticky': true,
@@ -67,7 +67,7 @@ export default {
       }
   },
   methods: {
-      ...mapMutations('notifications', ['hide']),
+      ...mapActions(useNotificationsStore, ['hide']),
   },
   watch: {
       visible(value) {

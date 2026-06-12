@@ -1,42 +1,39 @@
-import { defaultGameState } from 'Libs/gameState';
+import { defineStore } from 'pinia';
+import { defaultGameState } from 'Libs/defaultGameState';
 import entityFactory from 'Libs/entities/skills';
 import { findById } from 'Libs/entities';
-import Vue from 'vue';
 
-const state = {
-    ...defaultGameState('skills'),
-};
+export const useSkillsStore = defineStore('skills', {
+    state: () => ({
+        ...defaultGameState('skills'),
+    }),
+    getters: {
+        sortedSkills: (state) => [...state.skills].sort((a, b) => {
+            if ((a.checked && b.checked) || (!a.checked && !b.checked)) {
+                return a.name.localeCompare(b.name);
+            }
 
-const getters = {
-    skills: (state) => [...state.skills].sort((a, b) => { 
-        if ((a.checked && b.checked) || (!a.checked && !b.checked)) {
-            return a.name.localeCompare(b.name);
-        }
-
-        return a.checked && !b.checked ? 1 : -1;
-    })
-};
-
-const mutations = {
-    add: (state, skill) => state.skills.push(entityFactory(skill)),
-    set: (state, skills) => state.skills = skills,
-    update: (state, updated) => {
-        const found = findById(state.skills, updated.id);
-        Vue.set(state.skills, found.idx, entityFactory(updated));
+            return a.checked && !b.checked ? 1 : -1;
+        }),
     },
-    remove: (state, skill) => {
-        const found = findById(state.skills, skill.id);
-        state.skills.splice(found.idx, 1)
+    actions: {
+        add(skill) {
+            this.skills.push(entityFactory(skill));
+        },
+        set(skills) {
+            this.skills = skills;
+        },
+        update(updated) {
+            const found = findById(this.skills, updated.id);
+            this.skills[found.idx] = entityFactory(updated);
+        },
+        remove(skill) {
+            const found = findById(this.skills, skill.id);
+            this.skills.splice(found.idx, 1)
+        },
+        toggle(skill) {
+            const found = findById(this.skills, skill.id);
+            found.entity.checked = !found.entity.checked;
+        },
     },
-    toggle: (state, skill) => {
-        const found = findById(state.skills, skill.id);
-        Vue.set(found.entity, 'checked', !found.entity.checked);
-    }
-};
-
-export default {
-    namespaced: true,
-    state,
-    mutations,
-    getters,
-};
+});

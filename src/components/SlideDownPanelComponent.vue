@@ -9,14 +9,14 @@
                 name="closed-heading"
                 v-if="!shouldShow"
             >
-                Show
+                {{ $t('common.show') }}
             </slot>
 
             <slot
                 name="open-heading"
                 v-else
             >
-                Close
+                {{ $t('common.close') }}
             </slot>
         </ButtonComponent>
         <slot v-if="shouldShow" />
@@ -29,19 +29,16 @@ import ButtonComponent from './ButtonComponent';
 
 export default {
   name: 'SlideDownPanelComponent',
-  model: {
-    prop: 'open',
-    event: 'change'
-  },
   props: {
-      open: {
+      modelValue: {
           type: Boolean,
           default: false,
       }
   },
+  emits: ['update:modelValue'],
   data(){
     return {
-        isOpen: this.open,
+        isOpen: this.modelValue,
     };
   },
   components: {
@@ -62,8 +59,7 @@ export default {
               'border': this.shouldShow,
               'rounded': this.shouldShow,
               'border-night-600': this.shouldShow,
-              'bg-night-800': this.shouldShow,
-              'bg-opacity-40': this.shouldShow,
+              'bg-night-800/40': this.shouldShow,
               'shadow-lg': this.shouldShow,
               'hover:shadow-2xl': this.shouldShow,
           }
@@ -72,11 +68,11 @@ export default {
   methods: {
       toggle() {
           this.isOpen = !this.isOpen;
-          this.$emit('change', this.isOpen);
+          this.$emit('update:modelValue', this.isOpen);
       }
   },
   watch: {
-      open(value) {
+      modelValue(value) {
           this.isOpen = value;
       }
   }

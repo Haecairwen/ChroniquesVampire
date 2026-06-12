@@ -1,0 +1,132 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "remove": "Supprimer",
+    "close": "Fermer",
+    "show": "Afficher",
+    "edit": "Modifier",
+    "name": "Nom",
+    "description": "Description",
+    "sure": "Sûr ?",
+    "confirmRemove": "Cliquez à nouveau pour confirmer",
+    "removeItem": "Supprimer l'élément",
+    "needDescription": "Vous devez fournir une description.",
+    "readError": "Impossible de lire le fichier."
+  },
+  "menu": {
+    "button": "Menu"
+  },
+  "settings": {
+    "heading": "Paramètres",
+    "language": "Langue"
+  },
+  "journal": {
+    "heading": "Journal",
+    "move": "déplacement",
+    "rollButton": "Lancer pour l'invite suivante",
+    "currentPrompt": "Invite actuelle :",
+    "lastRoll": "Dernier lancer : {roll}",
+    "empty": "Votre histoire n'a pas encore commencé. Lancez les dés pour votre première invite.",
+    "prompt": "Invite {page}",
+    "noText": "Texte de l'invite pas encore disponible.",
+    "entryPlaceholder": "Que s'est-il passé ?",
+    "setCurrent": "Définir comme invite actuelle",
+    "incrementVisits": "Ajouter une visite",
+    "decrementVisits": "Retirer une visite",
+    "manualAdd": "Ajouter une invite manuellement",
+    "promptNumber": "Numéro d'invite :",
+    "timesVisited": "Visites :",
+    "current": "Actuelle ?",
+    "duplicatePrompt": "Cette invite existe déjà, vous ne pouvez pas la rajouter",
+    "narrationForward": "La nuit vous porte jusqu'à l'invite {page}.",
+    "narrationHeld": "Le passé vous retient — visite {count} de l'invite {page}.",
+    "narrationExhausted": "Trois visites épuisées — vous passez à l'invite {page}."
+  },
+  "memories": {
+    "heading": "Souvenirs",
+    "loseSlot": "Perdre un emplacement de Souvenir",
+    "gainSlot": "Gagner un emplacement de Souvenir",
+    "slots": "{active} souvenirs sur {max}",
+    "add": "Ajouter un Souvenir ?",
+    "forgotten": "Oublié ?",
+    "diarised": "Dans le journal intime ?",
+    "full": "Votre esprit est plein. Vous devez oublier un souvenir pour faire de la place.",
+    "events": "Expériences",
+    "diary": "Journal intime",
+    "diaryEmpty": "Le journal intime est vide.",
+    "forgottenHeading": "Souvenirs oubliés",
+    "noneForgotten": "Vous n'avez encore oublié aucun souvenir...",
+    "starredHeading": "Souvenirs étoilés",
+    "starTitle": "Scellé à jamais — ce souvenir n'occupe plus d'emplacement et ne peut plus être modifié ni perdu.",
+    "eventCount": "{count}/3",
+    "addEvent": "Ajouter une Expérience ?",
+    "recover": "Retrouver le Souvenir",
+    "forget": "Oublier le Souvenir",
+    "scratchOut": "Raturer le Souvenir",
+    "sendToDiary": "Confier au Journal intime",
+    "recoverFromDiary": "Reprendre du Journal intime",
+    "publish": "Publier le Souvenir",
+    "cementForever": "Sceller à jamais ?",
+    "editLocked": "Vous ne pouvez pas modifier ce souvenir pendant son édition."
+  },
+  "characters": {
+    "heading": "Personnages",
+    "add": "Ajouter un Personnage ?",
+    "bio": "Biographie",
+    "immortal": "Immortel ?",
+    "dead": "Mort ?",
+    "immortalTag": "(Immortel)",
+    "editLocked": "Vous ne pouvez pas changer ce personnage pendant son édition.",
+    "needNameBio": "Vous devez fournir un nom et une biographie."
+  },
+  "marks": {
+    "heading": "Marques",
+    "add": "Ajouter une Marque ?"
+  },
+  "skills": {
+    "heading": "Compétences",
+    "add": "Ajouter une Compétence ?",
+    "checked": "Cochée ?",
+    "editLocked": "Vous ne pouvez pas changer cette compétence pendant son édition."
+  },
+  "resources": {
+    "heading": "Ressources",
+    "add": "Ajouter une Ressource ?",
+    "addDiary": "Ajouter un Journal intime ?",
+    "lost": "Perdue ?",
+    "stationary": "Immobilière ?",
+    "stationaryTag": "(immobilière)",
+    "diaryInfo": "(journal intime - {active} souvenirs sur {max})",
+    "diaryDecayed": "Le journal intime s'est dégradé et a perdu de la capacité",
+    "diaryExpanded": "Le journal intime a été agrandi",
+    "editLocked": "Vous ne pouvez pas changer cette ressource pendant son édition.",
+    "oneDiary": "Vous ne pouvez avoir qu'un seul journal intime actif.",
+    "crossOutFirst": "Veuillez raturer les souvenirs existants avant de perdre le journal intime."
+  },
+  "save": {
+    "heading": "Sauvegarder",
+    "toFile": "Vers un fichier",
+    "toLocalStorage": "Vers le stockage local"
+  },
+  "load": {
+    "heading": "Charger",
+    "fromFile": "Depuis un fichier",
+    "fromLocalStorage": "Depuis le stockage local",
+    "overwrite": "Écraser la partie en cours ?",
+    "needOneFile": "Impossible de charger le fichier. Vous devez sélectionner un seul fichier.",
+    "decodeError": "Impossible de décoder la sauvegarde."
+  },
+  "import": {
+    "heading": "Importer les invites",
+    "explanation": "Collez la section Prompts de votre exemplaire du livre en texte brut (en-têtes 1a, 1b, 1c suivis du texte de l'invite), ou choisissez un fichier .txt. Le journal affichera alors le texte de chaque invite selon la page et la visite.",
+    "packLoaded": "Un recueil d'invites est déjà chargé ; l'import le remplacera.",
+    "placeholder": "1a\nIn your blood-hunger, you destroy someone close to you. ...",
+    "fromFile": "Ou importer depuis un fichier :",
+    "button": "Importer",
+    "needOneFile": "Vous devez sélectionner un seul fichier à importer.",
+    "nothingFound": "Aucune invite trouvée. Collez la section Prompts du livre en texte brut.",
+    "success": "{count} invites importées.",
+    "successWarnings": "{count} invites importées ({warnings} avertissement). | {count} invites importées ({warnings} avertissements)."
+  }
+}

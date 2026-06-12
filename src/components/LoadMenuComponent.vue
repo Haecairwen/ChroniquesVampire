@@ -1,7 +1,7 @@
 <template>
     <SlideDownPanelComponent v-model="loading">
         <template #closed-heading>
-            Load
+            {{ $t('load.heading') }}
         </template>
         <div class="grid grid-rows gap-1 my-2">
             <input 
@@ -14,14 +14,14 @@
               class="w-full"
               @click="confirmThen('file', () => $refs.upload.click())"
             >
-              {{ armed === 'file' ? 'Overwrite current game?' : 'From File' }}
+              {{ armed === 'file' ? $t('load.overwrite') : $t('load.fromFile') }}
             </ButtonComponent>
             <ButtonComponent
               class="w-full"
               @click="confirmThen('storage', fromLocalStorage)"
               v-if="supportsLocalStorage"
             >
-              {{ armed === 'storage' ? 'Overwrite current game?' : 'From Local Storage' }}
+              {{ armed === 'storage' ? $t('load.overwrite') : $t('load.fromLocalStorage') }}
             </ButtonComponent>
         </div>
     </SlideDownPanelComponent>
@@ -32,7 +32,10 @@ import ButtonComponent from './ButtonComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import { restoreState, deserialize } from 'Libs/gameState';
 import localStorage, { supportsLocalStorage } from 'Libs/localStorage';
-import { mapMutations, mapActions } from 'vuex';
+import { mapActions } from 'pinia';
+import { useActionsStore } from 'Stores/actions';
+import { useMemoriesStore } from 'Stores/memories';
+import { useNotificationsStore } from 'Stores/notifications';
 
 const DISARM_AFTER_MS = 3000;
 
@@ -52,17 +55,14 @@ export default {
   computed:{
     supportsLocalStorage,
     gameInProgress() {
-      const state = this.$store.state;
-
       return Boolean(
-        (state.actions && state.actions.prompts.length) ||
-        (state.memories && state.memories.memories.length)
+        useActionsStore().prompts.length ||
+        useMemoriesStore().memories.length
       );
     },
   },
   methods: {
-    ...mapMutations('notifications', ['hide']),
-    ...mapActions('notifications', ['showNotification']),
+    ...mapActions(useNotificationsStore, ['hide', 'showNotification']),
     confirmThen(kind, callback) {
       if (this.gameInProgress && this.armed !== kind) {
         this.armed = kind;
@@ -79,7 +79,7 @@ export default {
     },
     load(evt) {
       if (evt.target.files.length !== 1) { 
-        this.showNotification({message: 'Unable to load file.  You must select one file to load.', type: 'warning'});
+        this.showNotification({message: this.$t('load.needOneFile'), type: 'warning'});
         return;
       }
 
@@ -92,16 +92,16 @@ export default {
         reader.onload = () => {
           try {
             const data = deserialize(reader.result);
-            restoreState(this.$store, data);
+            restoreState(data);
             this.loading = false;
-          } catch(err) {
-            this.showNotification({message: 'Unable to decode save state.', type:'danger'});
+          } catch {
+            this.showNotification({message: this.$t('load.decodeError'), type:'danger'});
           }
 
         }
 
         reader.onerror = () => {
-          this.showNotification({message: 'Unable to read file.', type:'danger'});
+          this.showNotification({message: this.$t('common.readError'), type:'danger'});
         }
         
         reader.readAsText(file);
@@ -111,15 +111,15 @@ export default {
 
       try {
         const data = deserialize(localStorage.get('save-game'));
-        restoreState(this.$store, data);
-      } catch(err) {
-        this.showNotification({message: 'Unable to decode save state.', type:'danger'});
+        restoreState(data);
+      } catch {
+        this.showNotification({message: this.$t('load.decodeError'), type:'danger'});
       }
 
       this.loading = false;
     },
   },
-  beforeDestroy() {
+  beforeUnmount() {
     clearTimeout(this.disarmTimer);
   },
 }

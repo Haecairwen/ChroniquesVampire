@@ -8,7 +8,7 @@ describe("components/FormToggleComponent.vue", () => {
 
   it("Renders a full width button when showControls is false", () => {
     const wrapper = shallowMount(FormToggleComponent, {
-      propsData: {
+      props: {
         showControls: false,
       },
       slots: {
@@ -27,7 +27,7 @@ describe("components/FormToggleComponent.vue", () => {
     "Renders a full width button with type %s",
     (type) => {
       const wrapper = shallowMount(FormToggleComponent, {
-        propsData: {
+        props: {
           showControls: false,
           type,
         },
@@ -39,7 +39,7 @@ describe("components/FormToggleComponent.vue", () => {
 
   it("Emits a toggle event when the full width button is clicked", async () => {
     const config = {
-      propsData: {
+      props: {
         showControls: false,
       },
       slots: {
@@ -56,13 +56,13 @@ describe("components/FormToggleComponent.vue", () => {
 
     expect(wrapper.emitted().toggle).toBeTruthy();
     expect(wrapper.emitted().toggle[0][0]).toEqual(
-      config.propsData.showControls
+      config.props.showControls
     );
   });
 
   it("Renders the form when showControls is true", () => {
     const wrapper = shallowMount(FormToggleComponent, {
-      propsData: {
+      props: {
         showControls: true,
       },
       slots: {
@@ -78,7 +78,7 @@ describe("components/FormToggleComponent.vue", () => {
 
   it("Emits a toggle event when the cancel button in the form is clicked", async () => {
     const config = {
-      propsData: {
+      props: {
         showControls: true,
       },
       slots: {
@@ -92,7 +92,7 @@ describe("components/FormToggleComponent.vue", () => {
       .findAllComponents({ name: "ButtonComponent" })
       .filter((w) => w.text() === "Cancel");
 
-    expect(buttons.exists()).toBe(true);
+    expect(buttons.length).toBeGreaterThan(0);
 
     const button = buttons.at(0);
 
@@ -102,13 +102,13 @@ describe("components/FormToggleComponent.vue", () => {
 
     expect(wrapper.emitted().toggle).toBeTruthy();
     expect(wrapper.emitted().toggle[0][0]).toEqual(
-      config.propsData.showControls
+      config.props.showControls
     );
   });
 
   it("Emits a save event when the save button in the form is clicked", async () => {
     const config = {
-      propsData: {
+      props: {
         showControls: true,
       },
       slots: {
@@ -122,7 +122,7 @@ describe("components/FormToggleComponent.vue", () => {
       .findAllComponents({ name: "ButtonComponent" })
       .filter((w) => w.text() === "Save");
 
-    expect(buttons.exists()).toBe(true);
+    expect(buttons.length).toBeGreaterThan(0);
 
     const button = buttons.at(0);
 
@@ -137,7 +137,7 @@ describe("components/FormToggleComponent.vue", () => {
     "Renders controls based on showControls prop",
     (showControls) => {
       const wrapper = shallowMount(FormToggleComponent, {
-        propsData: {
+        props: {
           showControls,
         },
         slots: {

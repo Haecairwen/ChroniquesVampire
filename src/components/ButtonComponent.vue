@@ -1,6 +1,6 @@
 <template>
     <button
-        class="py-1 px-4 rounded font-display tracking-wide transition-colors focus:outline-none focus:ring-2 ring-0"
+        class="py-1 px-4 rounded font-display tracking-wide transition-colors focus:outline-hidden focus:ring-2 ring-0"
         :class="typeClasses"
         @click="$emit('click')"
     >
@@ -31,11 +31,14 @@ const BUTTON_TYPES = {
 }
 export default {
   name: 'ButtonComponent',
+  // Declaring the click emit keeps the listener from also falling through
+  // via $attrs to the native button, which would fire handlers twice.
+  emits: ['click'],
   props: {
       type: {
           type: String,
           default: 'default',
-          valiator: (type) => BUTTON_TYPES.keys().includes(type)
+          validator: (type) => Object.keys(BUTTON_TYPES).includes(type)
       }
   },
   computed: {

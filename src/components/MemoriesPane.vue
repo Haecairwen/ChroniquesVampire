@@ -1,17 +1,17 @@
 <template>
   <CardComponent id="memories">
-    <HeadingComponent level="2">Memories</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('memories.heading') }}</HeadingComponent>
 
     <div class="flex items-center justify-center gap-2 mb-3 select-none">
       <span
         class="cursor-pointer hover:text-blood-400 px-1"
-        title="Lose a Memory slot"
+        :title="$t('memories.loseSlot')"
         @click="decrementMaxMemories"
         v-html="'&minus;'"
       />
       <div
         class="flex flex-wrap items-center justify-center gap-2"
-        :title="`${activeMemories.length} of ${maxMemories} memories`"
+        :title="$t('memories.slots', { active: activeMemories.length, max: maxMemories })"
       >
         <span
           v-for="i in maxMemories"
@@ -22,7 +22,7 @@
       </div>
       <span
         class="cursor-pointer hover:text-blood-400 px-1"
-        title="Gain a Memory slot"
+        :title="$t('memories.gainSlot')"
         @click="incrementMaxMemories"
         v-html="'&plus;'"
       />
@@ -36,11 +36,11 @@
       v-if="canAddMemories"
     >
       <template #button>
-        Add a new Memory?
+        {{ $t('memories.add') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="newMemory.description"
           @keyup.enter="validatedAddMemory"
         />
@@ -48,7 +48,7 @@
           <CheckboxComponent
             v-model="newMemory.forgotten"
           />
-          Forgotten?
+          {{ $t('memories.forgotten') }}
         </label>
         <label v-if="hasDiary && !isDiaryFull">
           <CheckboxComponent
@@ -56,12 +56,12 @@
             :true-value="diary.id"
             :false-value="''"
           />
-          Diarised?
+          {{ $t('memories.diarised') }}
         </label>
       </template>
     </FormToggleComponent>
     <div class="text-center italic text-blood-300 my-2" v-else>
-      Your mind is full. You must forget a memory to make room for more.
+      {{ $t('memories.full') }}
     </div>
 
     <FormComponent
@@ -75,22 +75,22 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="editMemory.description"
           @keyup.enter="validatedUpdateMemory"
         />
@@ -98,7 +98,7 @@
           <CheckboxComponent
             v-model="editMemory.forgotten"
           />
-          Forgotten?
+          {{ $t('memories.forgotten') }}
         </label>
         <label v-if="(hasDiary && !isDiaryFull) || editMemory.diary !== ''">
           <CheckboxComponent
@@ -106,19 +106,19 @@
             :true-value="diary.id"
             :false-value="''"
           />
-          Diarised?
+          {{ $t('memories.diarised') }}
         </label>
 
         <div class="mt-2" v-if="hasEvents(editMemory)">
           <HeadingComponent level="6">
-            Events
+            {{ $t('memories.events') }}
           </HeadingComponent>
           <div
             v-for="event in editEvents"
             :key="`edit-event-${event.id}`"
           >
               <TextInputComponent
-                placeholder="Description"
+                :placeholder="$t('common.description')"
                 v-model="event.description"
               />
           </div>
@@ -128,9 +128,9 @@
     <transition-group
         enter-active-class="transition-all duration-400 ease-out"
         leave-active-class="transition-all duration-400 ease-in"
-        enter-class="opacity-0 scale-40"
+        enter-from-class="opacity-0 scale-40"
         enter-to-class="opacity-100 scale-100"
-        leave-class="opacity-100 scale-100"
+        leave-from-class="opacity-100 scale-100"
         leave-to-class="opacity-0 scale-40"
     >
       <MemoryComponent
@@ -154,15 +154,15 @@
 
     <SlideDownPanelComponent v-if="hasDiary">
         <template #closed-heading>
-            Diary
+            {{ $t('memories.diary') }}
         </template>
           <div v-if="diaryMemories.length > 0">
             <transition-group
                 enter-active-class="transition-all duration-400 ease-out"
                 leave-active-class="transition-all duration-400 ease-in"
-                enter-class="opacity-0 scale-40"
+                enter-from-class="opacity-0 scale-40"
                 enter-to-class="opacity-100 scale-100"
-                leave-class="opacity-100 scale-100"
+                leave-from-class="opacity-100 scale-100"
                 leave-to-class="opacity-0 scale-40"
             >
                 <MemoryComponent
@@ -185,21 +185,21 @@
             </transition-group>
         </div>
         <div class="py-2" v-else>
-          The diary is empty.
+          {{ $t('memories.diaryEmpty') }}
         </div>
     </SlideDownPanelComponent>
 
     <SlideDownPanelComponent>
         <template #closed-heading>
-            Forgotten Memories
+            {{ $t('memories.forgottenHeading') }}
         </template>
           <div v-if="forgottenMemories.length > 0">
             <transition-group
                 enter-active-class="transition-all duration-400 ease-out"
                 leave-active-class="transition-all duration-400 ease-in"
-                enter-class="opacity-0 scale-40"
+                enter-from-class="opacity-0 scale-40"
                 enter-to-class="opacity-100 scale-100"
-                leave-class="opacity-100 scale-100"
+                leave-from-class="opacity-100 scale-100"
                 leave-to-class="opacity-0 scale-40"
             >
                 <MemoryComponent
@@ -221,20 +221,20 @@
             </transition-group>
         </div>
         <div class="py-2" v-else>
-          You have forgotten no memories... yet.
+          {{ $t('memories.noneForgotten') }}
         </div>
     </SlideDownPanelComponent>
 
     <SlideDownPanelComponent v-if="starredMemories.length > 0">
         <template #closed-heading>
-            Starred Memories
+            {{ $t('memories.starredHeading') }}
         </template>
           <transition-group
               enter-active-class="transition-all duration-400 ease-out"
               leave-active-class="transition-all duration-400 ease-in"
-              enter-class="opacity-0 scale-40"
+              enter-from-class="opacity-0 scale-40"
               enter-to-class="opacity-100 scale-100"
-              leave-class="opacity-100 scale-100"
+              leave-from-class="opacity-100 scale-100"
               leave-to-class="opacity-0 scale-40"
           >
               <MemoryComponent
@@ -267,7 +267,10 @@ import MemoryComponent from 'Components/MemoryComponent';
 import SlideDownPanelComponent from 'Components/SlideDownPanelComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapActions, mapMutations, mapState, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useMemoriesStore } from 'Stores/memories';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { memoryEntityFactory, eventEntityFactory } from 'Libs/entities/memories';
 
 export default {
@@ -292,21 +295,23 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapState('memories', ['memories', 'maxMemories']),
-    ...mapGetters('memories', ['canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'events', 'hasEvents']),
-    ...mapGetters('resources', {
-        diary: 'diary', 
-        hasDiary: 'hasDiary', 
-        isDiaryFull: 'isDiaryFull', 
+    ...mapState(useMemoriesStore, ['memories', 'maxMemories', 'canAddMemories', 'forgottenMemories', 'activeMemories', 'starredMemories', 'hasEvents']),
+    ...mapState(useMemoriesStore, {
+        events: 'eventsFor',
+    }),
+    ...mapState(useResourcesStore, {
+        diary: 'diary',
+        hasDiary: 'hasDiary',
+        isDiaryFull: 'isDiaryFull',
         diaryMemories: 'memories',
     }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('memories', [
+    ...mapActions(useMemoriesStore, [
       'addMemory',
       'updateMemory',
       'removeMemory',
@@ -323,7 +328,7 @@ export default {
     validatedAddMemory() {
       this.hideNotification
       if (this.newMemory.description === '') {
-        this.showNotification({message: 'You must provide a description.', type:'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type:'warning'});
         return;
       }
 
@@ -346,7 +351,7 @@ export default {
     },
     validatedRemoveEvent(event) {
       if (event.memory === this.editMemory.id) {
-        this.showNotification({message: 'You cannot alter this memory whilst it is being edited.', type:'warning'});
+        this.showNotification({message: this.$t('memories.editLocked'), type:'warning'});
         return;
       }
 

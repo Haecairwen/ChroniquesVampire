@@ -17,6 +17,7 @@
 
 <script>
 import ButtonComponent from 'Components/ButtonComponent';
+import i18n from '../i18n';
 
 export default {
   name: 'FormComponent',
@@ -27,12 +28,12 @@ export default {
                 {
                     type: 'default',
                     event: 'save',
-                    label: 'Save',
+                    label: i18n.global.t('common.save'),
                 },
                 {
                     type: 'default',
                     event: 'cancel',
-                    label: 'Cancel',
+                    label: i18n.global.t('common.cancel'),
                 },
             ],
           validator: (values) => values.every(btn => {

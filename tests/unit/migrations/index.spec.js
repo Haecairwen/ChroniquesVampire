@@ -1,6 +1,6 @@
 import migrator from 'Migrations';
 
-const mockMigrationModule = jest.fn();
+const mockMigrationModule = vi.fn();
 
 describe('migrations/index.js', () => {
     beforeEach(() => { 

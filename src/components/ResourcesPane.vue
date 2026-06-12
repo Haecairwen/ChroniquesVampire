@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="resources">
-    <HeadingComponent level="2">Resources</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('resources.heading') }}</HeadingComponent>
     <FormToggleComponent 
       class="my-2"
       @save="validatedAddResource"
@@ -8,11 +8,11 @@
       :show-controls="showAddingResourceControls"
     >
       <template #button>
-        Add a new Resource?
+        {{ $t('resources.add') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="newResource.name"
           @keyup.enter="validatedAddResource"
         />
@@ -20,13 +20,13 @@
           <CheckboxComponent
             v-model="newResource.lost"
           />
-          Lost?
+          {{ $t('resources.lost') }}
         </label>
         <label>
           <CheckboxComponent
             v-model="newResource.stationary"
           />
-          Stationary?
+          {{ $t('resources.stationary') }}
         </label>
       </template>
     </FormToggleComponent>
@@ -38,11 +38,11 @@
       v-if="!hasDiary"
     >
       <template #button>
-        Add a Diary?
+        {{ $t('resources.addDiary') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Name"
+          :placeholder="$t('common.name')"
           v-model="newDiary.name"
           @keyup.enter="addDiary"
         />
@@ -50,7 +50,7 @@
           <CheckboxComponent
             v-model="newDiary.lost"
           />
-          Lost?
+          {{ $t('resources.lost') }}
         </label>
       </template>
     </FormToggleComponent>
@@ -65,22 +65,22 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
       <TextInputComponent
-        placeholder="Description"
+        :placeholder="$t('common.description')"
         v-model="editResource.name"
         @keyup.enter="validatedAddResource"
       />
@@ -88,13 +88,13 @@
         <CheckboxComponent
           v-model="editResource.lost"
         />
-        Lost?
+        {{ $t('resources.lost') }}
       </label>
       <label>
         <CheckboxComponent
           v-model="editResource.stationary"
         />
-        Stationary?
+        {{ $t('resources.stationary') }}
       </label>
     </FormComponent>
 
@@ -108,22 +108,22 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
       <TextInputComponent
-        placeholder="Description"
+        :placeholder="$t('common.description')"
         v-model="editDiary.name"
         @keyup.enter="validatedAddResource"
       />
@@ -131,7 +131,7 @@
         <CheckboxComponent
           v-model="editDiary.lost"
         />
-        Lost?
+        {{ $t('resources.lost') }}
       </label>
     </FormComponent>
 
@@ -140,9 +140,9 @@
       tag="ul"
       enter-active-class="transition-all duration-100 ease-out"
       leave-active-class="transition-all duration-100 ease-in"
-      enter-class="opacity-0"
+      enter-from-class="opacity-0"
       enter-to-class="opacity-100"
-      leave-class="opacity-100"
+      leave-from-class="opacity-100"
       leave-to-class="opacity-0"
       move-class="transition-transform duration-500 ease-in-out"
     >
@@ -158,14 +158,14 @@
               @click="validatedToggleResource(resource)"
             >
               <span :class="{'line-through': resource.lost}">{{resource.name}}</span>
-              <span v-if="resource.stationary"> (stationary)</span>
+              <span v-if="resource.stationary"> {{ $t('resources.stationaryTag') }}</span>
             </span>
           </span>
           <span 
               class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEditResource(resource)"
             >
-            Edit
+            {{ $t('common.edit') }}
           </span>
         </div>
       </li>
@@ -175,9 +175,9 @@
       tag="ul"
       enter-active-class="transition-all duration-100 ease-out"
       leave-active-class="transition-all duration-100 ease-in"
-      enter-class="opacity-0"
+      enter-from-class="opacity-0"
       enter-to-class="opacity-100"
-      leave-class="opacity-100"
+      leave-from-class="opacity-100"
       leave-to-class="opacity-0"
       move-class="transition-transform duration-500 ease-in-out"
       v-show="diaries.length > 0"
@@ -194,17 +194,17 @@
               @click="validatedToggleDiary(diary)"
             >
               <span :class="{'line-through': diary.lost}">{{diary.name}}</span>
-              <span class="italic"> (diary - {{ activeMemories.length }} of {{ maxDiaryMemories }} memories)</span>
+              <span class="italic"> {{ $t('resources.diaryInfo', { active: activeMemories.length, max: maxDiaryMemories }) }}</span>
             </span>
             <span
               class="cursor-pointer hover:text-blood-400 px-1"
-              title="The diary has decayed and lost capacity"
+              :title="$t('resources.diaryDecayed')"
               @click="decrementMaxDiaryMemories"
               v-html="'&minus;'"
             />
             <span
               class="cursor-pointer hover:text-blood-400 px-1"
-              title="The diary has been expanded"
+              :title="$t('resources.diaryExpanded')"
               @click="incrementMaxDiaryMemories"
               v-html="'&plus;'"
             />
@@ -213,7 +213,7 @@
               class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEditDiary(diary)"
             >
-            Edit
+            {{ $t('common.edit') }}
           </span>
         </div>
       </li>
@@ -228,7 +228,9 @@ import FormComponent from 'Components/FormComponent';
 import FormToggleComponent from 'Components/FormToggleComponent';
 import CheckboxComponent from 'Components/CheckboxComponent';
 import TextInputComponent from 'Components/TextInputComponent';
-import { mapMutations, mapActions, mapGetters, mapState } from 'vuex';
+import { mapState, mapActions } from 'pinia';
+import { useResourcesStore } from 'Stores/resources';
+import { useNotificationsStore } from 'Stores/notifications';
 import { resourceEntityFactory, diaryEntityFactory } from 'Libs/entities/resources';
 
 export default {
@@ -254,15 +256,18 @@ export default {
       TextInputComponent,
     },
   computed: {
-    ...mapState('resources', ['maxDiaryMemories']),
-    ...mapGetters('resources', ['hasDiary', 'diaries', 'resources', 'diary', 'activeMemories']),
+    ...mapState(useResourcesStore, ['maxDiaryMemories', 'hasDiary', 'diary', 'activeMemories']),
+    ...mapState(useResourcesStore, {
+      diaries: 'sortedDiaries',
+      resources: 'sortedResources',
+    }),
   },
   methods: {
-    ...mapMutations('notifications', {
-      hideNotification: 'hide'
+    ...mapActions(useNotificationsStore, {
+      hideNotification: 'hide',
+      showNotification: 'showNotification',
     }),
-    ...mapActions('notifications', ['showNotification']),
-    ...mapMutations('resources', [
+    ...mapActions(useResourcesStore, [
       'addResource',
       'updateResource',
       'removeResource',
@@ -276,7 +281,7 @@ export default {
     ]),
     validatedAddResource(){
       if (this.newResource.name === '') {
-        this.showNotification({message: 'You must provide a description.', type: 'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type: 'warning'});
         return;
       }
 
@@ -287,7 +292,7 @@ export default {
       this.hideNotification();
 
       if (this.editResource.id === resource.id) {
-        this.showNotification({message: 'You cannot change this resource whilst it is being edited.', type:'warning'});
+        this.showNotification({message: this.$t('resources.editLocked'), type:'warning'});
         return;
       }
 
@@ -297,16 +302,16 @@ export default {
       this.hideNotification();
 
       if (this.editDiary.id === diary.id) {
-        this.showNotification({message: 'You cannot change this resource whilst it is being edited.', type:'warning'});
+        this.showNotification({message: this.$t('resources.editLocked'), type:'warning'});
         return;
       }
 
       if (this.hasDiary) {
         if (diary.lost ) {
-          this.showNotification({message: 'You may only have one active diary.', type: 'warning'});
+          this.showNotification({message: this.$t('resources.oneDiary'), type: 'warning'});
           return;
         } else if (this.activeMemories.length > 0) {
-          this.showNotification({message: 'Please cross out existing memories before losing the diary.', type: 'warning'});
+          this.showNotification({message: this.$t('resources.crossOutFirst'), type: 'warning'});
           return;
         }
       }
@@ -315,10 +320,10 @@ export default {
     },
     validatedAddDiary() {
       if (this.newDiary.name === '') {
-        this.showNotification({message: 'You must provide a description.', type: 'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type: 'warning'});
         return;
       } else if (this.hasDiary) {
-        this.showNotification({message: 'You may only have one active diary.', type: 'warning'});
+        this.showNotification({message: this.$t('resources.oneDiary'), type: 'warning'});
         return;
       }
 
@@ -327,7 +332,7 @@ export default {
     },
     validatedUpdateResource() {
       if (this.editResource.name === '') {
-        this.showNotification({message: 'You must provide a description.', type: 'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type: 'warning'});
         return;
       }
 
@@ -337,10 +342,10 @@ export default {
     },
     validatedUpdateDiary(){
       if (this.editDiary.name === '') {
-        this.showNotification({message: 'You must provide a description.', type: 'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type: 'warning'});
         return;
       } else if (this.diary && this.editDiary.id !== this.diary.id && this.editDiary.lost === false) {
-        this.showNotification({message: 'You may only have one active diary.', type: 'warning'});
+        this.showNotification({message: this.$t('resources.oneDiary'), type: 'warning'});
         return;
       }
 

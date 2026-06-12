@@ -4,8 +4,8 @@ describe('lib/localStorage.js', () => {
     it.each([
         'foo', true, 123, {foo: 123}
     ])('Can set a value in storage.', (input) => { 
-        const stringify = jest.spyOn(JSON, 'stringify');
-        const setItem = jest.spyOn(global.localStorage.__proto__, 'setItem');
+        const stringify = vi.spyOn(JSON, 'stringify');
+        const setItem = vi.spyOn(global.localStorage.__proto__, 'setItem');
 
         localStorage.set('foo', input);
 
@@ -21,10 +21,10 @@ describe('lib/localStorage.js', () => {
         ['bar', 'bar']
 
     ])('Can retrieve a value from storage.', (key, value) => { 
-        const parse = jest.spyOn(JSON, 'parse');
+        const parse = vi.spyOn(JSON, 'parse');
         parse.mockImplementation(val => val);
 
-        const getItem = jest.spyOn(global.localStorage.__proto__, 'getItem');
+        const getItem = vi.spyOn(global.localStorage.__proto__, 'getItem');
         getItem.mockReturnValue(value);
 
         const result = localStorage.get(key);
@@ -41,9 +41,9 @@ describe('lib/localStorage.js', () => {
         const value = 'bar';
         const key = 'foo';
 
-        const parse = jest.spyOn(JSON, 'parse');
+        const parse = vi.spyOn(JSON, 'parse');
 
-        const getItem = jest.spyOn(global.localStorage.__proto__, 'getItem');
+        const getItem = vi.spyOn(global.localStorage.__proto__, 'getItem');
         getItem.mockReturnValue(value);
 
         parse.mockImplementation(() => {
@@ -61,8 +61,8 @@ describe('lib/localStorage.js', () => {
         )('Checks local storage support.', (supportCheckFn) => { 
 
             it('Can have support checked and confirmed.', () => {
-                const setItem = jest.spyOn(global.localStorage.__proto__, 'setItem');
-                const removeItem = jest.spyOn(global.localStorage.__proto__, 'removeItem');
+                const setItem = vi.spyOn(global.localStorage.__proto__, 'setItem');
+                const removeItem = vi.spyOn(global.localStorage.__proto__, 'removeItem');
 
                 const isSupported = supportCheckFn();
 
@@ -72,8 +72,8 @@ describe('lib/localStorage.js', () => {
             });
 
             it('Can have support checked and denied.', () => {
-                const setItem = jest.spyOn(global.localStorage.__proto__, 'setItem');
-                const removeItem = jest.spyOn(global.localStorage.__proto__, 'removeItem');
+                const setItem = vi.spyOn(global.localStorage.__proto__, 'setItem');
+                const removeItem = vi.spyOn(global.localStorage.__proto__, 'removeItem');
 
                 removeItem.mockImplementation(() => { 
                     throw 'should not be supported.';

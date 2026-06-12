@@ -42,7 +42,7 @@ describe("components/HeadingComponent.vue", () => {
 
   it("Can set the default slot", () => {
     const wrapper = shallowMount(HeadingComponent, {
-      propsData: {
+      props: {
         level: "1",
       },
       slots: {
@@ -60,7 +60,7 @@ describe("components/HeadingComponent.vue", () => {
     "Adds the correct default classes to the heading tag",
     (lvl) => {
       const wrapper = shallowMount(HeadingComponent, {
-        propsData: {
+        props: {
           level: `${lvl}`,
         },
         slots: {
@@ -78,7 +78,7 @@ describe("components/HeadingComponent.vue", () => {
 
   it("Can add extra classes to the heading tag", () => {
     const wrapper = shallowMount(HeadingComponent, {
-      propsData: {
+      props: {
         level: "1",
       },
       slots: {
@@ -104,7 +104,7 @@ describe("components/HeadingComponent.vue", () => {
     "Only allows level prop values from 1 to 6 - convert $given to $replacement",
     ({ given, replacement }) => {
       const wrapper = shallowMount(HeadingComponent, {
-        propsData: {
+        props: {
           level: `${given}`,
         },
         slots: {
@@ -117,25 +117,23 @@ describe("components/HeadingComponent.vue", () => {
     }
   );
 
-  it("Adds both static and dynamic classes to the heading tag", () => {
-    const context = {
+  it("Merges extra classes with the default heading classes", () => {
+    const wrapper = shallowMount(HeadingComponent, {
       props: {
         level: "1",
       },
       attrs: {
-        class: "text-red-500",
+        class: "text-red-500 text-green-500",
       },
-      staticClass: "text-green-500",
-      class: { "text-grey-500": true },
-    };
-
-    const wrapper = shallowMount(HeadingComponent, { context });
+    });
 
     const heading = wrapper.find("h1");
 
     expect(heading.exists()).toBe(true);
     expect(heading.classes()).toContain("text-red-500");
     expect(heading.classes()).toContain("text-green-500");
-    expect(heading.classes()).toContain("text-grey-500");
+    expect(heading.classes()).toEqual(
+      expect.arrayContaining([...HEADING_STYLES.base, ...HEADING_STYLES[1]])
+    );
   });
 });

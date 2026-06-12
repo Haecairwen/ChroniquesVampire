@@ -1,28 +1,25 @@
-import { createLocalVue } from '@vue/test-utils';
-import Vuex from 'vuex';
-import actionsModule from 'Stores/actions';
+import { setActivePinia, createPinia } from 'pinia';
+import { useActionsStore } from 'Stores/actions';
 import { randomRange } from 'Libs/random';
 
-jest.mock('Libs/random');
+vi.mock('Libs/random');
 
-const localVue = createLocalVue();
-localVue.use(Vuex);
+const buildStore = (state = {}) => {
+  setActivePinia(createPinia());
 
-const buildStore = (state = {}) => new Vuex.Store({
-  modules: {
-    actions: {
-      ...actionsModule,
-      state: {
-        d6: NaN,
-        d10: NaN,
-        lastRoll: '?',
-        currentPromptIdx: 0,
-        prompts: [],
-        ...state,
-      },
-    },
-  },
-});
+  const store = useActionsStore();
+
+  store.$patch((current) => Object.assign(current, {
+    d6: NaN,
+    d10: NaN,
+    lastRoll: '?',
+    currentPromptIdx: 0,
+    prompts: [],
+    ...state,
+  }));
+
+  return store;
+};
 
 // The roll action rolls d6 first, then d10.
 const mockDice = (d6, d10) => {
@@ -40,9 +37,9 @@ describe('store/actions roll', () => {
 
     mockDice(2, 5); // die = +3
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    const current = store.getters['actions/currentPrompt'];
+    const current = store.currentPrompt;
 
     expect(current.page).toEqual(6);
     expect(current.count).toEqual(1);
@@ -53,9 +50,9 @@ describe('store/actions roll', () => {
 
     mockDice(1, 5); // die = +4
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    const current = store.getters['actions/currentPrompt'];
+    const current = store.currentPrompt;
 
     expect(current.page).toEqual(5);
     expect(current.count).toEqual(1);
@@ -69,9 +66,9 @@ describe('store/actions roll', () => {
 
     mockDice(4, 2); // die = -2
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    const current = store.getters['actions/currentPrompt'];
+    const current = store.currentPrompt;
 
     expect(current.page).toEqual(3);
     expect(current.count).toEqual(2);
@@ -85,9 +82,9 @@ describe('store/actions roll', () => {
 
     mockDice(6, 1); // die = -5
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    const current = store.getters['actions/currentPrompt'];
+    const current = store.currentPrompt;
 
     expect(current.page).toEqual(4);
     expect(current.count).toEqual(1);
@@ -104,10 +101,10 @@ describe('store/actions roll', () => {
 
     mockDice(5, 5); // die = 0, third visit exhausted -> page 4
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    const current = store.getters['actions/currentPrompt'];
-    const prompts = store.getters['actions/journalEntries'];
+    const current = store.currentPrompt;
+    const prompts = store.journalEntries;
 
     expect(prompts.length).toEqual(2);
     expect(current.id).toEqual('b');
@@ -126,8 +123,8 @@ describe('store/actions roll', () => {
 
     mockDice(1, 1);
 
-    store.dispatch('actions/roll');
+    store.roll();
 
-    expect(store.state.actions.lastRoll).toEqual('3 (+5, -2)');
+    expect(store.lastRoll).toEqual('3 (+5, -2)');
   });
 });

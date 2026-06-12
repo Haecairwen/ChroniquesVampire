@@ -1,74 +1,44 @@
 import migrator from 'Migrations';
+import { defaultGameState } from 'Libs/defaultGameState';
+import { useActionsStore } from 'Stores/actions';
+import { useCharactersStore } from 'Stores/characters';
+import { useMarksStore } from 'Stores/marks';
+import { useMemoriesStore } from 'Stores/memories';
+import { useResourcesStore } from 'Stores/resources';
+import { useSkillsStore } from 'Stores/skills';
+
+export { defaultGameState } from 'Libs/defaultGameState';
 
 export const SIGNATURE = 4;
 
-export const getStateFromStore = (store) => {
+export const getStateFromStore = () => {
+    const actions = useActionsStore();
+    const characters = useCharactersStore();
+    const marks = useMarksStore();
+    const memories = useMemoriesStore();
+    const resources = useResourcesStore();
+    const skills = useSkillsStore();
+
     return {
-        d6: store.state.actions.d6,
-        d10: store.state.actions.d10,
-        lastRoll: store.state.actions.lastRoll,
-        prompts: store.state.actions.prompts,
-        currentPromptIdx: store.state.actions.currentPromptIdx,
-        characters: store.state.characters.characters,
-        marks: store.state.marks.marks,
-        memories: store.state.memories.memories,
-        events: store.state.memories.events,
-        maxMemories: store.state.memories.maxMemories,
-        resources: store.state.resources.resources,
-        diaries: store.state.resources.diaries,
-        maxDiaryMemories: store.state.resources.maxDiaryMemories,
-        skills: store.state.skills.skills,
+        d6: actions.d6,
+        d10: actions.d10,
+        lastRoll: actions.lastRoll,
+        prompts: actions.prompts,
+        currentPromptIdx: actions.currentPromptIdx,
+        characters: characters.characters,
+        marks: marks.marks,
+        memories: memories.memories,
+        events: memories.events,
+        maxMemories: memories.maxMemories,
+        resources: resources.resources,
+        diaries: resources.diaries,
+        maxDiaryMemories: resources.maxDiaryMemories,
+        skills: skills.skills,
         __SIGNATURE__: SIGNATURE,
     };
 };
 
-export const defaultGameState = (section) => {
-    const state = { 
-        actions: {
-            d6: NaN,
-            d10: NaN,
-            lastRoll: '?',
-            currentPromptIdx: 0,
-            prompts: []
-        },
-        characters: {
-            characters: []
-        },
-        marks: {
-            marks: [],
-        },
-        memories: {
-            memories: [],
-            events: [],
-            maxMemories: 5,
-        },
-        skills: {
-            skills: []
-        },
-        resources: {
-            resources: [],
-            diaries: [],
-            maxDiaryMemories: 4,
-        },
-    };
-
-    if (section) {
-        return {
-            ...state[section] ?? {}
-        }
-    }
-
-    return {
-        ...state.actions,
-        ...state.characters,
-        ...state.marks,
-        ...state.memories,
-        ...state.resources,
-        ...state.skills
-    };
-}
-
-export const restoreState = async (store, data) => {
+export const restoreState = async (data) => {
     data =  {
         ...defaultGameState(),
         ...data,
@@ -76,13 +46,15 @@ export const restoreState = async (store, data) => {
 
     data = await migrator.migrate(data, SIGNATURE);
 
-    store.commit('actions/saveRoll', data.lastRoll ?? '?');
+    const actions = useActionsStore();
 
-    store.commit('actions/setD6', data.d6 ?? NaN);
+    actions.saveRoll(data.lastRoll ?? '?');
 
-    store.commit('actions/setD10', data.d10 ?? NaN);
+    actions.d6 = data.d6 ?? NaN;
 
-    store.commit('actions/setCurrentPromptIdx', data.currentPromptIdx ?? 0);
+    actions.d10 = data.d10 ?? NaN;
+
+    actions.setCurrentPromptIdx(data.currentPromptIdx ?? 0);
 
     const prompts = Array.isArray(data.prompts) ? data.prompts : [];
 
@@ -90,31 +62,35 @@ export const restoreState = async (store, data) => {
         prompt.page = parseInt(prompt.page, 10);
         prompt.count = parseInt(prompt.count, 10);
     });
-    
-    store.commit('actions/setPrompts', prompts);
 
-    store.commit('characters/set', Array.isArray(data.characters) ? data.characters : []);
+    actions.setPrompts(prompts);
 
-    store.commit('marks/set', Array.isArray(data.marks) ? data.marks : []);
+    useCharactersStore().set(Array.isArray(data.characters) ? data.characters : []);
 
-    store.commit('memories/setMemories', Array.isArray(data.memories) ? data.memories : []);
+    useMarksStore().set(Array.isArray(data.marks) ? data.marks : []);
 
-    store.commit('memories/setEvents', Array.isArray(data.events) ? data.events : []);
+    const memories = useMemoriesStore();
 
-    store.commit('memories/setMaxMemories', data.maxMemories ?? 5);
+    memories.setMemories(Array.isArray(data.memories) ? data.memories : []);
 
-    store.commit('resources/setResources', Array.isArray(data.resources) ? data.resources : []);
+    memories.setEvents(Array.isArray(data.events) ? data.events : []);
 
-    store.commit('resources/setDiaries', Array.isArray(data.diaries) ? data.diaries : []);
+    memories.setMaxMemories(data.maxMemories ?? 5);
 
-    store.commit('resources/setMaxDiaryMemories', data.maxDiaryMemories ?? 4);
+    const resources = useResourcesStore();
 
-    store.commit('skills/set', Array.isArray(data.skills) ? data.skills : []);
+    resources.setResources(Array.isArray(data.resources) ? data.resources : []);
+
+    resources.setDiaries(Array.isArray(data.diaries) ? data.diaries : []);
+
+    resources.setMaxDiaryMemories(data.maxDiaryMemories ?? 4);
+
+    useSkillsStore().set(Array.isArray(data.skills) ? data.skills : []);
 }
 
 /**
  * Serializes the data for saving.
- * 
+ *
  * @param {Object} data Data to serialise
  * @returns string
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa
@@ -124,7 +100,7 @@ export const serialize = (data) => {
 
     try {
         raw = JSON.stringify(data);
-    } catch (err) {
+    } catch {
         throw 'Unable to serialize data structure.';
     }
 
@@ -140,7 +116,7 @@ export const serialize = (data) => {
 
 /**
  * Desirailizes the data for consumption.
- * 
+ *
  * @param {String} data Data to deserialise
  * @returns Object
  * @see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/btoa
@@ -156,7 +132,7 @@ export const deserialize = (data) => {
 
     try {
         return JSON.parse(String.fromCharCode(...new Uint16Array(codePoints.buffer)))
-    } catch (err) {
+    } catch {
         throw 'Unable to parse deserialised data.'
     }
 }

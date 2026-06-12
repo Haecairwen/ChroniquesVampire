@@ -1,7 +1,7 @@
 import { baseEntityFactory } from 'Libs/entities';
 import characters from 'Libs/entities/characters';
 
-jest.mock('Libs/entities');
+vi.mock('Libs/entities');
 
 describe('lib/entities/characters.js', () => {
     it('Can create a default character entity.', () => { 
