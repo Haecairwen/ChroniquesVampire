@@ -1,7 +1,7 @@
 <template>
     <SlideDownPanelComponent v-model="loading">
         <template #closed-heading>
-            Load
+            {{ $t('load.heading') }}
         </template>
         <div class="grid grid-rows gap-1 my-2">
             <input 
@@ -14,14 +14,14 @@
               class="w-full"
               @click="confirmThen('file', () => $refs.upload.click())"
             >
-              {{ armed === 'file' ? 'Overwrite current game?' : 'From File' }}
+              {{ armed === 'file' ? $t('load.overwrite') : $t('load.fromFile') }}
             </ButtonComponent>
             <ButtonComponent
               class="w-full"
               @click="confirmThen('storage', fromLocalStorage)"
               v-if="supportsLocalStorage"
             >
-              {{ armed === 'storage' ? 'Overwrite current game?' : 'From Local Storage' }}
+              {{ armed === 'storage' ? $t('load.overwrite') : $t('load.fromLocalStorage') }}
             </ButtonComponent>
         </div>
     </SlideDownPanelComponent>
@@ -79,7 +79,7 @@ export default {
     },
     load(evt) {
       if (evt.target.files.length !== 1) { 
-        this.showNotification({message: 'Unable to load file.  You must select one file to load.', type: 'warning'});
+        this.showNotification({message: this.$t('load.needOneFile'), type: 'warning'});
         return;
       }
 
@@ -95,13 +95,13 @@ export default {
             restoreState(data);
             this.loading = false;
           } catch {
-            this.showNotification({message: 'Unable to decode save state.', type:'danger'});
+            this.showNotification({message: this.$t('load.decodeError'), type:'danger'});
           }
 
         }
 
         reader.onerror = () => {
-          this.showNotification({message: 'Unable to read file.', type:'danger'});
+          this.showNotification({message: this.$t('common.readError'), type:'danger'});
         }
         
         reader.readAsText(file);
@@ -113,7 +113,7 @@ export default {
         const data = deserialize(localStorage.get('save-game'));
         restoreState(data);
       } catch {
-        this.showNotification({message: 'Unable to decode save state.', type:'danger'});
+        this.showNotification({message: this.$t('load.decodeError'), type:'danger'});
       }
 
       this.loading = false;

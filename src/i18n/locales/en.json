@@ -1,6 +1,132 @@
 {
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "remove": "Remove",
+    "close": "Close",
+    "show": "Show",
+    "edit": "Edit",
+    "name": "Name",
+    "description": "Description",
+    "sure": "Sure?",
+    "confirmRemove": "Click again to confirm",
+    "removeItem": "Remove item",
+    "needDescription": "You must provide a description.",
+    "readError": "Unable to read file."
+  },
+  "menu": {
+    "button": "Menu"
+  },
   "settings": {
     "heading": "Settings",
     "language": "Language"
+  },
+  "journal": {
+    "heading": "Journal",
+    "move": "move",
+    "rollButton": "Roll for the next prompt",
+    "currentPrompt": "Current prompt:",
+    "lastRoll": "Last roll: {roll}",
+    "empty": "Your story has not yet begun. Roll for your first prompt.",
+    "prompt": "Prompt {page}",
+    "noText": "Prompt text not yet available.",
+    "entryPlaceholder": "What happened?",
+    "setCurrent": "Set as current prompt",
+    "incrementVisits": "Increment visits",
+    "decrementVisits": "Decrement visits",
+    "manualAdd": "Manually add a prompt",
+    "promptNumber": "Prompt Number:",
+    "timesVisited": "Times visited:",
+    "current": "Current?",
+    "duplicatePrompt": "This prompt already exists, you cannot re-add it",
+    "narrationForward": "The night carries you forward to prompt {page}.",
+    "narrationHeld": "The past holds you — visit {count} of prompt {page}.",
+    "narrationExhausted": "Three visits exhausted — you move on to prompt {page}."
+  },
+  "memories": {
+    "heading": "Memories",
+    "loseSlot": "Lose a Memory slot",
+    "gainSlot": "Gain a Memory slot",
+    "slots": "{active} of {max} memories",
+    "add": "Add a new Memory?",
+    "forgotten": "Forgotten?",
+    "diarised": "Diarised?",
+    "full": "Your mind is full. You must forget a memory to make room for more.",
+    "events": "Events",
+    "diary": "Diary",
+    "diaryEmpty": "The diary is empty.",
+    "forgottenHeading": "Forgotten Memories",
+    "noneForgotten": "You have forgotten no memories... yet.",
+    "starredHeading": "Starred Memories",
+    "starTitle": "Cemented forever — this memory no longer takes up a slot and can never be changed or lost.",
+    "eventCount": "{count}/3",
+    "addEvent": "Add an Event?",
+    "recover": "Recover Memory",
+    "forget": "Forget Memory",
+    "scratchOut": "Scratch Out Memory",
+    "sendToDiary": "Send to Diary",
+    "recoverFromDiary": "Recover from Diary",
+    "publish": "Publish Memory",
+    "cementForever": "Cement forever?",
+    "editLocked": "You cannot alter this memory whilst it is being edited."
+  },
+  "characters": {
+    "heading": "Characters",
+    "add": "Add a new Character?",
+    "bio": "Bio",
+    "immortal": "Immortal?",
+    "dead": "Dead?",
+    "immortalTag": "(Immortal)",
+    "editLocked": "You cannot change this character whilst it is being edited.",
+    "needNameBio": "You must provide a name & bio."
+  },
+  "marks": {
+    "heading": "Marks",
+    "add": "Add a new Mark?"
+  },
+  "skills": {
+    "heading": "Skills",
+    "add": "Add a new Skill?",
+    "checked": "Checked?",
+    "editLocked": "You cannot change this skill whilst it is being edited."
+  },
+  "resources": {
+    "heading": "Resources",
+    "add": "Add a new Resource?",
+    "addDiary": "Add a Diary?",
+    "lost": "Lost?",
+    "stationary": "Stationary?",
+    "stationaryTag": "(stationary)",
+    "diaryInfo": "(diary - {active} of {max} memories)",
+    "diaryDecayed": "The diary has decayed and lost capacity",
+    "diaryExpanded": "The diary has been expanded",
+    "editLocked": "You cannot change this resource whilst it is being edited.",
+    "oneDiary": "You may only have one active diary.",
+    "crossOutFirst": "Please cross out existing memories before losing the diary."
+  },
+  "save": {
+    "heading": "Save",
+    "toFile": "To File",
+    "toLocalStorage": "To Local Storage"
+  },
+  "load": {
+    "heading": "Load",
+    "fromFile": "From File",
+    "fromLocalStorage": "From Local Storage",
+    "overwrite": "Overwrite current game?",
+    "needOneFile": "Unable to load file. You must select one file to load.",
+    "decodeError": "Unable to decode save state."
+  },
+  "import": {
+    "heading": "Import Prompts",
+    "explanation": "Paste the Prompts section from your copy of the book as plain text (headers like 1a, 1b, 1c followed by the prompt text), or choose a .txt file. The journal will then show each prompt's text based on the page and visit.",
+    "packLoaded": "A prompt pack is already loaded; importing replaces it.",
+    "placeholder": "1a\nIn your blood-hunger, you destroy someone close to you. ...",
+    "fromFile": "Or import from a file:",
+    "button": "Import",
+    "needOneFile": "You must select one file to import.",
+    "nothingFound": "No prompts found. Paste the Prompts section of the book as plain text.",
+    "success": "Imported {count} prompts.",
+    "successWarnings": "Imported {count} prompts ({warnings} warning). | Imported {count} prompts ({warnings} warnings)."
   }
 }

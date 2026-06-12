@@ -1,17 +1,17 @@
 <template>
   <CardComponent id="marks">
-    <HeadingComponent level="2">Marks</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('marks.heading') }}</HeadingComponent>
     <FormToggleComponent 
       @save="validatedAddMark"
       @toggle="toggleAddingControls"
       :show-controls="showAddingControls"
     >
       <template #button>
-        Add a new Mark?
+        {{ $t('marks.add') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="newMark.description"
           @keyup.enter="validatedAddMark"
         />
@@ -28,22 +28,22 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
       <TextInputComponent
-        placeholder="Description"
+        :placeholder="$t('common.description')"
         v-model="editMark.description"
         @keyup.enter="validatedUpdateMark"
       />
@@ -71,7 +71,7 @@
               class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEdit(mark)"
             >
-              Edit
+              {{ $t('common.edit') }}
             </span>
           </div>
       </li>
@@ -122,7 +122,7 @@ export default{
     ]),
     validatedAddMark() {
       if (this.newMark.description === '') {
-        this.showNotification({message: 'You must provide a description', type:'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type:'warning'});
         return;
       }
       
@@ -146,7 +146,7 @@ export default{
     },
     validatedUpdateMark() {
       if (this.editMark.description === '') {
-        this.showNotification({message: 'You must provide a description', type:'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type:'warning'});
         return;
       }
 

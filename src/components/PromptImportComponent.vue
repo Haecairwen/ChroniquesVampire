@@ -1,31 +1,28 @@
 <template>
     <SlideDownPanelComponent v-model="importing">
         <template #closed-heading>
-            Import Prompts
+            {{ $t('import.heading') }}
         </template>
         <template #open-heading>
-            Import Prompts
+            {{ $t('import.heading') }}
         </template>
 
         <p class="text-sm text-night-400 my-2">
-            Paste the Prompts section from your copy of the book as plain
-            text (headers like 1a, 1b, 1c followed by the prompt text), or
-            choose a .txt file. The journal will then show each prompt's
-            text based on the page and visit.
+            {{ $t('import.explanation') }}
         </p>
 
         <p class="text-sm text-gilt-300 my-2" v-if="hasTexts">
-            A prompt pack is already loaded; importing replaces it.
+            {{ $t('import.packLoaded') }}
         </p>
 
         <TextAreaComponent
             v-model="pasted"
             rows="6"
-            placeholder="1a&#10;In your blood-hunger, you destroy someone close to you. ..."
+            :placeholder="$t('import.placeholder')"
         />
 
         <label class="block my-2 text-sm">
-            Or import from a file:
+            {{ $t('import.fromFile') }}
             <input
                 type="file"
                 accept=".txt,text/plain"
@@ -39,7 +36,7 @@
             class="w-full my-2"
             @click="importPasted"
         >
-            Import
+            {{ $t('import.button') }}
         </ButtonComponent>
     </SlideDownPanelComponent>
 </template>
@@ -76,7 +73,7 @@ export default {
     },
     fromFile(evt) {
       if (evt.target.files.length !== 1) {
-        this.showNotification({message: 'You must select one file to import.', type: 'warning'});
+        this.showNotification({message: this.$t('import.needOneFile'), type: 'warning'});
         return;
       }
 
@@ -87,7 +84,7 @@ export default {
       };
 
       reader.onerror = () => {
-        this.showNotification({message: 'Unable to read file.', type: 'danger'});
+        this.showNotification({message: this.$t('common.readError'), type: 'danger'});
       };
 
       reader.readAsText(evt.target.files[0]);
@@ -96,13 +93,15 @@ export default {
       const { imported, warnings } = this.importFromText(raw);
 
       if (imported === 0) {
-        this.showNotification({message: warnings[0] ?? 'No prompts found.', type: 'warning'});
+        this.showNotification({message: this.$t('import.nothingFound'), type: 'warning'});
         return;
       }
 
-      const summary = warnings.length ? ` (${warnings.length} warning${warnings.length > 1 ? 's' : ''})` : '';
+      const message = warnings.length
+        ? this.$t('import.successWarnings', { count: imported, warnings: warnings.length }, warnings.length)
+        : this.$t('import.success', { count: imported });
 
-      this.showNotification({message: `Imported ${imported} prompts${summary}.`, type: 'default'});
+      this.showNotification({message, type: 'default'});
 
       this.pasted = '';
       this.importing = false;

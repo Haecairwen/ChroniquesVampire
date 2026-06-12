@@ -1,17 +1,17 @@
 <template>
   <CardComponent id="skills">
-    <HeadingComponent level="2">Skills</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('skills.heading') }}</HeadingComponent>
     <FormToggleComponent 
       @save="validatedAddSkill"
       @toggle="toggleAddingControls"
       :show-controls="showAddingControls"
     >
       <template #button>
-        Add a new Skill?
+        {{ $t('skills.add') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Description"
+          :placeholder="$t('common.description')"
           v-model="newSkill.name"
           @keyup.enter="validatedAddSkill"
         />
@@ -19,7 +19,7 @@
           <CheckboxComponent
             v-model="newSkill.checked"
           />
-          Checked?
+          {{ $t('skills.checked') }}
         </label>
       </template>
     </FormToggleComponent>
@@ -34,22 +34,22 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
       <TextInputComponent
-        placeholder="Description"
+        :placeholder="$t('common.description')"
         v-model="editSkill.name"
         @keyup.enter="validatedUpdateSkill"
       />
@@ -57,7 +57,7 @@
           <CheckboxComponent
             v-model="editSkill.checked"
           />
-          Checked?
+          {{ $t('skills.checked') }}
         </label>
     </FormComponent>
 
@@ -93,7 +93,7 @@
               class="cursor-pointer select-none flex-initial text-right mx-2 hover:text-blood-400"
               @click="startEdit(skill)"
             >
-            Edit
+            {{ $t('common.edit') }}
           </span>
       </div>
       </li>
@@ -150,7 +150,7 @@ export default {
     ]),
     validatedAddSkill(){
       if (this.newSkill.name === '') {
-        this.showNotification({message: 'You must provide a description.', type:'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type:'warning'});
         return;
       }
 
@@ -166,7 +166,7 @@ export default {
       this.hideNotification();
 
       if (this.editSkill.id === skill.id) {
-        this.showNotification({message: 'You cannot change this skill whilst it is being edited.', type:'warning'});
+        this.showNotification({message: this.$t('skills.editLocked'), type:'warning'});
         return;
       }
 
@@ -174,7 +174,7 @@ export default {
     },
     validatedUpdateSkill() {
       if (this.editSkill.name === '') {
-        this.showNotification({message: 'You must provide a description', type:'warning'});
+        this.showNotification({message: this.$t('common.needDescription'), type:'warning'});
         return;
       }
 

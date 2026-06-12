@@ -6,7 +6,7 @@
         :type="open ? 'secondary' : 'default'"
         @click="toggle"
       >
-        Menu
+        {{ $t('menu.button') }}
       </ButtonComponent>
     </div>
     <div

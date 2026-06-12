@@ -2,9 +2,9 @@
     <span
         class="cursor-pointer select-none mx-1"
         :class="armed ? 'text-blood-500 font-semibold' : 'hover:text-blood-400'"
-        :title="armed ? 'Click again to confirm' : 'Remove item'"
+        :title="armed ? $t('common.confirmRemove') : $t('common.removeItem')"
         @click="onClick"
-    >{{ armed ? 'Sure?' : '×' }}</span>
+    >{{ armed ? $t('common.sure') : '×' }}</span>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="characters">
-    <HeadingComponent level="2">Characters</HeadingComponent>
+    <HeadingComponent level="2">{{ $t('characters.heading') }}</HeadingComponent>
 
     <FormToggleComponent 
       @save="validatedAdd"
@@ -8,29 +8,29 @@
       :show-controls="showAddingControls"
     >
       <template #button>
-        Add a new Character?
+        {{ $t('characters.add') }}
       </template>
       <template #form>
         <TextInputComponent
-          placeholder="Name"
+          :placeholder="$t('common.name')"
           v-model="newCharacter.name"
           @keyup.enter="validatedAdd"
         />
         <TextAreaComponent
-          placeholder="Bio"
+          :placeholder="$t('characters.bio')"
           v-model="newCharacter.bio"
         />
         <label>
           <CheckboxComponent
             v-model="newCharacter.immortal"
           />
-          Immortal?
+          {{ $t('characters.immortal') }}
         </label>
         <label>
           <CheckboxComponent
             v-model="newCharacter.dead"
           />
-          Dead?
+          {{ $t('characters.dead') }}
         </label>
       </template>
     </FormToggleComponent>
@@ -46,40 +46,40 @@
         {
             type: 'default',
             event: 'save',
-            label: 'Save',
+            label: $t('common.save'),
         },
         {
             type: 'default',
             event: 'cancel',
-            label: 'Cancel',
+            label: $t('common.cancel'),
         },
         {
             type: 'default',
             event: 'remove',
-            label: 'Remove',
+            label: $t('common.remove'),
         },
       ]"
     >
       <TextInputComponent
-        placeholder="Name"
+        :placeholder="$t('common.name')"
         v-model="editCharacter.name"
         @keyup.enter="add"
       />
         <TextAreaComponent
-          placeholder="Bio"
+          :placeholder="$t('characters.bio')"
           v-model="editCharacter.bio"
         />
         <label>
           <CheckboxComponent
             v-model="editCharacter.immortal"
           />
-          Immortal?
+          {{ $t('characters.immortal') }}
         </label>
         <label>
           <CheckboxComponent
             v-model="editCharacter.dead"
           />
-          Dead?
+          {{ $t('characters.dead') }}
         </label>
     </FormComponent>
     
@@ -112,7 +112,7 @@
                   @click="validatedToggle(character)"
                 >
                   {{ character.name }}
-                  <span v-if="character.immortal">(Immortal)</span>
+                  <span v-if="character.immortal">{{ $t('characters.immortalTag') }}</span>
                 </div>
               </HeadingComponent>
               <div class="flex-initial text-right">
@@ -120,7 +120,7 @@
                   class="cursor-pointer mx-2 hover:text-blood-400"
                   @click="startEdit(character)"
                 >
-                Edit
+                {{ $t('common.edit') }}
               </span>
             </div>
           </div>
@@ -183,7 +183,7 @@ export default {
         this.hideNotification();
 
         if (this.editCharacter.id === character.id) {
-          this.showNotification({message: 'You cannot change this character whilst it is being edited.', type:'warning'});
+          this.showNotification({message: this.$t('characters.editLocked'), type:'warning'});
           return;
         }
         
@@ -191,7 +191,7 @@ export default {
       },
       validatedAdd(){
       if (this.newCharacter.name === '' || this.newCharacter.bio === '') {
-        this.showNotification({message:'You must provide a name & bio.', type:'warning'});
+        this.showNotification({message: this.$t('characters.needNameBio'), type:'warning'});
         return;
       }
       
@@ -214,7 +214,7 @@ export default {
     },
     validatedUpdate() {
       if (this.editCharacter.name === '' || this.editCharacter.bio === '') {
-        this.showNotification({message:'You must provide a name & bio.', type:'warning'});
+        this.showNotification({message: this.$t('characters.needNameBio'), type:'warning'});
         return;
       }
 

@@ -9,14 +9,14 @@
                 name="closed-heading"
                 v-if="!shouldShow"
             >
-                Show
+                {{ $t('common.show') }}
             </slot>
 
             <slot
                 name="open-heading"
                 v-else
             >
-                Close
+                {{ $t('common.close') }}
             </slot>
         </ButtonComponent>
         <slot v-if="shouldShow" />

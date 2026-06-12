@@ -1,7 +1,7 @@
 <template>
     <SlideDownPanelComponent v-model="saving">
         <template #closed-heading>
-            Save
+            {{ $t('save.heading') }}
         </template>
         <div class="grid grid-rows gap-1 my-2">
             <a
@@ -15,14 +15,14 @@
               class="w-full"
               @click="toFile"
             >
-              To File
+              {{ $t('save.toFile') }}
             </ButtonComponent>
             <ButtonComponent 
               class="w-full"
               @click="toLocalStorage"
               v-if="supportsLocalStorage"
             >
-              To Local Storage
+              {{ $t('save.toLocalStorage') }}
             </ButtonComponent>
           </div>
     </SlideDownPanelComponent>
