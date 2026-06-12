@@ -16,6 +16,29 @@
       <SaveMenuComponent />
       <LoadMenuComponent />
       <PromptImportComponent />
+      <SlideDownPanelComponent>
+        <template #closed-heading>
+          {{ $t('settings.heading') }}
+        </template>
+        <template #open-heading>
+          {{ $t('settings.heading') }}
+        </template>
+        <div class="flex items-center gap-2 my-2">
+          <span class="flex-1">{{ $t('settings.language') }}</span>
+          <ButtonComponent
+            :type="locale === 'en' ? 'secondary' : 'default'"
+            @click="switchLocale('en')"
+          >
+            EN
+          </ButtonComponent>
+          <ButtonComponent
+            :type="locale === 'fr' ? 'secondary' : 'default'"
+            @click="switchLocale('fr')"
+          >
+            FR
+          </ButtonComponent>
+        </div>
+      </SlideDownPanelComponent>
       <div class="border-t border-night-600 mt-3 pt-2 text-sm text-night-400 text-right">
         <ul>
           <li>
@@ -50,6 +73,8 @@ import ButtonComponent from './ButtonComponent';
 import SaveMenuComponent from './SaveMenuComponent';
 import LoadMenuComponent from './LoadMenuComponent';
 import PromptImportComponent from './PromptImportComponent';
+import SlideDownPanelComponent from './SlideDownPanelComponent';
+import { setLocale } from '../i18n';
 
 export default {
   name: 'ActionsPane',
@@ -63,8 +88,12 @@ export default {
     SaveMenuComponent,
     LoadMenuComponent,
     PromptImportComponent,
+    SlideDownPanelComponent,
   },
   computed: {
+    locale() {
+      return this.$i18n.locale;
+    },
     forkCopyright() {
       // Be a little defensive since we're trusting local clocks, but querying
       // a remote API for the copyright year seemed a bit overkill.
@@ -75,6 +104,9 @@ export default {
   methods: {
     toggle() {
       this.open = !this.open;
+    },
+    switchLocale(locale) {
+      setLocale(locale);
     },
   },
 }
