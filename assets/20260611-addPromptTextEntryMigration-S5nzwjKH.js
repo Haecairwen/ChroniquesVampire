@@ -1,0 +1,1 @@
+var e={description:`Adds text and entry fields to prompts.`,requiredSignature:3,migrate(e){return e.prompts.forEach(e=>{e.text===void 0&&(e.text=``),e.entry===void 0&&(e.entry=``)}),e}};export{e as default};

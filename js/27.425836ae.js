@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunktyov"]=self["webpackChunktyov"]||[]).push([[27],{9027:function(e,r,i){i.r(r);i(8111),i(7588);r["default"]={description:"Adds configurable memory slot and diary capacity fields.",requiredSignature:4,migrate(e){return void 0===e.maxMemories&&(e.maxMemories=5),void 0===e.maxDiaryMemories&&(e.maxDiaryMemories=4),e.memories.forEach(e=>{void 0===e.starred&&(e.starred=!1)}),e}}}}]);
-//# sourceMappingURL=27.425836ae.js.map

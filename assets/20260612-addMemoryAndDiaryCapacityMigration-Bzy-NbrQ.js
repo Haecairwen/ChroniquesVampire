@@ -1,0 +1,1 @@
+var e={description:`Adds configurable memory slot and diary capacity fields.`,requiredSignature:4,migrate(e){return e.maxMemories===void 0&&(e.maxMemories=5),e.maxDiaryMemories===void 0&&(e.maxDiaryMemories=4),e.memories.forEach(e=>{e.starred===void 0&&(e.starred=!1)}),e}};export{e as default};
