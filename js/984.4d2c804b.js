@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktyov"]=self["webpackChunktyov"]||[]).push([[984],{7984:function(t,e,r){r.r(e);r(8111),r(7588);e["default"]={description:"Adds text and entry fields to prompts.",requiredSignature:3,migrate(t){return t.prompts.forEach(t=>{void 0===t.text&&(t.text=""),void 0===t.entry&&(t.entry="")}),t}}}}]);
+//# sourceMappingURL=984.4d2c804b.js.map
