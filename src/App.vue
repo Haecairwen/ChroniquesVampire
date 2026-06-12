@@ -28,24 +28,6 @@
         </div>
       </div>
     </div>
-    <div class="flex-none border-t mt-4 text-right text-sm text-night-400">
-      <ul>
-        <li>
-          <a
-            class="hover:text-blood-400"
-            href="https://www.version1.net/"
-            v-html="copyright"
-          />
-        </li>
-        <li>
-          <a
-            class="hover:text-blood-400"
-            href="https://thousandyearoldvampire.com/"
-            v-html="'Thousand Year Old Vampire Copyright &copy; Tim Hutchings'"
-          />
-        </li>
-      </ul>
-    </div>
   </div>
 </template>
 
@@ -70,14 +52,6 @@ export default {
     CharactersPane,
     MemoriesPane,
     NotificationPane,
-  },
-  computed: {
-    copyright() {
-      // Be a little defensive since we're trusting local clocks, but querying
-      // a remote API for the copyright year seemed a bit overkill.
-      const year = Math.max(2021, (new Date()).getUTCFullYear());
-      return `Copyright &copy; ${year} Robin Malburn`
-    }
   },
 }
 </script>
