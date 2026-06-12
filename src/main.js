@@ -10,7 +10,10 @@ import '@fontsource/eb-garamond/500.css'
 import '@fontsource/eb-garamond/600.css'
 import './assets/tailwind.css'
 import { autosavePlugin, restoreAutosave } from 'Libs/autosave'
+import { initTheme } from 'Libs/theme'
 import i18n from './i18n'
+
+initTheme()
 
 const pinia = createPinia()
 pinia.use(autosavePlugin)

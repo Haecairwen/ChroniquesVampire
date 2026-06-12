@@ -19,7 +19,10 @@
   },
   "settings": {
     "heading": "Paramètres",
-    "language": "Langue"
+    "language": "Langue",
+    "theme": "Thème",
+    "themeGothic": "Gothique",
+    "themeBaroque": "Baroque"
   },
   "journal": {
     "heading": "Journal",

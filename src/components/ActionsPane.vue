@@ -38,6 +38,21 @@
             FR
           </ButtonComponent>
         </div>
+        <div class="flex items-center gap-2 my-2">
+          <span class="flex-1">{{ $t('settings.theme') }}</span>
+          <ButtonComponent
+            :type="theme === 'gothic' ? 'secondary' : 'default'"
+            @click="switchTheme('gothic')"
+          >
+            {{ $t('settings.themeGothic') }}
+          </ButtonComponent>
+          <ButtonComponent
+            :type="theme === 'baroque' ? 'secondary' : 'default'"
+            @click="switchTheme('baroque')"
+          >
+            {{ $t('settings.themeBaroque') }}
+          </ButtonComponent>
+        </div>
       </SlideDownPanelComponent>
       <div class="border-t border-night-600 mt-3 pt-2 text-sm text-night-400 text-right">
         <ul>
@@ -75,12 +90,14 @@ import LoadMenuComponent from './LoadMenuComponent';
 import PromptImportComponent from './PromptImportComponent';
 import SlideDownPanelComponent from './SlideDownPanelComponent';
 import { setLocale } from '../i18n';
+import { currentTheme, setTheme } from 'Libs/theme';
 
 export default {
   name: 'ActionsPane',
   data() {
     return {
       open: false,
+      theme: currentTheme(),
     }
   },
   components: {
@@ -107,6 +124,10 @@ export default {
     },
     switchLocale(locale) {
       setLocale(locale);
+    },
+    switchTheme(theme) {
+      setTheme(theme);
+      this.theme = currentTheme();
     },
   },
 }
