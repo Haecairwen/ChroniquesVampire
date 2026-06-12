@@ -65,7 +65,7 @@
         v-for="entry in journalEntries"
         :key="`journal-entry-${entry.id}`"
         class="mb-4 p-4 border rounded"
-        :class="{'border-blood-700 bg-blood-950 bg-opacity-30': entry.id === currentPrompt.id}"
+        :class="{'border-blood-700 bg-blood-950/30': entry.id === currentPrompt.id}"
       >
         <div class="flex justify-between items-center mb-2 select-none">
           <HeadingComponent level="4">
@@ -107,7 +107,7 @@
 
         <textarea
           placeholder="What happened?"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-2 px-3 text-parchment-200 placeholder-night-400 font-body text-base leading-relaxed focus:outline-none focus:ring-2 ring-gilt-600 resize-none"
+          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-2 px-3 text-parchment-200 placeholder:text-night-400 font-body text-base leading-relaxed focus:outline-hidden focus:ring-2 ring-gilt-600 resize-none"
           rows="4"
           :value="entry.entry"
           @change="updatePromptEntry({prompt: entry, entry: $event.target.value})"
@@ -132,7 +132,7 @@
               id="new-prompt-number"
               type="number"
               step="1"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
               v-model="newPrompt.page"
               :min="firstUnusedPrompt"
             />
@@ -143,7 +143,7 @@
             </label>
             <select
               id="new-prompt-count"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
+              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
               v-model="newPrompt.count"
             >
               <option

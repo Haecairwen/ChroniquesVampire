@@ -1,8 +1,69 @@
-@tailwind base;
+@import "tailwindcss";
 
-@tailwind components;
+@theme {
+  --color-night-50: #f4f4f6;
+  --color-night-100: #e5e5ea;
+  --color-night-200: #c9c9d2;
+  --color-night-300: #a3a3b2;
+  --color-night-400: #76768a;
+  --color-night-500: #54546a;
+  --color-night-600: #3d3d4f;
+  --color-night-700: #2a2a38;
+  --color-night-800: #1c1c26;
+  --color-night-900: #121119;
+  --color-night-950: #09090d;
 
-@tailwind utilities;
+  --color-blood-50: #fdf2f2;
+  --color-blood-100: #fbe1e2;
+  --color-blood-200: #f6c1c4;
+  --color-blood-300: #ed969c;
+  --color-blood-400: #e0636d;
+  --color-blood-500: #cc3d49;
+  --color-blood-600: #ab2530;
+  --color-blood-700: #841c25;
+  --color-blood-800: #5e151b;
+  --color-blood-900: #3f1014;
+  --color-blood-950: #260a0c;
+
+  --color-gilt-50: #fbf8ee;
+  --color-gilt-100: #f6ecce;
+  --color-gilt-200: #ecd89c;
+  --color-gilt-300: #ddbd66;
+  --color-gilt-400: #cda042;
+  --color-gilt-500: #b8842f;
+  --color-gilt-600: #966725;
+  --color-gilt-700: #75501f;
+  --color-gilt-800: #583c1b;
+  --color-gilt-900: #443018;
+  --color-gilt-950: #271a0c;
+
+  --color-parchment-50: #fdfcf7;
+  --color-parchment-100: #f8f1de;
+  --color-parchment-200: #ecdfc0;
+  --color-parchment-300: #dcc89c;
+  --color-parchment-400: #c7ab78;
+  --color-parchment-500: #ad8e5d;
+
+  --font-display: "Cinzel", serif;
+  --font-body: "EB Garamond", serif;
+}
+
+@layer base {
+  /* Tailwind v4 preflight defaults borders to currentColor and buttons to
+     cursor: default; restore the v2-era behaviour this design relies on. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-night-700);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
 
 :root {
   --gothic-frame: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdhNWExZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSI5IiB5PSI5IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjEwMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2RhMDQyIiBzdHJva2Utd2lkdGg9IjMuNSIvPgogIDxyZWN0IHg9IjE3IiB5PSIxNyIgd2lkdGg9Ijg2IiBoZWlnaHQ9Ijg2IiBmaWxsPSJub25lIiBzdHJva2U9IiM3YTVhMWUiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjI0IiB5PSIyNCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjcyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmM2UwYWQiIHN0cm9rZS13aWR0aD0iMSIvPgogIAogIDxnIGlkPSJjb3JuZXIiPgogICAgPCEtLSBjb3JuZXIgc2Nyb2xsd29yayAtLT4KICAgIDxwYXRoIGQ9Ik0wIDE2IEM4IDE2IDE2IDggMTYgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgPHBhdGggZD0iTTIgMjIgQzEyIDIyIDIyIDEyIDIyIDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NkYTA0MiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cGF0aCBkPSJNMCA2IEM0IDYgNiA0IDYgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2RhMDQyIiBzdHJva2Utd2lkdGg9IjEuMjUiLz4KICAgIDxwYXRoIGQ9Ik02IDAgQzYgNCA4IDYgMTIgNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDwhLS0gY29ybmVyIGdlbSAtLT4KICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDQ1IDUuNSA1LjUpIi8+CiAgICA8cmVjdCB4PSIzLjUiIHk9IjMuNSIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iIzE1MTQxYyIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgNS41IDUuNSkiLz4KICAgIDwhLS0gbWVkYWxsaW9uIC0tPgogICAgPHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMCAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSgxMzUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE2LjYgMTIuODUgMTguMTMgNyAyMCA3IEMgMjEuODcgNyAyMy40IDEyLjg1IDIwIDIwIFoiIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDIyNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNzAgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMzE1IDIwIDIwKSIvPgogICAgPHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgyMi41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoNjcuNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNy44IDE1LjMyNSAxOC43OSAxMS41IDIwIDExLjUgQyAyMS4yMSAxMS41IDIyLjIgMTUuMzI1IDIwIDIwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDExMi41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTU3LjUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgyMDIuNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNy44IDE1LjMyNSAxOC43OSAxMS41IDIwIDExLjUgQyAyMS4yMSAxMS41IDIyLjIgMTUuMzI1IDIwIDIwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDI0Ny41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMjkyLjUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzcuNSAyMCAyMCkiLz4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiMxNTE0MWMiIHN0cm9rZT0iI2YzZTBhZCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjguNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxyZWN0IHg9IjE3LjIiIHk9IjE3LjIiIHdpZHRoPSI1LjYiIGhlaWdodD0iNS42IiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAyMCAyMCkiLz4KICA8L2c+CgogIDx1c2UgaHJlZj0iI2Nvcm5lciIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNjAgNjApIi8+CiAgPHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InJvdGF0ZSgxODAgNjAgNjApIi8+CiAgPHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNzAgNjAgNjApIi8+Cjwvc3ZnPg==");
@@ -18,7 +79,7 @@
     @apply bg-night-950 text-parchment-200 font-body;
     background-image:
       url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23ffffff' stroke-opacity='0.025'/%3e%3c/svg%3e"),
-      radial-gradient(ellipse at top, theme('colors.night.800') 0%, theme('colors.night.950') 65%);
+      radial-gradient(ellipse at top, var(--color-night-800) 0%, var(--color-night-950) 65%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -29,7 +90,7 @@
 
   h1 {
     @apply px-4 py-3 mb-4;
-    background-image: linear-gradient(to bottom, theme('colors.night.800'), theme('colors.night.900'));
+    background-image: linear-gradient(to bottom, var(--color-night-800), var(--color-night-900));
     border-style: solid;
     border-width: 22px;
     border-radius: 0;
@@ -41,7 +102,7 @@
 
   h2 {
     @apply relative pb-2 mb-3;
-    border-bottom: 1px solid theme('colors.gilt.800');
+    border-bottom: 1px solid var(--color-gilt-800);
   }
 
   h2::after {
@@ -101,7 +162,7 @@
   justify-content: center;
   width: 2.75rem;
   height: 2.75rem;
-  font-family: theme('fontFamily.display');
+  font-family: var(--font-display);
   font-size: 1.3rem;
   font-weight: 600;
   border: 1px solid;
@@ -114,21 +175,21 @@
 }
 
 .die-blood {
-  background-image: linear-gradient(135deg, theme('colors.blood.800'), theme('colors.blood.950'));
-  border-color: theme('colors.blood.600');
-  color: theme('colors.blood.200');
+  background-image: linear-gradient(135deg, var(--color-blood-800), var(--color-blood-950));
+  border-color: var(--color-blood-600);
+  color: var(--color-blood-200);
 }
 
 .die-night {
-  background-image: linear-gradient(135deg, theme('colors.night.700'), theme('colors.night.900'));
-  border-color: theme('colors.night.500');
-  color: theme('colors.night.100');
+  background-image: linear-gradient(135deg, var(--color-night-700), var(--color-night-900));
+  border-color: var(--color-night-500);
+  color: var(--color-night-100);
 }
 
 .die-gilt {
-  background-image: linear-gradient(135deg, theme('colors.gilt.900'), theme('colors.gilt.950'));
-  border-color: theme('colors.gilt.500');
-  color: theme('colors.gilt.100');
+  background-image: linear-gradient(135deg, var(--color-gilt-900), var(--color-gilt-950));
+  border-color: var(--color-gilt-500);
+  color: var(--color-gilt-100);
 }
 
 .die-rolling {
@@ -152,10 +213,10 @@
   width: 0.65rem;
   height: 0.65rem;
   transform: rotate(45deg);
-  border: 1px solid theme('colors.gilt.600');
+  border: 1px solid var(--color-gilt-600);
 }
 
 .memory-slot-filled {
-  background-color: theme('colors.gilt.500');
+  background-color: var(--color-gilt-500);
   box-shadow: 0 0 6px rgba(205, 160, 66, 0.5);
 }

@@ -1,7 +1,7 @@
 <template>
     <input
         type="checkbox"
-        class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-none focus:ring-2 ring-gilt-600"
+        class="shadow border border-night-600 bg-night-900 rounded py-2 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
         :checked="value === trueValue"
         v-bind="$attrs"
         @change="$emit('change', $event.target.checked ? trueValue : falseValue)"

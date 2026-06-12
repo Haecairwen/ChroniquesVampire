@@ -7,7 +7,7 @@ localVue.use(Vuex);
 
 const TYPES = {
   default: ["border-gilt-600", "bg-night-800", "text-parchment-200"],
-  danger: ["border-blood-600", "bg-blood-950", "bg-opacity-70", "text-blood-200"],
+  danger: ["border-blood-600", "bg-blood-950/70", "text-blood-200"],
   warning: ["border-gilt-500", "bg-night-800", "text-gilt-300"],
 };
 

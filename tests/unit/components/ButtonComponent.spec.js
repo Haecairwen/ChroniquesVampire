@@ -8,7 +8,7 @@ const CLASSES = [
   'font-display',
   'tracking-wide',
   'transition-colors',
-  'focus:outline-none',
+  'focus:outline-hidden',
   'focus:ring-2',
   'ring-0',
 ];

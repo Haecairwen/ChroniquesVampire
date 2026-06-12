@@ -98,7 +98,7 @@
         v-for="character in characters"
         :key="`character-${character.id}`"
         >
-          <CardComponent class="my-2" :class="{'bg-gilt-950 bg-opacity-30 border-gilt-700': character.immortal}">
+          <CardComponent class="my-2" :class="{'bg-gilt-950/30 border-gilt-700': character.immortal}">
             <div class="flex border-b mb-2">
               <HeadingComponent
                 level="6"

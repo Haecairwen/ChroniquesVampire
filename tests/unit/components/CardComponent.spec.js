@@ -3,8 +3,7 @@ import { shallowMount } from '@vue/test-utils';
 
 const CLASSES = [
     "p-4",
-    "bg-night-800",
-    "bg-opacity-60",
+    "bg-night-800/60",
     "border",
     "border-night-600",
     "rounded",

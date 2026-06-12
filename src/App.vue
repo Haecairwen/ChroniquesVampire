@@ -6,7 +6,7 @@
     </div>
     <div class="flex flex-col lg:flex-row flex-1 gap-4 min-h-0">
       <div class="w-full lg:w-1/2 flex flex-col gap-4 min-h-0">
-        <div class="flex-none lg:max-h-2/5 lg:overflow-y-auto">
+        <div class="flex-none lg:max-h-[40%] lg:overflow-y-auto">
           <MemoriesPane />
         </div>
         <div class="flex-1 min-h-0 lg:overflow-y-auto">

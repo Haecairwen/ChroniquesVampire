@@ -1,6 +1,6 @@
 <template>
     <button
-        class="py-1 px-4 rounded font-display tracking-wide transition-colors focus:outline-none focus:ring-2 ring-0"
+        class="py-1 px-4 rounded font-display tracking-wide transition-colors focus:outline-hidden focus:ring-2 ring-0"
         :class="typeClasses"
         @click="$emit('click')"
     >

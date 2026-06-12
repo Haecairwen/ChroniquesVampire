@@ -29,8 +29,7 @@ const TYPES = {
     },
     danger: {
         'border-blood-600': true,
-        'bg-blood-950': true,
-        'bg-opacity-70': true,
+        'bg-blood-950/70': true,
         'text-blood-200': true,
     },
     warning: {
