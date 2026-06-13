@@ -415,88 +415,93 @@
   box-shadow: 0 0 8px rgba(135, 22, 22, 0.8);
 }
 
+
 /* ---------------------------------------------------------------------
-   Cathedral theme: panes become gothic stone windows. Each pane wears a
-   sculpted arch crown (gable with crockets, rose window, pinnacles)
-   rendered by a ::before block, fluted column jambs and a dentiled sill
-   from the border-image, weathered-stone panel bodies, and carved
-   plaque buttons, under a faint rose-window backdrop.
+   Cathedral theme: real photographic gothic. Pane bodies are weathered
+   cold-stone (seamless fieldstone photo); frames are stone blocks with
+   etched-skull corner medallions; each pane is crowned by a carved
+   blind-arcade cornice bearing a glowing stained-glass rose and a pair
+   of brooding Notre-Dame chimeras (Méryon's "Le Stryge") perched at the
+   corners; the page glows with a dimmed cathedral rose window.
+   Source imagery: public-domain Wikimedia Commons.
    --------------------------------------------------------------------- */
 [data-theme='cathedral'] {
-  --color-night-50: #f2f0ec;
-  --color-night-100: #e0dcd5;
-  --color-night-200: #c0bab0;
-  --color-night-300: #968f85;
-  --color-night-400: #6f6960;
-  --color-night-500: #4f4a41;
-  --color-night-600: #3a362f;
-  --color-night-700: #2a2723;
-  --color-night-800: #1d1b18;
-  --color-night-900: #131210;
-  --color-night-950: #0a0908;
+  --color-night-50: #eef0f2;
+  --color-night-100: #dadde1;
+  --color-night-200: #b9bdc4;
+  --color-night-300: #8f949d;
+  --color-night-400: #686d77;
+  --color-night-500: #4a4e57;
+  --color-night-600: #353841;
+  --color-night-700: #25272e;
+  --color-night-800: #181a1f;
+  --color-night-900: #0e0f13;
+  --color-night-950: #060709;
 
   --color-blood-50: #fcf2f2;
-  --color-blood-100: #f8e0e0;
-  --color-blood-200: #f0bebe;
-  --color-blood-300: #e39090;
-  --color-blood-400: #d05c5c;
-  --color-blood-500: #b83838;
-  --color-blood-600: #992525;
-  --color-blood-700: #7c1f1f;
-  --color-blood-800: #5c1919;
-  --color-blood-900: #3f1212;
-  --color-blood-950: #240a0a;
+  --color-blood-100: #f7dede;
+  --color-blood-200: #efbcbc;
+  --color-blood-300: #e28d8d;
+  --color-blood-400: #d25a5a;
+  --color-blood-500: #b83a3a;
+  --color-blood-600: #962727;
+  --color-blood-700: #781f1f;
+  --color-blood-800: #561818;
+  --color-blood-900: #3a1111;
+  --color-blood-950: #210909;
 
-  --color-gilt-50: #fbf8f0;
-  --color-gilt-100: #f5ecd8;
-  --color-gilt-200: #e8dcb8;
-  --color-gilt-300: #dac489;
-  --color-gilt-400: #c9a45a;
-  --color-gilt-500: #b18843;
-  --color-gilt-600: #8f6c34;
-  --color-gilt-700: #6f532a;
-  --color-gilt-800: #533f23;
-  --color-gilt-900: #3e301d;
-  --color-gilt-950: #231a0f;
+  --color-gilt-50: #faf6ea;
+  --color-gilt-100: #f1e8cf;
+  --color-gilt-200: #e2d2a4;
+  --color-gilt-300: #cdb677;
+  --color-gilt-400: #b39752;
+  --color-gilt-500: #977c3f;
+  --color-gilt-600: #786231;
+  --color-gilt-700: #5c4b27;
+  --color-gilt-800: #443821;
+  --color-gilt-900: #322a1a;
+  --color-gilt-950: #1c170e;
 
-  --color-parchment-50: #fcfaf5;
-  --color-parchment-100: #f6f0e3;
-  --color-parchment-200: #e9ddc0;
-  --color-parchment-300: #d8c69c;
-  --color-parchment-400: #bda878;
-  --color-parchment-500: #9c8a60;
-
-  --gothic-frame: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNDQiIGhlaWdodD0iMTQ0IiB2aWV3Qm94PSIwIDAgMTQ0IDE0NCI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN0b25lRWRnZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNGQ0NjNhIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTAlIiBzdG9wLWNvbG9yPSIjMzMyZTI2Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzIxMWQxNyIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYm9uZVIiIGN4PSIzOCUiIGN5PSIzMiUiIHI9Ijg1JSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmMGU2Y2EiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiNjZGJkOTkiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjOGQ3ZDVmIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJib25lViIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjAiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjOGQ3ZDVmIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMzUlIiBzdG9wLWNvbG9yPSIjZTZkYWI4Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNjUlIiBzdG9wLWNvbG9yPSIjZDNjNGEwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzdhNmI0ZiIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0ic29ja2V0IiBjeD0iNTAlIiBjeT0iNDUlIiByPSI2MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjMDYwNTA0Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iNzUlIiBzdG9wLWNvbG9yPSIjMTcxMzEwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzNhMzIyNiIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0icmVjZXNzIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwYzBhMDciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1MCUiIHN0b3AtY29sb3I9IiMxOTE1MGYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGMwYTA3Ii8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KCiAgPHJlY3QgeD0iMS41IiB5PSIxLjUiIHdpZHRoPSIxNDEiIGhlaWdodD0iMTQxIiBmaWxsPSJub25lIiBzdHJva2U9IiMwYzBhMDciIHN0cm9rZS13aWR0aD0iMyIvPgogIDxyZWN0IHg9IjQiIHk9IjQiIHdpZHRoPSIxMzYiIGhlaWdodD0iMTM2IiBmaWxsPSJub25lIiBzdHJva2U9InVybCgjc3RvbmVFZGdlKSIgc3Ryb2tlLXdpZHRoPSI1Ii8+CiAgPHJlY3QgeD0iNyIgeT0iNyIgd2lkdGg9IjEzMCIgaGVpZ2h0PSIxMzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzVjNTM0MyIgc3Ryb2tlLXdpZHRoPSIxLjIiLz4KICA8cmVjdCB4PSI0MCIgeT0iNDAiIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMGMwYTA3IiBzdHJva2Utd2lkdGg9IjQiLz4KICA8cmVjdCB4PSI0Mi41IiB5PSI0Mi41IiB3aWR0aD0iNTkiIGhlaWdodD0iNTkiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzRkNDYzYSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KCiAgPGcgaWQ9Imtjb3JuZXIiPgogICAgPHJlY3QgeD0iOCIgeT0iOCIgd2lkdGg9IjM0IiBoZWlnaHQ9IjM0IiBmaWxsPSJ1cmwoI3JlY2VzcykiLz4KICAgIDxlbGxpcHNlIGN4PSIyNSIgY3k9IjI5IiByeD0iMTIiIHJ5PSI1IiBmaWxsPSIjMDAwIiBvcGFjaXR5PSIwLjU1Ii8+CiAgICA8ZWxsaXBzZSBjeD0iMjUiIGN5PSIyMiIgcng9IjExLjUiIHJ5PSIxMC41IiBmaWxsPSJ1cmwoI2JvbmVSKSIvPgogICAgPHBhdGggZD0iTTE0LjUgMjQgUSAxNCAzMSAxOSAzMi41IEwgMTkgMzUgUSAyNSAzOCAzMSAzNSBMIDMxIDMyLjUgUSAzNiAzMSAzNS41IDI0IFoiIGZpbGw9InVybCgjYm9uZVIpIi8+CiAgICA8ZWxsaXBzZSBjeD0iMjAiIGN5PSIyNC41IiByeD0iMy40IiByeT0iNCIgZmlsbD0idXJsKCNzb2NrZXQpIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzAiIGN5PSIyNC41IiByeD0iMy40IiByeT0iNCIgZmlsbD0idXJsKCNzb2NrZXQpIi8+CiAgICA8cGF0aCBkPSJNMjUgMjcuNSBMIDIzLjQgMzEuNSBRIDI1IDMyLjYgMjYuNiAzMS41IFoiIGZpbGw9IiMxNzEzMTAiLz4KICAgIDxwYXRoIGQ9Ik0yMCAzMy41IFEgMjUgMzYgMzAgMzMuNSBMIDMwIDM2LjIgUSAyNSAzOC42IDIwIDM2LjIgWiIgZmlsbD0iI2U4ZGNiYSIvPgogICAgPHBhdGggZD0iTTIxLjYgMzQuNiBWIDM3IE0yMy4zIDM1LjIgViAzNy42IE0yNSAzNS40IFYgMzcuOCBNMjYuNyAzNS4yIFYgMzcuNiBNMjguNCAzNC42IFYgMzciIHN0cm9rZT0iIzdhNmI0ZiIgc3Ryb2tlLXdpZHRoPSIwLjciIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0xNiAxNyBRIDIwIDEzLjUgMjUgMTQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y0ZWNkNCIgc3Ryb2tlLXdpZHRoPSIxIiBvcGFjaXR5PSIwLjgiLz4KICAgIDxwYXRoIGQ9Ik0zMyAyNyBRIDMyIDMwIDMwLjUgMzEiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZiNWQ0NCIgc3Ryb2tlLXdpZHRoPSIwLjgiLz4KICA8L2c+CiAgPHVzZSBocmVmPSIja2Nvcm5lciIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNzIgNzIpIi8+CiAgPHVzZSBocmVmPSIja2Nvcm5lciIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDcyIDcyKSIvPgogIDx1c2UgaHJlZj0iI2tjb3JuZXIiIHRyYW5zZm9ybT0icm90YXRlKDI3MCA3MiA3MikiLz4KCiAgPGcgaWQ9ImJzaWRlIj4KICAgIDxyZWN0IHg9IjkiIHk9IjQ0IiB3aWR0aD0iMzIiIGhlaWdodD0iNTYiIGZpbGw9InVybCgjcmVjZXNzKSIvPgogICAgPGVsbGlwc2UgY3g9IjI5IiBjeT0iNzIiIHJ4PSI4IiByeT0iMjYiIGZpbGw9IiMwMDAiIG9wYWNpdHk9IjAuNCIvPgogICAgPHBhdGggZD0iTTE5LjUgNTMuNSBRIDE3LjUgNTEuNSAxOCA0OC41IFEgMTQuNSA0OSAxMy41IDQ2IFEgMTQuNSA0Mi41IDE4LjUgNDMuNSBRIDE5IDQxLjUgMjEuNSA0MS41IFEgMjQuNSA0MiAyNC41IDQ1LjUgUSAyNC41IDQ5IDIyIDUxIEwgMjIuOCA1My44IFoiIGZpbGw9InVybCgjYm9uZVYpIi8+CiAgICA8cGF0aCBkPSJNMTkuNSA5MC41IFEgMTcuNSA5Mi41IDE4IDk1LjUgUSAxNC41IDk1IDEzLjUgOTggUSAxNC41IDEwMS41IDE4LjUgMTAwLjUgUSAxOSAxMDIuNSAyMS41IDEwMi41IFEgMjQuNSAxMDIgMjQuNSA5OC41IFEgMjQuNSA5NSAyMiA5MyBMIDIyLjggOTAuMiBaIiBmaWxsPSJ1cmwoI2JvbmVWKSIvPgogICAgPHBhdGggZD0iTTE5LjIgNTMgUSAxNyA2MiAxNyA3MiBRIDE3IDgyIDE5LjIgOTEgTCAyMyA5MSBRIDIxLjQgODIgMjEuNCA3MiBRIDIxLjQgNjIgMjMgNTMgWiIgZmlsbD0idXJsKCNib25lVikiLz4KICAgIDxwYXRoIGQ9Ik0xOC40IDU4IFEgMTcuNiA2NiAxNy44IDc0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmNGVjZDQiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjciLz4KICAgIDxwYXRoIGQ9Ik0yMS44IDYwIEwgMjIuNiA3MCBNMjEuNiA3OCBMIDIyIDg0IiBzdHJva2U9IiM4ZDdkNWYiIHN0cm9rZS13aWR0aD0iMC41IiBmaWxsPSJub25lIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzIuNSIgY3k9IjUwIiByeD0iNC42IiByeT0iNCIgZmlsbD0idXJsKCNib25lUikiLz4KICAgIDxlbGxpcHNlIGN4PSIzMi41IiBjeT0iNTAiIHJ4PSIyIiByeT0iMS43IiBmaWxsPSIjOWM4ZDZlIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzIuNSIgY3k9IjYwLjUiIHJ4PSI0LjIiIHJ5PSIzLjciIGZpbGw9InVybCgjYm9uZVIpIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzIuNSIgY3k9IjYwLjUiIHJ4PSIxLjgiIHJ5PSIxLjUiIGZpbGw9IiM5YzhkNmUiLz4KICAgIDxlbGxpcHNlIGN4PSIzMyIgY3k9IjcxLjUiIHJ4PSI0LjYiIHJ5PSI0IiBmaWxsPSJ1cmwoI2JvbmVSKSIvPgogICAgPGVsbGlwc2UgY3g9IjMzIiBjeT0iNzEuNSIgcng9IjIiIHJ5PSIxLjciIGZpbGw9IiM5YzhkNmUiLz4KICAgIDxlbGxpcHNlIGN4PSIzMi41IiBjeT0iODIuNSIgcng9IjQuMiIgcnk9IjMuNyIgZmlsbD0idXJsKCNib25lUikiLz4KICAgIDxlbGxpcHNlIGN4PSIzMi41IiBjeT0iODIuNSIgcng9IjEuOCIgcnk9IjEuNSIgZmlsbD0iIzljOGQ2ZSIvPgogICAgPGVsbGlwc2UgY3g9IjMyLjUiIGN5PSI5MyIgcng9IjQuNiIgcnk9IjQiIGZpbGw9InVybCgjYm9uZVIpIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzIuNSIgY3k9IjkzIiByeD0iMiIgcnk9IjEuNyIgZmlsbD0iIzljOGQ2ZSIvPgogIDwvZz4KICA8dXNlIGhyZWY9IiNic2lkZSIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNzIgNzIpIi8+CiAgPHVzZSBocmVmPSIjYnNpZGUiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA3MiA3MikiLz4KICA8dXNlIGhyZWY9IiNic2lkZSIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwIDcyIDcyKSIvPgo8L3N2Zz4K");
-  --gothic-fleuron: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iNDQiIHZpZXdCb3g9IjAgMCAyMDAgNDQiPgogIDxsaW5lIHgxPSIwIiB5MT0iMzQiIHgyPSIyMDAiIHkyPSIzNCIgc3Ryb2tlPSIjM2EzNjJmIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8bGluZSB4MT0iMCIgeTE9IjMxIiB4Mj0iMjAwIiB5Mj0iMzEiIHN0cm9rZT0iI2M5Yjk4YSIgc3Ryb2tlLXdpZHRoPSIwLjgiLz4KICA8ZyBmaWxsPSIjMWQxYjE4IiBzdHJva2U9IiNjOWI5OGEiIHN0cm9rZS13aWR0aD0iMSI+CiAgICA8cGF0aCBkPSJNMTQgMzEgViAyMCBRIDE0IDEwIDI0IDggUSAzNCAxMCAzNCAyMCBWIDMxIFoiLz4KICAgIDxwYXRoIGQ9Ik01MiAzMSBWIDIwIFEgNTIgMTAgNjIgOCBRIDcyIDEwIDcyIDIwIFYgMzEgWiIvPgogICAgPHBhdGggZD0iTTEyOCAzMSBWIDIwIFEgMTI4IDEwIDEzOCA4IFEgMTQ4IDEwIDE0OCAyMCBWIDMxIFoiLz4KICAgIDxwYXRoIGQ9Ik0xNjYgMzEgViAyMCBRIDE2NiAxMCAxNzYgOCBRIDE4NiAxMCAxODYgMjAgViAzMSBaIi8+CiAgPC9nPgogIDxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZmNjk2MCIgc3Ryb2tlLXdpZHRoPSIwLjciPgogICAgPHBhdGggZD0iTTE4IDMxIFYgMjEgUSAxOCAxMyAyNCAxMS41IFEgMzAgMTMgMzAgMjEgViAzMSIvPgogICAgPHBhdGggZD0iTTU2IDMxIFYgMjEgUSA1NiAxMyA2MiAxMS41IFEgNjggMTMgNjggMjEgViAzMSIvPgogICAgPHBhdGggZD0iTTEzMiAzMSBWIDIxIFEgMTMyIDEzIDEzOCAxMS41IFEgMTQ0IDEzIDE0NCAyMSBWIDMxIi8+CiAgICA8cGF0aCBkPSJNMTcwIDMxIFYgMjEgUSAxNzAgMTMgMTc2IDExLjUgUSAxODIgMTMgMTgyIDIxIFYgMzEiLz4KICA8L2c+CiAgPHBhdGggZD0iTTg4IDMxIFYgMTYgUSA4OCA1IDEwMCAzIFEgMTEyIDUgMTEyIDE2IFYgMzEgWiIgZmlsbD0iIzEzMTIxMCIgc3Ryb2tlPSIjYzliOThhIiBzdHJva2Utd2lkdGg9IjEuMyIvPgogIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjE1IiByPSI2LjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzZmNjk2MCIgc3Ryb2tlLXdpZHRoPSIwLjgiLz4KICA8cGF0aCBkPSJNMTAwIDguNSBWIDIxLjUgTTkzLjUgMTUgSCAxMDYuNSIgc3Ryb2tlPSIjNmY2OTYwIiBzdHJva2Utd2lkdGg9IjAuOCIvPgogIDxyZWN0IHg9Ijk3IiB5PSIyMCIgd2lkdGg9IjYiIGhlaWdodD0iNiIgZmlsbD0iIzdjMWYxZiIgc3Ryb2tlPSIjZThkY2I4IiBzdHJva2Utd2lkdGg9IjAuNiIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgMTAwIDIzKSIvPgogIDxsaW5lIHgxPSIwIiB5MT0iMzguNSIgeDI9IjIwMCIgeTI9IjM4LjUiIHN0cm9rZT0iIzI2MjYyYyIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtZGFzaGFycmF5PSI4IDgiLz4KPC9zdmc+Cg==");
-  --cathedral-crown: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMTMwIiB2aWV3Qm94PSIwIDAgNjAwIDEzMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGRlZnM+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9InN0b25lRyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNWE1MjQyIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNDUlIiBzdG9wLWNvbG9yPSIjM2IzNTJiIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzIzMWYxOCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0ic3RvbmVEIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYjM1MmIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTUxMjBkIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJib25lUiIgY3g9IjM4JSIgY3k9IjMyJSIgcj0iODUlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2YwZTZjYSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjU1JSIgc3RvcC1jb2xvcj0iI2NkYmQ5OSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4ZDdkNWYiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9InNvY2tldCIgY3g9IjUwJSIgY3k9IjQ1JSIgcj0iNjAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzA2MDUwNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjgwJSIgc3RvcC1jb2xvcj0iIzE3MTMxMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzYTMyMjYiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9Imd3aW5lIiBjeD0iNDAlIiBjeT0iMzUlIiByPSI4MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjN2MyMDMwIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzMzMGQxNiIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iZ2luZGlnbyIgY3g9IjQ1JSIgY3k9IjM1JSIgcj0iODAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJjM2M2NiIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxMDE3MjkiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9ImdhbWJlciIgY3g9IjQ1JSIgY3k9IjM1JSIgcj0iODAlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzlhNmMxYyIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMzZDJhMGEiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9Imd2aW9sZXQiIGN4PSI0NSUiIGN5PSIzNSUiIHI9IjgwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM0YTI0NTYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWMwZDIyIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmltZTIiIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjU1JSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMDAiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgICA8c3RvcCBvZmZzZXQ9Ijc4JSIgc3RvcC1jb2xvcj0iIzAwMCIgc3RvcC1vcGFjaXR5PSIwLjI1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwMCIgc3RvcC1vcGFjaXR5PSIwLjYiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8bGluZWFyR3JhZGllbnQgaWQ9ImdzdG9uZSIgeDE9IjAiIHkxPSIwIiB4Mj0iMSIgeTI9IjEiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjNjc1ZTRiIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iNTUlIiBzdG9wLWNvbG9yPSIjM2UzODJkIi8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFkMWExNCIvPgogICAgPC9saW5lYXJHcmFkaWVudD4KICA8L2RlZnM+CgogIDxyZWN0IHg9IjAiIHk9IjEwMyIgd2lkdGg9IjYwMCIgaGVpZ2h0PSIyNyIgZmlsbD0idXJsKCNzdG9uZUcpIi8+CiAgPHJlY3QgeD0iMCIgeT0iMTAzIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIuNSIgZmlsbD0iI2Q0YzY5ZiIvPgogIDxyZWN0IHg9IjAiIHk9IjEwNS41IiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjEuNSIgZmlsbD0iIzBlMGMwOCIgb3BhY2l0eT0iMC43Ii8+CiAgPGxpbmUgeDE9IjAiIHkxPSIxMTUiIHgyPSI2MDAiIHkyPSIxMTUiIHN0cm9rZT0iIzE1MTIwZCIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtZGFzaGFycmF5PSIxMyAxMyIvPgogIDxsaW5lIHgxPSIwIiB5MT0iMTExLjUiIHgyPSI2MDAiIHkyPSIxMTEuNSIgc3Ryb2tlPSIjNmI2MTUwIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cmVjdCB4PSIwIiB5PSIxMjQiIHdpZHRoPSI2MDAiIGhlaWdodD0iNiIgZmlsbD0idXJsKCNzdG9uZUQpIi8+CgogIDxwYXRoIGQ9Ik0xMDQgMTAzIEwzMDAgNiBMNDk2IDEwMyBaIiBmaWxsPSJ1cmwoI3N0b25lRykiIHN0cm9rZT0iIzBlMGMwOCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPHBhdGggZD0iTTExOCAxMDAgTDMwMCAxMiBMNDgyIDEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDRjNjlmIiBzdHJva2Utd2lkdGg9IjEuNiIgb3BhY2l0eT0iMC44NSIvPgogIDxwYXRoIGQ9Ik0xMzggMTAwIEwzMDAgMjQgTDQ2MiAxMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE1MTIwZCIgc3Ryb2tlLXdpZHRoPSIyLjUiLz4KICA8cGF0aCBkPSJNMTUyIDEwMCBMMzAwIDMxIEw0NDggMTAwIFoiIGZpbGw9InVybCgjc3RvbmVEKSIvPgoKICA8cGF0aCBkPSJNMTUyIDg3IHEgLTEwIC0zIC0xMCA3IHEgOCA1IDEwIC03IFogTTE4NCA3MiBxIC0xMCAtMyAtMTAgNyBxIDggNSAxMCAtNyBaIE0yMTYgNTcgcSAtMTAgLTMgLTEwIDcgcSA4IDUgMTAgLTcgWiBNMjQ4IDQxIHEgLTEwIC0zIC0xMCA3IHEgOCA1IDEwIC03IFoiIGZpbGw9InVybCgjZ3N0b25lKSIgc3Ryb2tlPSIjMGUwYzA4IiBzdHJva2Utd2lkdGg9IjAuOCIvPgogIDxwYXRoIGQ9Ik00NDggODcgcSAxMCAtMyAxMCA3IHEgLTggNSAtMTAgLTcgWiBNNDE2IDcyIHEgMTAgLTMgMTAgNyBxIC04IDUgLTEwIC03IFogTTM4NCA1NyBxIDEwIC0zIDEwIDcgcSAtOCA1IC0xMCAtNyBaIE0zNTIgNDEgcSAxMCAtMyAxMCA3IHEgLTggNSAtMTAgLTcgWiIgZmlsbD0idXJsKCNnc3RvbmUpIiBzdHJva2U9IiMwZTBjMDgiIHN0cm9rZS13aWR0aD0iMC44Ii8+CgogIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjcwIiByPSIzMSIgZmlsbD0iIzBlMGMwOCIvPgogIDxnIHN0cm9rZT0iIzA2MDUwNCIgc3Ryb2tlLXdpZHRoPSIyLjQiPgogICAgPHBhdGggZD0iTTMwMCA3MCBMMzAwIDQzIEEgMjcgMjcgMCAwIDEgMzE5LjEgNTEgWiIgZmlsbD0idXJsKCNnd2luZSkiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNzAgTDMxOS4xIDUxIEEgMjcgMjcgMCAwIDEgMzI3IDcwIFoiIGZpbGw9InVybCgjZ2luZGlnbykiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNzAgTDMyNyA3MCBBIDI3IDI3IDAgMCAxIDMxOS4xIDg5IFoiIGZpbGw9InVybCgjZ2FtYmVyKSIvPgogICAgPHBhdGggZD0iTTMwMCA3MCBMMzE5LjEgODkgQSAyNyAyNyAwIDAgMSAzMDAgOTcgWiIgZmlsbD0idXJsKCNndmlvbGV0KSIvPgogICAgPHBhdGggZD0iTTMwMCA3MCBMMzAwIDk3IEEgMjcgMjcgMCAwIDEgMjgwLjkgODkgWiIgZmlsbD0idXJsKCNnd2luZSkiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNzAgTDI4MC45IDg5IEEgMjcgMjcgMCAwIDEgMjczIDcwIFoiIGZpbGw9InVybCgjZ2luZGlnbykiLz4KICAgIDxwYXRoIGQ9Ik0zMDAgNzAgTDI3MyA3MCBBIDI3IDI3IDAgMCAxIDI4MC45IDUxIFoiIGZpbGw9InVybCgjZ2FtYmVyKSIvPgogICAgPHBhdGggZD0iTTMwMCA3MCBMMjgwLjkgNTEgQSAyNyAyNyAwIDAgMSAzMDAgNDMgWiIgZmlsbD0idXJsKCNndmlvbGV0KSIvPgogIDwvZz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSI3MCIgcj0iMjciIGZpbGw9InVybCgjZ3JpbWUyKSIvPgogIDxjaXJjbGUgY3g9IjMwMCIgY3k9IjcwIiByPSI3IiBmaWxsPSJ1cmwoI2d3aW5lKSIgc3Ryb2tlPSIjMDYwNTA0IiBzdHJva2Utd2lkdGg9IjIiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSI3MCIgcj0iMzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Q0YzY5ZiIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICA8Y2lyY2xlIGN4PSIzMDAiIGN5PSI3MCIgcj0iMjcuNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTUxMjBkIiBzdHJva2Utd2lkdGg9IjEuNCIvPgogIDxwYXRoIGQ9Ik0yODYgNTYgYSAxOCAxOCAwIDAgMSAxMiAtNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjE4IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KCiAgPGc+CiAgICA8ZWxsaXBzZSBjeD0iMzAwIiBjeT0iMjIiIHJ4PSI4IiByeT0iNSIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iMC41Ii8+CiAgICA8ZWxsaXBzZSBjeD0iMzAwIiBjeT0iMTIiIHJ4PSI5LjUiIHJ5PSI4LjUiIGZpbGw9InVybCgjYm9uZVIpIi8+CiAgICA8cGF0aCBkPSJNMjkxLjUgMTMuNSBRIDI5MSAxOSAyOTUuMiAyMC4yIEwgMjk1LjIgMjIgUSAzMDAgMjQgMzA0LjggMjIgTCAzMDQuOCAyMC4yIFEgMzA5IDE5IDMwOC41IDEzLjUgWiIgZmlsbD0idXJsKCNib25lUikiLz4KICAgIDxlbGxpcHNlIGN4PSIyOTYiIGN5PSIxNCIgcng9IjIuNiIgcnk9IjMuMSIgZmlsbD0idXJsKCNzb2NrZXQpIi8+CiAgICA8ZWxsaXBzZSBjeD0iMzA0IiBjeT0iMTQiIHJ4PSIyLjYiIHJ5PSIzLjEiIGZpbGw9InVybCgjc29ja2V0KSIvPgogICAgPHBhdGggZD0iTTMwMCAxNi41IEwgMjk4LjggMTkuNiBRIDMwMCAyMC40IDMwMS4yIDE5LjYgWiIgZmlsbD0iIzE3MTMxMCIvPgogICAgPHBhdGggZD0iTTI5NiAyMS4yIFEgMzAwIDIzLjIgMzA0IDIxLjIgTCAzMDQgMjMuNCBRIDMwMCAyNS40IDI5NiAyMy40IFoiIGZpbGw9IiNlOGRjYmEiLz4KICAgIDxwYXRoIGQ9Ik0yOTMgOC41IFEgMjk2IDYgMzAwIDYuMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZjRlY2Q0IiBzdHJva2Utd2lkdGg9IjAuOSIgb3BhY2l0eT0iMC44NSIvPgogIDwvZz4KCiAgPGcgaWQ9ImdhcmciPgogICAgPHJlY3QgeD0iMTgiIHk9Ijk0IiB3aWR0aD0iNjgiIGhlaWdodD0iMTAiIGZpbGw9InVybCgjc3RvbmVHKSIgc3Ryb2tlPSIjMGUwYzA4IiBzdHJva2Utd2lkdGg9IjEuNCIvPgogICAgPHJlY3QgeD0iMTgiIHk9Ijk0IiB3aWR0aD0iNjgiIGhlaWdodD0iMS42IiBmaWxsPSIjZDRjNjlmIiBvcGFjaXR5PSIwLjgiLz4KICAgIDxwYXRoIGQ9Ik00MCA2MiBMMjQgMzQgTDQ2IDU0IFoiIGZpbGw9InVybCgjc3RvbmVEKSIgc3Ryb2tlPSIjMGUwYzA4IiBzdHJva2Utd2lkdGg9IjEuMiIvPgogICAgPHBhdGggZD0iTTQ4IDU4IEwzNyAyOCBMNTcgNTAgWiIgZmlsbD0idXJsKCNnc3RvbmUpIiBzdHJva2U9IiMwZTBjMDgiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgICA8cGF0aCBkPSJNNDIgNTcgTDMzIDM2IiBzdHJva2U9IiNkNGM2OWYiIHN0cm9rZS13aWR0aD0iMC44IiBvcGFjaXR5PSIwLjUiIGZpbGw9Im5vbmUiLz4KICAgIDxwYXRoIGQ9Ik0zMiA5NAogICAgICAgICAgICAgQyAyNyA4MiAzMCA3MCA0MSA2NQogICAgICAgICAgICAgQyA0NiA2MiA1MiA2MCA1NyA2MAogICAgICAgICAgICAgTCA1OCA1NAogICAgICAgICAgICAgQyA1NiA1MiA1NSA0OCA1NyA0NgogICAgICAgICAgICAgTCA1MyAzOCBMIDYwIDQ0CiAgICAgICAgICAgICBDIDYzIDQxIDY4IDQxIDcxIDQ0CiAgICAgICAgICAgICBMIDc4IDQwIEwgNzQgNDcKICAgICAgICAgICAgIEMgNzcgNTAgNzcgNTQgNzQgNTcKICAgICAgICAgICAgIEMgNzIgNTkgNjggNjAgNjUgNTkKICAgICAgICAgICAgIEMgNjQgNjQgNjMgNjggNjIgNzIKICAgICAgICAgICAgIEMgNjcgNzYgNzAgODMgNjggOTAKICAgICAgICAgICAgIEwgNjYgOTQgTCA1OCA5NCBMIDU5IDg2CiAgICAgICAgICAgICBDIDU5IDgyIDU3IDc5IDUzIDc4CiAgICAgICAgICAgICBDIDUwIDg0IDQ3IDkwIDQ1IDk0IFoiCiAgICAgICAgICBmaWxsPSJ1cmwoI2dzdG9uZSkiIHN0cm9rZT0iIzBlMGMwOCIgc3Ryb2tlLXdpZHRoPSIxLjYiLz4KICAgIDxwYXRoIGQ9Ik00MSA2NiBDIDQ3IDYyIDU0IDYwIDU4IDYwIiBmaWxsPSJub25lIiBzdHJva2U9IiNkNGM2OWYiIHN0cm9rZS13aWR0aD0iMSIgb3BhY2l0eT0iMC42Ii8+CiAgICA8cGF0aCBkPSJNMzAgOTIgQyAyNyA4NCAyOSA3NCAzNiA2OSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTUxMjBkIiBzdHJva2Utd2lkdGg9IjEuMiIgb3BhY2l0eT0iMC44Ii8+CiAgICA8Y2lyY2xlIGN4PSI2NCIgY3k9IjUwIiByPSIxLjciIGZpbGw9IiM4ZTFmMmMiLz4KICAgIDxjaXJjbGUgY3g9IjYzLjYiIGN5PSI0OS42IiByPSIwLjYiIGZpbGw9IiNlOGEwYTgiIG9wYWNpdHk9IjAuOCIvPgogICAgPHBhdGggZD0iTTcwIDU3IEwgNzYgNjAgTCA3MCA2MC41IFoiIGZpbGw9IiMxNTEyMGQiLz4KICAgIDxwYXRoIGQ9Ik0zMiA5NCBDIDIwIDkyIDE0IDg0IDE2IDc2IEMgMjAgODIgMjYgODYgMzQgODcgWiIgZmlsbD0idXJsKCNzdG9uZUQpIiBzdHJva2U9IiMwZTBjMDgiIHN0cm9rZS13aWR0aD0iMS4yIi8+CiAgPC9nPgogIDx1c2UgaHJlZj0iI2dhcmciIHRyYW5zZm9ybT0idHJhbnNsYXRlKDYwMCAwKSBzY2FsZSgtMSAxKSIvPgo8L3N2Zz4K");
-  --cathedral-noise: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIj4KICA8ZmlsdGVyIGlkPSJzIiB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjAzNSAwLjA1IiBudW1PY3RhdmVzPSI1IiBzZWVkPSIxMSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgcmVzdWx0PSJuIi8+CiAgICA8ZmVEaWZmdXNlTGlnaHRpbmcgaW49Im4iIGxpZ2h0aW5nLWNvbG9yPSIjYjlhOTg2IiBzdXJmYWNlU2NhbGU9IjIuNiIgZGlmZnVzZUNvbnN0YW50PSIxIiByZXN1bHQ9ImwiPgogICAgICA8ZmVEaXN0YW50TGlnaHQgYXppbXV0aD0iMjM1IiBlbGV2YXRpb249IjU4Ii8+CiAgICA8L2ZlRGlmZnVzZUxpZ2h0aW5nPgogICAgPGZlQ29tcG9zaXRlIGluPSJsIiBpbjI9IlNvdXJjZUdyYXBoaWMiIG9wZXJhdG9yPSJhcml0aG1ldGljIiBrMT0iMSIgazI9IjAiIGszPSIwIiBrND0iMCIvPgogIDwvZmlsdGVyPgogIDxyZWN0IHdpZHRoPSIyMjAiIGhlaWdodD0iMjIwIiBmaWxsPSIjMzMyZTI2IiBmaWx0ZXI9InVybCgjcykiLz4KPC9zdmc+Cg==");
+  --color-parchment-50: #f7f6f2;
+  --color-parchment-100: #ece9e0;
+  --color-parchment-200: #d8d3c4;
+  --color-parchment-300: #beb6a0;
+  --color-parchment-400: #9c9279;
+  --color-parchment-500: #7c735d;
 }
 
 [data-theme='cathedral'] body {
+  background-color: #060709;
   background-image:
-    radial-gradient(ellipse at center, rgba(10, 9, 8, 0.2) 0%, rgba(10, 9, 8, 0.55) 70%, rgba(10, 9, 8, 0.8) 100%),
-    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGRlZnM+CiAgICA8cmFkaWFsR3JhZGllbnQgaWQ9IndpbmUiIGN4PSI0MCUiIGN5PSIzNSUiIHI9IjgwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM1YTE4MjIiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiMzNjEwMWEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMWYwYTEwIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJpbmRpZ28iIGN4PSI1NSUiIGN5PSI0MCUiIHI9IjgwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyMzMwNGYiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI3MCUiIHN0b3AtY29sb3I9IiMxMzFiMzAiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMGEwZjFkIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPGZpbHRlciBpZD0iZ3JpbWUiIHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogICAgICA8ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC4wOCIgbnVtT2N0YXZlcz0iNCIgc2VlZD0iNCIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPgogICAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMC40IDAuNCAwLjQgMCAwIi8+CiAgICA8L2ZpbHRlcj4KICA8L2RlZnM+CgogIDxwb2x5Z29uIHBvaW50cz0iMCwwIDgwLDAgMCw4MCIgZmlsbD0idXJsKCNpbmRpZ28pIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIxNjAsMCAxNjAsODAgODAsMCIgZmlsbD0idXJsKCNpbmRpZ28pIi8+CiAgPHBvbHlnb24gcG9pbnRzPSIxNjAsMTYwIDgwLDE2MCAxNjAsODAiIGZpbGw9InVybCgjaW5kaWdvKSIvPgogIDxwb2x5Z29uIHBvaW50cz0iMCwxNjAgMCw4MCA4MCwxNjAiIGZpbGw9InVybCgjaW5kaWdvKSIvPgogIDxwb2x5Z29uIHBvaW50cz0iODAsMCAxNjAsODAgODAsMTYwIDAsODAiIGZpbGw9InVybCgjd2luZSkiLz4KCiAgPHBhdGggZD0iTTMwIDE4IEw1MiAzNiBNMTE4IDEzMiBMOTYgMTE2IiBzdHJva2U9IiM3ZThjYWIiIHN0cm9rZS1vcGFjaXR5PSIwLjE4IiBzdHJva2Utd2lkdGg9IjMiLz4KICA8cGF0aCBkPSJNNzAgNTIgTDk2IDc0IE02NCAxMDggTDg4IDk2IiBzdHJva2U9IiNiMDYwNzAiIHN0cm9rZS1vcGFjaXR5PSIwLjE0IiBzdHJva2Utd2lkdGg9IjMiLz4KICA8cGF0aCBkPSJNMTA0IDQ0IEw5MiA2MCBMMTA2IDcwIiBzdHJva2U9IiMwNjA1MDQiIHN0cm9rZS1vcGFjaXR5PSIwLjUiIHN0cm9rZS13aWR0aD0iMS4yIiBmaWxsPSJub25lIi8+CgogIDxwb2x5Z29uIHBvaW50cz0iODAsMCAxNjAsODAgODAsMTYwIDAsODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzA2MDUwNCIgc3Ryb2tlLXdpZHRoPSI3Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSI4MCwwIDE2MCw4MCA4MCwxNjAgMCw4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM2MzYTMzIiBzdHJva2Utd2lkdGg9IjEuNCIvPgoKICA8Zz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMCIgcj0iNyIgZmlsbD0iIzIzMjAxYSIgc3Ryb2tlPSIjMDYwNTA0IiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDxjaXJjbGUgY3g9IjgwIiBjeT0iMTYwIiByPSI3IiBmaWxsPSIjMjMyMDFhIiBzdHJva2U9IiMwNjA1MDQiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPGNpcmNsZSBjeD0iMCIgY3k9IjgwIiByPSI3IiBmaWxsPSIjMjMyMDFhIiBzdHJva2U9IiMwNjA1MDQiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPGNpcmNsZSBjeD0iMTYwIiBjeT0iODAiIHI9IjciIGZpbGw9IiMyMzIwMWEiIHN0cm9rZT0iIzA2MDUwNCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPC9nPgoKICA8cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgZmlsdGVyPSJ1cmwoI2dyaW1lKSIvPgo8L3N2Zz4K");
-  background-size: cover, 160px 160px;
+    radial-gradient(ellipse at center, rgba(8, 9, 12, 0.55) 0%, rgba(6, 7, 9, 0.82) 60%, rgba(4, 5, 7, 0.97) 100%),
+    url('./cathedral/glass.jpg');
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
   background-position: center, center top;
+  background-attachment: fixed, fixed;
 }
 
-/* Window body: thin top band (the crown covers it), column jambs on the
-   sides, and a deeper carved sill below. */
+/* Stone window body framed with skull-cornered masonry. */
 [data-theme='cathedral'] #journal,
 [data-theme='cathedral'] #marks,
 [data-theme='cathedral'] #skills,
 [data-theme='cathedral'] #resources,
 [data-theme='cathedral'] #characters,
 [data-theme='cathedral'] #memories {
-  border-width: 6px 28px 30px;
-  border-image-slice: 44;
-  border-image-width: 6px 28px 30px;
+  position: relative;
+  border-width: 30px;
+  border-image-source: url('./cathedral/frame.png');
+  border-image-slice: 52;
+  border-image-width: 30px;
   border-image-repeat: round;
-  background-image: var(--cathedral-noise);
+  background-image:
+    linear-gradient(rgba(10, 11, 14, 0.7), rgba(10, 11, 14, 0.82)),
+    url('./cathedral/stone.jpg');
+  background-size: auto, 360px;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.85), 0 8px 24px rgba(0, 0, 0, 0.6);
 }
 
-/* The sculpted crown sits at the top of each window, bleeding across
-   the pane's padding and thin top border to reach its outer edges. */
+/* Carved cornice: blind arcade (tiled) + central stained-glass rose. */
 [data-theme='cathedral'] #journal::before,
 [data-theme='cathedral'] #marks::before,
 [data-theme='cathedral'] #skills::before,
@@ -505,24 +510,60 @@
 [data-theme='cathedral'] #memories::before {
   content: '';
   display: block;
-  height: 108px;
-  margin: calc(-1rem - 6px) calc(-1rem - 28px) 0.9rem;
-  background-image: var(--cathedral-crown);
-  background-size: 100% 100%;
+  height: 84px;
+  margin: calc(-1rem - 30px) calc(-1rem - 30px) 1.4rem;
+  background-image:
+    url('./cathedral/rose.png'),
+    url('./cathedral/cornice.png');
+  background-repeat: no-repeat, repeat-x;
+  background-position: center top, left top;
+  background-size: auto 92%, auto 100%;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.8));
+}
+
+/* A brooding Notre-Dame chimera perched at each upper corner, rising
+   above the window. Meryon's "Le Stryge", cut from a photograph. */
+[data-theme='cathedral'] #journal::after,
+[data-theme='cathedral'] #marks::after,
+[data-theme='cathedral'] #skills::after,
+[data-theme='cathedral'] #resources::after,
+[data-theme='cathedral'] #characters::after,
+[data-theme='cathedral'] #memories::after {
+  content: '';
+  position: absolute;
+  top: -52px;
+  left: -16px;
+  right: -16px;
+  height: 132px;
+  pointer-events: none;
+  z-index: 3;
+  background-image:
+    url('./cathedral/gargoyle.png'),
+    url('./cathedral/gargoyle-r.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: left bottom, right bottom;
+  background-size: auto 132px, auto 132px;
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.85));
 }
 
 [data-theme='cathedral'] h1 {
-  border-width: 8px 24px 26px;
-  border-image-slice: 44;
-  border-image-width: 8px 24px 26px;
+  border-width: 22px;
+  border-image-source: url('./cathedral/frame.png');
+  border-image-slice: 52;
+  border-image-width: 22px;
   border-image-repeat: round;
-  background-image: var(--cathedral-noise), linear-gradient(to bottom, var(--color-night-800), var(--color-night-900));
+  background-image:
+    linear-gradient(rgba(10, 11, 14, 0.72), rgba(8, 9, 12, 0.86)),
+    url('./cathedral/stone.jpg');
+  background-size: auto, 360px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.95);
 }
 
 [data-theme='cathedral'] h2 {
   text-align: center;
   border-bottom: none;
   padding-bottom: 0.75rem;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
 }
 
 [data-theme='cathedral'] h2::after {
@@ -531,84 +572,63 @@
   bottom: -28px;
 }
 
-/* Buttons as carved stone plaques. */
+/* Carved stone plaque buttons. */
 [data-theme='cathedral'] button {
-  border: 1px solid rgba(201, 185, 138, 0.35);
+  border: 1px solid rgba(150, 152, 160, 0.4);
   border-radius: 2px;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.45),
-    0 2px 5px rgba(0, 0, 0, 0.6);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.65);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
 }
 
 [data-theme='cathedral'] input,
 [data-theme='cathedral'] textarea,
 [data-theme='cathedral'] select {
-  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
   border-radius: 2px;
 }
 
+/* Dice as leaded stained glass. */
 [data-theme='cathedral'] .die-face {
-  border-width: 2px;
-  box-shadow:
-    inset 0 0 12px rgba(0, 0, 0, 0.85),
-    0 0 10px rgba(201, 164, 90, 0.25);
-}
-
-[data-theme='cathedral'] .memory-slot {
-  border-color: var(--color-gilt-300);
-}
-
-[data-theme='cathedral'] .memory-slot-filled {
-  background-color: var(--color-blood-600);
-  box-shadow: 0 0 7px rgba(184, 56, 56, 0.8);
-}
-
-/* Cathedral: dice as leaded stained glass and bone-toned slot markers. */
-[data-theme='cathedral'] .die-face {
-  border: 3px solid #0e0c08;
-  box-shadow:
-    inset 0 0 14px rgba(0, 0, 0, 0.8),
-    0 2px 6px rgba(0, 0, 0, 0.7);
+  position: relative;
+  border: 3px solid #060709;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.85), 0 2px 6px rgba(0, 0, 0, 0.7);
 }
 
 [data-theme='cathedral'] .die-face::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 55%);
+  background: radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0) 55%);
   pointer-events: none;
 }
 
-[data-theme='cathedral'] .die-face {
-  position: relative;
-}
-
 [data-theme='cathedral'] .die-blood {
-  background-image: radial-gradient(circle at 40% 35%, #7c2030, #330d16 80%);
-  border-color: #0e0c08;
+  background-image: radial-gradient(circle at 40% 35%, #8a2030, #330d16 82%);
+  border-color: #060709;
   color: #f0c8ce;
 }
 
 [data-theme='cathedral'] .die-night {
-  background-image: radial-gradient(circle at 40% 35%, #2c3c66, #101729 80%);
-  border-color: #0e0c08;
+  background-image: radial-gradient(circle at 40% 35%, #2c3c66, #0f1626 82%);
+  border-color: #060709;
   color: #c3cde8;
 }
 
 [data-theme='cathedral'] .die-gilt {
-  background-image: radial-gradient(circle at 40% 35%, #9a6c1c, #3d2a0a 80%);
-  border-color: #0e0c08;
+  background-image: radial-gradient(circle at 40% 35%, #9a6c1c, #3d2a0a 82%);
+  border-color: #060709;
   color: #f4e2b0;
 }
 
 [data-theme='cathedral'] .memory-slot {
-  border-color: #cdbd99;
-  background-color: #19150f;
+  border-color: #b39752;
+  background-color: #14110c;
 }
 
 [data-theme='cathedral'] .memory-slot-filled {
-  background-color: #7c2030;
-  box-shadow: 0 0 7px rgba(124, 32, 48, 0.9);
+  background-color: #8a2030;
+  box-shadow: 0 0 7px rgba(138, 32, 48, 0.9);
 }

@@ -54,3 +54,4 @@ Pushes to `master` are automatically deployed to GitHub Pages by the `GH Pages` 
 - Based on [tyov](https://github.com/robinmalburn/tyov), © 2021 Robin Malburn (MIT).
 - [Thousand Year Old Vampire](https://thousandyearoldvampire.com/) © Tim Hutchings. This app is an unofficial companion tool; it contains no game text — you import prompts from your own copy of the book.
 - Chroniques Vampire modifications © Haecairwen.
+- The optional Cathedral theme composites public-domain and CC BY-SA imagery from Wikimedia Commons; see [`src/assets/cathedral/CREDITS.md`](src/assets/cathedral/CREDITS.md) for full attribution.
