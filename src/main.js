@@ -11,6 +11,9 @@ import '@fontsource/eb-garamond/600.css'
 import './assets/tailwind.css'
 import { autosavePlugin, restoreAutosave } from 'Libs/autosave'
 import i18n from './i18n'
+import { initTheme } from 'Libs/uiTheme'
+
+initTheme()
 
 const pinia = createPinia()
 pinia.use(autosavePlugin)

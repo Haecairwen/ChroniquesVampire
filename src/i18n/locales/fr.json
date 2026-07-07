@@ -14,12 +14,20 @@
     "needDescription": "Vous devez fournir une description.",
     "readError": "Impossible de lire le fichier."
   },
+  "app": {
+    "title": "Chroniques Vampire"
+  },
   "menu": {
     "button": "Menu"
   },
   "settings": {
     "heading": "Paramètres",
-    "language": "Langue"
+    "language": "Langue",
+    "uiTheme": "Époque de l'interface"
+  },
+  "themes": {
+    "gothic": "Gothique",
+    "victorian": "Victorienne"
   },
   "journal": {
     "heading": "Journal",

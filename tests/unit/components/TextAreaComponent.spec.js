@@ -10,8 +10,8 @@ describe('components/TextAreaComponent.vue', () => {
     const wrapper = shallowMount(TextAreaComponent);
 
     expect(wrapper.element.tagName).toEqual('TEXTAREA');
-    expect(wrapper.classes()).toContain('bg-night-900');
-    expect(wrapper.classes()).toContain('resize-none');
+    expect(wrapper.classes()).toContain('v-input');
+    expect(wrapper.classes()).toContain('v-input--area');
   });
 
   it('Passes attributes through to the textarea', () => {

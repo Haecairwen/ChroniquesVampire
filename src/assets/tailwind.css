@@ -48,6 +48,92 @@
   --font-body: "EB Garamond", serif;
 }
 
+/*
+ * Era themes
+ * ----------
+ * Every ornamental class below draws from the --ui-* palette, so a new era
+ * (Antiquité, Renaissance, Belle Époque…) only needs a
+ * `:root[data-theme="..."]` block here plus an entry in Libs/uiTheme.js and
+ * a `themes.<id>` label in the locales.
+ */
+
+/* Gothic — the mediaeval default: cold stone, gold leaf, candle light. */
+:root,
+:root[data-theme="gothic"] {
+  --ui-frame: var(--color-gilt-400);
+  --ui-frame-dim: #7a5a1e;
+  --ui-frame-bright: #f3e0ad;
+  --ui-frame-shadow: rgba(205, 160, 66, 0.28);
+
+  --ui-text: var(--color-parchment-200);
+  --ui-text-dim: var(--color-night-400);
+
+  --ui-bg-hi: var(--color-night-800);
+  --ui-bg-lo: var(--color-night-950);
+  --ui-glow: rgba(132, 28, 37, 0.22);
+  --ui-pattern: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23ffffff' stroke-opacity='0.025'/%3e%3cpath d='M30 18L42 30L30 42L18 30Z' fill='none' stroke='%23ffffff' stroke-opacity='0.018'/%3e%3c/svg%3e");
+
+  --ui-panel-hi: rgba(37, 36, 50, 0.92);
+  --ui-panel-lo: rgba(15, 14, 21, 0.95);
+  --ui-panel-edge: #3b3324;
+  --ui-well-hi: var(--color-night-950);
+  --ui-well-lo: var(--color-night-900);
+  --ui-well-edge: var(--color-night-600);
+
+  --ui-btn-hi: #34334a;
+  --ui-btn-lo: #191823;
+  --ui-btn-edge: #5a4a26;
+  --ui-btn-text: var(--color-parchment-200);
+
+  --ui-btn-primary-hi: #6e1a22;
+  --ui-btn-primary-lo: #2c0b0f;
+  --ui-btn-primary-edge: #a03642;
+  --ui-btn-primary-text: var(--color-parchment-50);
+
+  --ui-btn-secondary-hi: #ddbd66;
+  --ui-btn-secondary-lo: #966725;
+  --ui-btn-secondary-edge: #f3e0ad;
+  --ui-btn-secondary-text: #1c130a;
+}
+
+/* Victorian — mahogany, brass and gaslight for the vampire's later years. */
+:root[data-theme="victorian"] {
+  --ui-frame: #b08d57;
+  --ui-frame-dim: #6e5636;
+  --ui-frame-bright: #ead9b0;
+  --ui-frame-shadow: rgba(176, 141, 87, 0.28);
+
+  --ui-text: #e9dcc3;
+  --ui-text-dim: #8a7a62;
+
+  --ui-bg-hi: #241710;
+  --ui-bg-lo: #0d0805;
+  --ui-glow: rgba(94, 66, 24, 0.3);
+  --ui-pattern: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3e%3ccircle cx='24' cy='24' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.03'/%3e%3ccircle cx='0' cy='0' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.03'/%3e%3ccircle cx='48' cy='0' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.03'/%3e%3ccircle cx='0' cy='48' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.03'/%3e%3ccircle cx='48' cy='48' r='15' fill='none' stroke='%23ffffff' stroke-opacity='0.03'/%3e%3c/svg%3e");
+
+  --ui-panel-hi: rgba(48, 31, 21, 0.94);
+  --ui-panel-lo: rgba(20, 12, 8, 0.96);
+  --ui-panel-edge: #46331f;
+  --ui-well-hi: #140c08;
+  --ui-well-lo: #201410;
+  --ui-well-edge: #4d3a26;
+
+  --ui-btn-hi: #46301e;
+  --ui-btn-lo: #1e130c;
+  --ui-btn-edge: #7a5f3a;
+  --ui-btn-text: #ead9b0;
+
+  --ui-btn-primary-hi: #5d1f24;
+  --ui-btn-primary-lo: #260c0e;
+  --ui-btn-primary-edge: #8f3a40;
+  --ui-btn-primary-text: #f6e9d2;
+
+  --ui-btn-secondary-hi: #d3b075;
+  --ui-btn-secondary-lo: #8a6a3a;
+  --ui-btn-secondary-edge: #ead9b0;
+  --ui-btn-secondary-text: #1e130a;
+}
+
 @layer base {
   /* Tailwind v4 preflight defaults borders to currentColor and buttons to
      cursor: default; restore the v2-era behaviour this design relies on. */
@@ -63,64 +149,30 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-}
 
-:root {
-  --gothic-frame: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIiB2aWV3Qm94PSIwIDAgMTIwIDEyMCI+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjExMiIgaGVpZ2h0PSIxMTIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdhNWExZSIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cmVjdCB4PSI5IiB5PSI5IiB3aWR0aD0iMTAyIiBoZWlnaHQ9IjEwMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2RhMDQyIiBzdHJva2Utd2lkdGg9IjMuNSIvPgogIDxyZWN0IHg9IjE3IiB5PSIxNyIgd2lkdGg9Ijg2IiBoZWlnaHQ9Ijg2IiBmaWxsPSJub25lIiBzdHJva2U9IiM3YTVhMWUiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxyZWN0IHg9IjI0IiB5PSIyNCIgd2lkdGg9IjcyIiBoZWlnaHQ9IjcyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmM2UwYWQiIHN0cm9rZS13aWR0aD0iMSIvPgogIAogIDxnIGlkPSJjb3JuZXIiPgogICAgPCEtLSBjb3JuZXIgc2Nyb2xsd29yayAtLT4KICAgIDxwYXRoIGQ9Ik0wIDE2IEM4IDE2IDE2IDggMTYgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEuNSIvPgogICAgPHBhdGggZD0iTTIgMjIgQzEyIDIyIDIyIDEyIDIyIDIiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NkYTA0MiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8cGF0aCBkPSJNMCA2IEM0IDYgNiA0IDYgMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2RhMDQyIiBzdHJva2Utd2lkdGg9IjEuMjUiLz4KICAgIDxwYXRoIGQ9Ik02IDAgQzYgNCA4IDYgMTIgNiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDwhLS0gY29ybmVyIGdlbSAtLT4KICAgIDxyZWN0IHg9IjIiIHk9IjIiIHdpZHRoPSI3IiBoZWlnaHQ9IjciIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDQ1IDUuNSA1LjUpIi8+CiAgICA8cmVjdCB4PSIzLjUiIHk9IjMuNSIgd2lkdGg9IjQiIGhlaWdodD0iNCIgZmlsbD0iIzE1MTQxYyIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgNS41IDUuNSkiLz4KICAgIDwhLS0gbWVkYWxsaW9uIC0tPgogICAgPHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMCAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSg5MCAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSgxMzUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMTgwIDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE2LjYgMTIuODUgMTguMTMgNyAyMCA3IEMgMjEuODcgNyAyMy40IDEyLjg1IDIwIDIwIFoiIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDIyNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNi42IDEyLjg1IDE4LjEzIDcgMjAgNyBDIDIxLjg3IDcgMjMuNCAxMi44NSAyMCAyMCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNzAgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTYuNiAxMi44NSAxOC4xMyA3IDIwIDcgQyAyMS44NyA3IDIzLjQgMTIuODUgMjAgMjAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMzE1IDIwIDIwKSIvPgogICAgPHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgyMi41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoNjcuNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNy44IDE1LjMyNSAxOC43OSAxMS41IDIwIDExLjUgQyAyMS4yMSAxMS41IDIyLjIgMTUuMzI1IDIwIDIwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDExMi41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTU3LjUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgyMDIuNSAyMCAyMCkiLz48cGF0aCBkPSJNMjAgMjAgQyAxNy44IDE1LjMyNSAxOC43OSAxMS41IDIwIDExLjUgQyAyMS4yMSAxMS41IDIyLjIgMTUuMzI1IDIwIDIwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDI0Ny41IDIwIDIwKSIvPjxwYXRoIGQ9Ik0yMCAyMCBDIDE3LjggMTUuMzI1IDE4Ljc5IDExLjUgMjAgMTEuNSBDIDIxLjIxIDExLjUgMjIuMiAxNS4zMjUgMjAgMjAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMjkyLjUgMjAgMjApIi8+PHBhdGggZD0iTTIwIDIwIEMgMTcuOCAxNS4zMjUgMTguNzkgMTEuNSAyMCAxMS41IEMgMjEuMjEgMTEuNSAyMi4yIDE1LjMyNSAyMCAyMCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgzMzcuNSAyMCAyMCkiLz4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjYiIGZpbGw9IiMxNTE0MWMiIHN0cm9rZT0iI2YzZTBhZCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICAgIDxjaXJjbGUgY3g9IjIwIiBjeT0iMjAiIHI9IjguNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjN2E1YTFlIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxyZWN0IHg9IjE3LjIiIHk9IjE3LjIiIHdpZHRoPSI1LjYiIGhlaWdodD0iNS42IiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSg0NSAyMCAyMCkiLz4KICA8L2c+CgogIDx1c2UgaHJlZj0iI2Nvcm5lciIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNjAgNjApIi8+CiAgPHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InJvdGF0ZSgxODAgNjAgNjApIi8+CiAgPHVzZSBocmVmPSIjY29ybmVyIiB0cmFuc2Zvcm09InJvdGF0ZSgyNzAgNjAgNjApIi8+Cjwvc3ZnPg==");
-  --gothic-fleuron: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+CiAgPHBhdGggZD0iTTAgNTAgSDMyIiBzdHJva2U9IiNjZGEwNDIiIHN0cm9rZS13aWR0aD0iMS41Ii8+CiAgPHBhdGggZD0iTTY4IDUwIEgxMDAiIHN0cm9rZT0iI2NkYTA0MiIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8cGF0aCBkPSJNMCA1MCBIMjIiIHN0cm9rZT0iIzdhNWExZSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDQpIi8+CiAgPHBhdGggZD0iTTc4IDUwIEgxMDAiIHN0cm9rZT0iIzdhNWExZSIgc3Ryb2tlLXdpZHRoPSIxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDQpIi8+CiAgPHBhdGggZD0iTTI4IDUwIEMzMiA0NCAzOCA0NCAzOCA1MCBDMzggNTYgMzIgNTYgMjggNTAgWiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjY2RhMDQyIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8cGF0aCBkPSJNNzIgNTAgQzY4IDQ0IDYyIDQ0IDYyIDUwIEM2MiA1NiA2OCA1NiA3MiA1MCBaIiBmaWxsPSJub25lIiBzdHJva2U9IiNjZGEwNDIiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxwYXRoIGQ9Ik01MCA1MCBDIDQ2LjYgNDIuODUgNDguMTMgMzcgNTAgMzcgQyA1MS44NyAzNyA1My40IDQyLjg1IDUwIDUwIFoiIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDAgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDYuNiA0Mi44NSA0OC4xMyAzNyA1MCAzNyBDIDUxLjg3IDM3IDUzLjQgNDIuODUgNTAgNTAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoNDUgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDYuNiA0Mi44NSA0OC4xMyAzNyA1MCAzNyBDIDUxLjg3IDM3IDUzLjQgNDIuODUgNTAgNTAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoOTAgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDYuNiA0Mi44NSA0OC4xMyAzNyA1MCAzNyBDIDUxLjg3IDM3IDUzLjQgNDIuODUgNTAgNTAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMTM1IDUwIDUwKSIvPjxwYXRoIGQ9Ik01MCA1MCBDIDQ2LjYgNDIuODUgNDguMTMgMzcgNTAgMzcgQyA1MS44NyAzNyA1My40IDQyLjg1IDUwIDUwIFoiIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDE4MCA1MCA1MCkiLz48cGF0aCBkPSJNNTAgNTAgQyA0Ni42IDQyLjg1IDQ4LjEzIDM3IDUwIDM3IEMgNTEuODcgMzcgNTMuNCA0Mi44NSA1MCA1MCBaIiBmaWxsPSIjY2RhMDQyIiB0cmFuc2Zvcm09InJvdGF0ZSgyMjUgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDYuNiA0Mi44NSA0OC4xMyAzNyA1MCAzNyBDIDUxLjg3IDM3IDUzLjQgNDIuODUgNTAgNTAgWiIgZmlsbD0iI2NkYTA0MiIgdHJhbnNmb3JtPSJyb3RhdGUoMjcwIDUwIDUwKSIvPjxwYXRoIGQ9Ik01MCA1MCBDIDQ2LjYgNDIuODUgNDguMTMgMzcgNTAgMzcgQyA1MS44NyAzNyA1My40IDQyLjg1IDUwIDUwIFoiIGZpbGw9IiNjZGEwNDIiIHRyYW5zZm9ybT0icm90YXRlKDMxNSA1MCA1MCkiLz4KICA8cGF0aCBkPSJNNTAgNTAgQyA0Ny44IDQ1LjMyNSA0OC43OSA0MS41IDUwIDQxLjUgQyA1MS4yMSA0MS41IDUyLjIgNDUuMzI1IDUwIDUwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDIyLjUgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDcuOCA0NS4zMjUgNDguNzkgNDEuNSA1MCA0MS41IEMgNTEuMjEgNDEuNSA1Mi4yIDQ1LjMyNSA1MCA1MCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSg2Ny41IDUwIDUwKSIvPjxwYXRoIGQ9Ik01MCA1MCBDIDQ3LjggNDUuMzI1IDQ4Ljc5IDQxLjUgNTAgNDEuNSBDIDUxLjIxIDQxLjUgNTIuMiA0NS4zMjUgNTAgNTAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMTEyLjUgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDcuOCA0NS4zMjUgNDguNzkgNDEuNSA1MCA0MS41IEMgNTEuMjEgNDEuNSA1Mi4yIDQ1LjMyNSA1MCA1MCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgxNTcuNSA1MCA1MCkiLz48cGF0aCBkPSJNNTAgNTAgQyA0Ny44IDQ1LjMyNSA0OC43OSA0MS41IDUwIDQxLjUgQyA1MS4yMSA0MS41IDUyLjIgNDUuMzI1IDUwIDUwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDIwMi41IDUwIDUwKSIvPjxwYXRoIGQ9Ik01MCA1MCBDIDQ3LjggNDUuMzI1IDQ4Ljc5IDQxLjUgNTAgNDEuNSBDIDUxLjIxIDQxLjUgNTIuMiA0NS4zMjUgNTAgNTAgWiIgZmlsbD0iI2YzZTBhZCIgdHJhbnNmb3JtPSJyb3RhdGUoMjQ3LjUgNTAgNTApIi8+PHBhdGggZD0iTTUwIDUwIEMgNDcuOCA0NS4zMjUgNDguNzkgNDEuNSA1MCA0MS41IEMgNTEuMjEgNDEuNSA1Mi4yIDQ1LjMyNSA1MCA1MCBaIiBmaWxsPSIjZjNlMGFkIiB0cmFuc2Zvcm09InJvdGF0ZSgyOTIuNSA1MCA1MCkiLz48cGF0aCBkPSJNNTAgNTAgQyA0Ny44IDQ1LjMyNSA0OC43OSA0MS41IDUwIDQxLjUgQyA1MS4yMSA0MS41IDUyLjIgNDUuMzI1IDUwIDUwIFoiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDMzNy41IDUwIDUwKSIvPgogIDxjaXJjbGUgY3g9IjUwIiBjeT0iNTAiIHI9IjYiIGZpbGw9IiMxNTE0MWMiIHN0cm9rZT0iI2YzZTBhZCIgc3Ryb2tlLXdpZHRoPSIxLjUiLz4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI4LjUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzdhNWExZSIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgPHJlY3QgeD0iNDcuMiIgeT0iNDcuMiIgd2lkdGg9IjUuNiIgaGVpZ2h0PSI1LjYiIGZpbGw9IiNmM2UwYWQiIHRyYW5zZm9ybT0icm90YXRlKDQ1IDUwIDUwKSIvPgo8L3N2Zz4=");
-}
-
-@layer base {
   html {
-    @apply bg-night-950;
+    background-color: var(--ui-bg-lo);
   }
 
   body {
-    @apply bg-night-950 text-parchment-200 font-body;
+    color: var(--ui-text);
+    font-family: var(--font-body);
+    background-color: var(--ui-bg-lo);
     background-image:
-      url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3e%3cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='%23ffffff' stroke-opacity='0.025'/%3e%3c/svg%3e"),
-      radial-gradient(ellipse at top, var(--color-night-800) 0%, var(--color-night-950) 65%);
+      radial-gradient(ellipse 120% 90% at 50% 120%, transparent 55%, rgba(0, 0, 0, 0.6) 100%),
+      var(--ui-pattern),
+      radial-gradient(ellipse 70% 45% at 50% -5%, var(--ui-glow), transparent 70%),
+      radial-gradient(ellipse at top, var(--ui-bg-hi) 0%, var(--ui-bg-lo) 65%);
     background-attachment: fixed;
     min-height: 100vh;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
-  }
-
-  h1 {
-    @apply px-4 py-3 mb-4;
-    background-image: linear-gradient(to bottom, var(--color-night-800), var(--color-night-900));
-    border-style: solid;
-    border-width: 22px;
-    border-radius: 0;
-    border-image-source: var(--gothic-frame);
-    border-image-slice: 34;
-    border-image-width: 22px;
-    border-image-repeat: stretch;
-  }
-
-  h2 {
-    @apply relative pb-2 mb-3;
-    border-bottom: 1px solid var(--color-gilt-800);
-  }
-
-  h2::after {
-    content: '';
-    position: absolute;
-    bottom: -16px;
-    left: 50%;
-    width: 140px;
-    height: 32px;
-    background-image: var(--gothic-fleuron);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    transform: translateX(-50%);
+    font-family: var(--font-display);
   }
 
   a {
-    @apply text-gilt-400;
+    color: var(--ui-frame);
   }
 
   ::-webkit-scrollbar {
@@ -129,33 +181,375 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-night-900;
+    background: var(--ui-bg-lo);
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-night-600 rounded;
+    background: var(--ui-panel-edge);
+    border: 2px solid var(--ui-bg-lo);
+    border-radius: 5px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-gilt-700;
+    background: var(--ui-frame-dim);
   }
 }
 
-#journal,
-#marks,
-#skills,
-#resources,
-#characters,
-#memories {
-  border-style: solid;
-  border-width: 28px;
-  border-radius: 0;
-  border-image-source: var(--gothic-frame);
-  border-image-slice: 34;
-  border-image-width: 28px;
-  border-image-repeat: stretch;
+@layer components {
+  /* ------------------------------------------------------------------ *
+   *  Icons
+   * ------------------------------------------------------------------ */
+  .v-icon {
+    display: inline-block;
+    width: 1.35em;
+    height: 1.35em;
+    vertical-align: -0.28em;
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Title bar
+   * ------------------------------------------------------------------ */
+  .v-titlebar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.35rem 0.5rem 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .v-titlebar__rule {
+      display: none;
+    }
+  }
+
+  .v-titlebar__rule {
+    flex: 1;
+    height: 14px;
+    color: var(--ui-frame-dim);
+    min-width: 2rem;
+  }
+
+  .v-titlebar__title {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    font-size: clamp(1.35rem, 3.5vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--ui-frame);
+    background-image: linear-gradient(180deg, var(--ui-frame-bright) 15%, var(--ui-frame) 55%, var(--ui-frame-dim) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.8));
+  }
+
+  .v-titlebar__sigil {
+    width: 1.6em;
+    height: 1.6em;
+    color: var(--ui-frame);
+    filter: drop-shadow(0 0 6px var(--ui-frame-shadow));
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Panels — the framed "rooms" of the interface
+   * ------------------------------------------------------------------ */
+  .v-panel {
+    position: relative;
+    padding: 1.6rem 1.35rem 1.35rem;
+    background-image:
+      linear-gradient(160deg, var(--ui-panel-hi), var(--ui-panel-lo) 70%);
+    border: 1px solid var(--ui-panel-edge);
+    box-shadow:
+      0 10px 30px rgba(0, 0, 0, 0.55),
+      inset 0 0 60px rgba(0, 0, 0, 0.45);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .v-panel:hover {
+    box-shadow:
+      0 10px 34px rgba(0, 0, 0, 0.65),
+      0 0 18px var(--ui-frame-shadow),
+      inset 0 0 60px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Twin gold hairlines running inside the stone edge. */
+  .v-panel::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    border: 1px solid var(--ui-frame-dim);
+    pointer-events: none;
+  }
+
+  .v-panel::after {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid color-mix(in srgb, var(--ui-frame) 30%, transparent);
+    pointer-events: none;
+  }
+
+  .v-panel__corner {
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    color: var(--ui-frame);
+    pointer-events: none;
+    z-index: 1;
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.9));
+  }
+
+  .v-panel__corner--tl { top: -2px; left: -2px; }
+  .v-panel__corner--tr { top: -2px; right: -2px; transform: scaleX(-1); }
+  .v-panel__corner--bl { bottom: -2px; left: -2px; transform: scaleY(-1); }
+  .v-panel__corner--br { bottom: -2px; right: -2px; transform: scale(-1); }
+
+  /* ------------------------------------------------------------------ *
+   *  Headings
+   * ------------------------------------------------------------------ */
+  .v-heading {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--ui-frame);
+    line-height: 2;
+  }
+
+  .v-heading--1 { font-size: 1.85rem; }
+  .v-heading--2 { font-size: 1.4rem; }
+  .v-heading--3 { font-size: 1.2rem; }
+  .v-heading--4 { font-size: 1rem; }
+  .v-heading--5,
+  .v-heading--6 { font-size: 0.875rem; }
+
+  /* Pane titles become engraved plaques with flanking scrollwork. */
+  .v-heading--ornate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    margin-bottom: 0.85rem;
+    text-align: center;
+    text-transform: uppercase;
+    text-shadow:
+      0 2px 2px rgba(0, 0, 0, 0.9),
+      0 0 14px var(--ui-frame-shadow);
+  }
+
+  .v-heading__flourish {
+    flex: 1;
+    max-width: 9rem;
+    min-width: 1.5rem;
+    height: 12px;
+    color: var(--ui-frame-dim);
+  }
+
+  .v-heading__flourish--right {
+    transform: scaleX(-1);
+  }
+
+  .v-heading__icon {
+    width: 1.1em;
+    height: 1.1em;
+    color: var(--ui-frame);
+    filter: drop-shadow(0 0 5px var(--ui-frame-shadow));
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Buttons — carved plaques with riveted ends
+   * ------------------------------------------------------------------ */
+  .v-btn {
+    position: relative;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.45rem 1.4rem;
+    color: var(--ui-btn-text);
+    background-image: linear-gradient(180deg, var(--ui-btn-hi), var(--ui-btn-lo));
+    border: 1px solid var(--ui-btn-edge);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.45),
+      0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+  /* Riveted diamonds at either end of the plaque. */
+  .v-btn::before,
+  .v-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    background: var(--ui-btn-edge);
+    transform: translateY(-50%) rotate(45deg);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+  }
+
+  .v-btn::before { left: 7px; }
+  .v-btn::after { right: 7px; }
+
+  .v-btn:hover {
+    filter: brightness(1.22);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.14),
+      inset 0 -6px 12px rgba(0, 0, 0, 0.35),
+      0 0 12px var(--ui-frame-shadow);
+  }
+
+  .v-btn:focus-visible {
+    outline: 1px solid var(--ui-frame);
+    outline-offset: 2px;
+  }
+
+  .v-btn:active {
+    filter: brightness(0.9);
+    box-shadow:
+      inset 0 3px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  .v-btn--primary {
+    --ui-btn-hi: var(--ui-btn-primary-hi);
+    --ui-btn-lo: var(--ui-btn-primary-lo);
+    --ui-btn-edge: var(--ui-btn-primary-edge);
+    color: var(--ui-btn-primary-text);
+  }
+
+  .v-btn--secondary {
+    --ui-btn-hi: var(--ui-btn-secondary-hi);
+    --ui-btn-lo: var(--ui-btn-secondary-lo);
+    --ui-btn-edge: var(--ui-btn-secondary-edge);
+    color: var(--ui-btn-secondary-text);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Form fields — engraved ink wells
+   * ------------------------------------------------------------------ */
+  .v-input {
+    appearance: none;
+    width: 100%;
+    margin: 0.25rem;
+    padding: 0.35rem 0.6rem;
+    color: var(--ui-text);
+    line-height: 1.4;
+    background-image: linear-gradient(180deg, var(--ui-well-hi), var(--ui-well-lo));
+    border: 1px solid var(--ui-well-edge);
+    box-shadow:
+      inset 0 2px 6px rgba(0, 0, 0, 0.7),
+      0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .v-input::placeholder {
+    color: var(--ui-text-dim);
+    font-style: italic;
+  }
+
+  .v-input:focus {
+    outline: none;
+    border-color: var(--ui-frame-dim);
+    box-shadow:
+      inset 0 2px 6px rgba(0, 0, 0, 0.7),
+      0 0 10px var(--ui-frame-shadow);
+  }
+
+  .v-input--area {
+    resize: none;
+  }
+
+  .v-checkbox {
+    appearance: none;
+    width: 1.05rem;
+    height: 1.05rem;
+    margin: 0.25rem;
+    vertical-align: -0.18rem;
+    background-image: linear-gradient(180deg, var(--ui-well-hi), var(--ui-well-lo));
+    border: 1px solid var(--ui-frame-dim);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: box-shadow 0.15s ease;
+  }
+
+  .v-checkbox:checked {
+    background-image: none;
+    background-color: var(--ui-frame);
+    box-shadow:
+      inset 0 0 0 3px var(--ui-well-hi),
+      0 0 8px var(--ui-frame-shadow);
+  }
+
+  .v-checkbox:focus-visible {
+    outline: 1px solid var(--ui-frame);
+    outline-offset: 2px;
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Slide-down sub-panels (diary, forgotten memories, settings…)
+   * ------------------------------------------------------------------ */
+  .v-slide {
+    margin-block: 0.5rem;
+    transition: all 0.2s ease;
+  }
+
+  .v-slide--open {
+    padding: 1rem;
+    border: 1px solid var(--ui-panel-edge);
+    border-top-color: var(--ui-frame-dim);
+    background-color: rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 6px 14px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ------------------------------------------------------------------ *
+   *  Menu drop and notices
+   * ------------------------------------------------------------------ */
+  .v-menu {
+    padding: 1rem;
+    background-color: var(--ui-bg-lo);
+    background-image: linear-gradient(170deg, var(--ui-panel-hi), var(--ui-panel-lo));
+    border: 1px solid var(--ui-frame-dim);
+    outline: 1px solid var(--ui-panel-edge);
+    outline-offset: 3px;
+    box-shadow:
+      0 14px 40px rgba(0, 0, 0, 0.75),
+      inset 0 0 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .v-notice {
+    display: flex;
+    padding: 0.5rem 0.85rem;
+    background-color: var(--ui-bg-lo);
+    border: 1px solid var(--ui-frame-dim);
+    border-left-width: 4px;
+    border-right-width: 4px;
+    background-image: linear-gradient(180deg, var(--ui-panel-hi), var(--ui-panel-lo));
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+    font-style: italic;
+  }
+
+  .v-notice--danger {
+    border-color: var(--color-blood-600);
+    color: var(--color-blood-200);
+    background-image: linear-gradient(180deg, rgba(63, 16, 20, 0.9), rgba(38, 10, 12, 0.95));
+  }
+
+  .v-notice--warning {
+    border-color: var(--color-gilt-500);
+    color: var(--color-gilt-300);
+  }
 }
 
+/* ------------------------------------------------------------------ *
+ *  Game chrome kept from the previous design
+ * ------------------------------------------------------------------ */
 .die-face {
   display: inline-flex;
   align-items: center;
@@ -213,10 +607,10 @@
   width: 0.65rem;
   height: 0.65rem;
   transform: rotate(45deg);
-  border: 1px solid var(--color-gilt-600);
+  border: 1px solid var(--ui-frame-dim);
 }
 
 .memory-slot-filled {
-  background-color: var(--color-gilt-500);
-  box-shadow: 0 0 6px rgba(205, 160, 66, 0.5);
+  background-color: var(--ui-frame);
+  box-shadow: 0 0 6px var(--ui-frame-shadow);
 }

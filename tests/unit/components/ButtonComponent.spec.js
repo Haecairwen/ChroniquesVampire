@@ -2,35 +2,16 @@ import ButtonComponent from 'Components/ButtonComponent';
 import { shallowMount } from '@vue/test-utils';
 
 const CLASSES = [
-  'py-1',
-  'px-4',
-  'rounded',
-  'font-display',
-  'tracking-wide',
-  'transition-colors',
-  'focus:outline-hidden',
-  'focus:ring-2',
-  'ring-0',
+  'v-btn',
 ];
 
 const BUTTON_TYPES = {
-    default: [
-        'bg-night-700',
-        'hover:bg-night-600',
-        'text-parchment-200',
-        'ring-night-500',
-    ],
+    default: [],
     primary: [
-        'bg-blood-700',
-        'hover:bg-blood-600',
-        'text-parchment-50',
-        'ring-blood-500',
+        'v-btn--primary',
     ],
     secondary: [
-        'bg-gilt-700',
-        'hover:bg-gilt-600',
-        'text-night-950',
-        'ring-gilt-400',
+        'v-btn--secondary',
     ],
 };
 

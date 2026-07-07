@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="skills">
-    <HeadingComponent level="2">{{ $t('skills.heading') }}</HeadingComponent>
+    <HeadingComponent level="2" icon="dagger">{{ $t('skills.heading') }}</HeadingComponent>
     <FormToggleComponent 
       @save="validatedAddSkill"
       @toggle="toggleAddingControls"

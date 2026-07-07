@@ -4,9 +4,9 @@ import { createTestingPinia } from "@pinia/testing";
 import { useNotificationsStore } from "Stores/notifications";
 
 const TYPES = {
-  default: ["border-gilt-600", "bg-night-800", "text-parchment-200"],
-  danger: ["border-blood-600", "bg-blood-950/70", "text-blood-200"],
-  warning: ["border-gilt-500", "bg-night-800", "text-gilt-300"],
+  default: ["v-notice"],
+  danger: ["v-notice", "v-notice--danger"],
+  warning: ["v-notice", "v-notice--warning"],
 };
 
 const mountPane = (state = {}, options = {}) => {

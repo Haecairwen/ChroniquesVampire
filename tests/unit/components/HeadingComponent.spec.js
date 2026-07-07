@@ -1,22 +1,6 @@
 import HeadingComponent from "Components/HeadingComponent";
 import { shallowMount } from "@vue/test-utils";
 
-const HEADING_STYLES = {
-  base: [
-    "font-display",
-    "font-semibold",
-    "leading-loose",
-    "tracking-widest",
-    "text-gilt-400",
-  ],
-  1: ["text-3xl"],
-  2: ["text-2xl"],
-  3: ["text-xl"],
-  4: ["text-base"],
-  5: ["text-sm"],
-  6: ["text-sm"],
-};
-
 describe("components/HeadingComponent.vue", () => {
   it("Has the correct component name", () => {
     expect(HeadingComponent.name).toEqual("HeadingComponent");
@@ -29,14 +13,14 @@ describe("components/HeadingComponent.vue", () => {
       },
     });
 
-    const classes = [...HEADING_STYLES.base, ...HEADING_STYLES[1]];
     const heading = wrapper.find("h1");
 
     expect(heading.exists()).toBe(true);
-    expect(heading.classes()).toEqual(classes);
-
-    expect(heading.exists()).toBe(true);
-    expect(heading.classes()).toEqual(classes);
+    expect(heading.classes()).toEqual([
+      "v-heading",
+      "v-heading--1",
+      "v-heading--ornate",
+    ]);
     expect(heading.text()).toBe("Hello World");
   });
 
@@ -68,13 +52,74 @@ describe("components/HeadingComponent.vue", () => {
         },
       });
 
-      const classes = [...HEADING_STYLES.base, ...HEADING_STYLES[lvl]];
+      const classes = ["v-heading", `v-heading--${lvl}`];
+
+      if (lvl <= 2) {
+        classes.push("v-heading--ornate");
+      }
+
       const heading = wrapper.find(`h${lvl}`);
 
       expect(heading.exists()).toBe(true);
       expect(heading.classes()).toEqual(classes);
     }
   );
+
+  it("Gives ornate levels flanking flourishes", () => {
+    const wrapper = shallowMount(HeadingComponent, {
+      props: {
+        level: "2",
+      },
+      slots: {
+        default: "Hello World",
+      },
+    });
+
+    expect(wrapper.findAll(".v-heading__flourish")).toHaveLength(2);
+  });
+
+  it("Keeps deeper levels plain", () => {
+    const wrapper = shallowMount(HeadingComponent, {
+      props: {
+        level: "4",
+      },
+      slots: {
+        default: "Hello World",
+      },
+    });
+
+    expect(wrapper.findAll(".v-heading__flourish")).toHaveLength(0);
+  });
+
+  it("Renders an icon when one is given", () => {
+    const wrapper = shallowMount(HeadingComponent, {
+      props: {
+        level: "2",
+        icon: "quill",
+      },
+      slots: {
+        default: "Hello World",
+      },
+    });
+
+    const icon = wrapper.findComponent({ name: "GothicIcon" });
+
+    expect(icon.exists()).toBe(true);
+    expect(icon.props("name")).toEqual("quill");
+  });
+
+  it("Renders no icon by default", () => {
+    const wrapper = shallowMount(HeadingComponent, {
+      props: {
+        level: "2",
+      },
+      slots: {
+        default: "Hello World",
+      },
+    });
+
+    expect(wrapper.findComponent({ name: "GothicIcon" }).exists()).toBe(false);
+  });
 
   it("Can add extra classes to the heading tag", () => {
     const wrapper = shallowMount(HeadingComponent, {
@@ -133,7 +178,7 @@ describe("components/HeadingComponent.vue", () => {
     expect(heading.classes()).toContain("text-red-500");
     expect(heading.classes()).toContain("text-green-500");
     expect(heading.classes()).toEqual(
-      expect.arrayContaining([...HEADING_STYLES.base, ...HEADING_STYLES[1]])
+      expect.arrayContaining(["v-heading", "v-heading--1"])
     );
   });
 });

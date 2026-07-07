@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="memories">
-    <HeadingComponent level="2">{{ $t('memories.heading') }}</HeadingComponent>
+    <HeadingComponent level="2" icon="candle">{{ $t('memories.heading') }}</HeadingComponent>
 
     <div class="flex items-center justify-center gap-2 mb-3 select-none">
       <span

@@ -1,8 +1,8 @@
 <template>
   <CardComponent id="journal">
-    <HeadingComponent level="2">{{ $t('journal.heading') }}</HeadingComponent>
+    <HeadingComponent level="2" icon="quill">{{ $t('journal.heading') }}</HeadingComponent>
 
-    <div class="sticky top-0 bg-night-900 z-10 text-center border-b pb-4 mb-4">
+    <div class="sticky top-0 z-10 text-center border-b border-(--ui-panel-edge) bg-(--ui-well-hi) pb-4 mb-4">
       <div class="flex items-center justify-center gap-4 my-3 select-none">
         <div>
           <span class="die-face die-blood" :class="{'die-rolling': rolling}">
@@ -107,7 +107,7 @@
 
         <textarea
           :placeholder="$t('journal.entryPlaceholder')"
-          class="shadow appearance-none border border-night-600 bg-night-900 rounded w-full py-2 px-3 text-parchment-200 placeholder:text-night-400 font-body text-base leading-relaxed focus:outline-hidden focus:ring-2 ring-gilt-600 resize-none"
+          class="v-input v-input--area m-0 font-body text-base leading-relaxed"
           rows="4"
           :value="entry.entry"
           @change="updatePromptEntry({prompt: entry, entry: $event.target.value})"
@@ -132,7 +132,7 @@
               id="new-prompt-number"
               type="number"
               step="1"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
+              class="v-input"
               v-model="newPrompt.page"
               :min="firstUnusedPrompt"
             />
@@ -143,7 +143,7 @@
             </label>
             <select
               id="new-prompt-count"
-              class="w-full shadow border border-night-600 bg-night-900 rounded py-1 px-2 m-1 text-parchment-200 leading-tight focus:outline-hidden focus:ring-2 ring-gilt-600"
+              class="v-input"
               v-model="newPrompt.count"
             >
               <option

@@ -1,16 +1,17 @@
 <template>
   <div id="actions" class="relative">
-    <div class="w-32">
+    <div class="w-40">
       <ButtonComponent
         class="w-full"
         :type="open ? 'secondary' : 'default'"
         @click="toggle"
       >
+        <GothicIcon name="key" />
         {{ $t('menu.button') }}
       </ButtonComponent>
     </div>
     <div
-      class="absolute right-0 mt-2 w-72 z-50 p-4 bg-night-900 border border-night-600 rounded shadow-2xl"
+      class="absolute right-0 mt-3 w-80 z-50 v-menu"
       v-show="open"
     >
       <SaveMenuComponent />
@@ -37,6 +38,22 @@
           >
             FR
           </ButtonComponent>
+        </div>
+        <div class="my-2">
+          <div class="flex items-center gap-2">
+            <GothicIcon name="hourglass" class="text-gilt-400" />
+            <span class="flex-1">{{ $t('settings.uiTheme') }}</span>
+          </div>
+          <div class="flex flex-col gap-2 mt-2">
+            <ButtonComponent
+              v-for="themeId in themes"
+              :key="`theme-${themeId}`"
+              :type="theme === themeId ? 'secondary' : 'default'"
+              @click="switchTheme(themeId)"
+            >
+              {{ $t(`themes.${themeId}`) }}
+            </ButtonComponent>
+          </div>
         </div>
       </SlideDownPanelComponent>
       <div class="border-t border-night-600 mt-3 pt-2 text-sm text-night-400 text-right">
@@ -70,21 +87,25 @@
 
 <script>
 import ButtonComponent from './ButtonComponent';
+import GothicIcon from './GothicIcon';
 import SaveMenuComponent from './SaveMenuComponent';
 import LoadMenuComponent from './LoadMenuComponent';
 import PromptImportComponent from './PromptImportComponent';
 import SlideDownPanelComponent from './SlideDownPanelComponent';
 import { setLocale } from '../i18n';
+import { AVAILABLE_THEMES, currentTheme, setTheme } from 'Libs/uiTheme';
 
 export default {
   name: 'ActionsPane',
   data() {
     return {
       open: false,
+      theme: currentTheme(),
     }
   },
   components: {
     ButtonComponent,
+    GothicIcon,
     SaveMenuComponent,
     LoadMenuComponent,
     PromptImportComponent,
@@ -93,6 +114,9 @@ export default {
   computed: {
     locale() {
       return this.$i18n.locale;
+    },
+    themes() {
+      return AVAILABLE_THEMES;
     },
     forkCopyright() {
       // Be a little defensive since we're trusting local clocks, but querying
@@ -107,6 +131,10 @@ export default {
     },
     switchLocale(locale) {
       setLocale(locale);
+    },
+    switchTheme(theme) {
+      setTheme(theme);
+      this.theme = currentTheme();
     },
   },
 }

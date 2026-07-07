@@ -23,20 +23,12 @@ import { useNotificationsStore } from 'Stores/notifications';
 
 
 const TYPES = {
-    default: {
-        'border-gilt-600': true,
-        'bg-night-800': true,
-        'text-parchment-200': true,
-    },
+    default: {},
     danger: {
-        'border-blood-600': true,
-        'bg-blood-950/70': true,
-        'text-blood-200': true,
+        'v-notice--danger': true,
     },
     warning: {
-        'border-gilt-500': true,
-        'bg-night-800': true,
-        'text-gilt-300': true,
+        'v-notice--warning': true,
     }
 };
 
@@ -58,10 +50,8 @@ export default {
           return {
               'sticky': true,
               'inset-6': true,
-              'border': true,
-              'rounded': true,
-              'p-2': true,
-              'flex': true,
+              'z-50': true,
+              'v-notice': true,
               ...TYPES[this.type],
           }
       }

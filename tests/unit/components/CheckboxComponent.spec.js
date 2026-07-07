@@ -11,7 +11,7 @@ describe('components/CheckboxComponent.vue', () => {
 
     expect(wrapper.element.tagName).toEqual('INPUT');
     expect(wrapper.attributes('type')).toEqual('checkbox');
-    expect(wrapper.classes()).toContain('bg-night-900');
+    expect(wrapper.classes()).toContain('v-checkbox');
   });
 
   it('Is checked when the value matches the true value', () => {

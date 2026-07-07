@@ -11,8 +11,7 @@ describe('components/TextInputComponent.vue', () => {
 
     expect(wrapper.element.tagName).toEqual('INPUT');
     expect(wrapper.attributes('type')).toEqual('text');
-    expect(wrapper.classes()).toContain('bg-night-900');
-    expect(wrapper.classes()).toContain('border-night-600');
+    expect(wrapper.classes()).toContain('v-input');
   });
 
   it('Supports other input types', () => {

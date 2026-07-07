@@ -1,6 +1,6 @@
 <template>
   <CardComponent id="resources">
-    <HeadingComponent level="2">{{ $t('resources.heading') }}</HeadingComponent>
+    <HeadingComponent level="2" icon="chalice">{{ $t('resources.heading') }}</HeadingComponent>
     <FormToggleComponent 
       class="my-2"
       @save="validatedAddResource"

@@ -53,15 +53,8 @@ export default {
     },
     classes() {
           return {
-              'my-2' : true,
-              'transition-all': true,
-              'p-4': this.shouldShow,
-              'border': this.shouldShow,
-              'rounded': this.shouldShow,
-              'border-night-600': this.shouldShow,
-              'bg-night-800/40': this.shouldShow,
-              'shadow-lg': this.shouldShow,
-              'hover:shadow-2xl': this.shouldShow,
+              'v-slide': true,
+              'v-slide--open': this.shouldShow,
           }
       }
   },

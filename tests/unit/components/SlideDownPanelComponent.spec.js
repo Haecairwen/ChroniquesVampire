@@ -55,17 +55,10 @@ describe("components/SlideDownPanelComponent.vue", () => {
 
   it("Applies the correct classes to the panel when it is open or closed", async () => {
     const classes = {
-      closed: ["my-2", "transition-all"],
+      closed: ["v-slide"],
       open: [
-        "my-2",
-        "transition-all",
-        "p-4",
-        "border",
-        "rounded",
-        "border-night-600",
-        "bg-night-800/40",
-        "shadow-lg",
-        "hover:shadow-2xl",
+        "v-slide",
+        "v-slide--open",
       ],
     };
 
